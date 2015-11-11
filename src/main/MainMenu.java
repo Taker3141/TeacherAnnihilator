@@ -26,9 +26,10 @@ public class MainMenu
 		Button.loadAllTextures(loader);
 		
 		List<GuiElement> guiElements = new ArrayList<GuiElement>();
-		guiElements.add(new Button(new Vector2f(200, 500), new Vector2f(256, 128)).setText("button.fuck", font, 1.5F, 1, 0, 0));
-		guiElements.add(new Button(new Vector2f(700, 200), new Vector2f(256, 128)).setText("button.button", font, 1, 1, 0.7F, 0));
+		guiElements.add(new Button(new Vector2f(200, 500), new Vector2f(256, 32)).setText("button.fuck", font, 1.5F, 1, 0, 0));
+		guiElements.add(new Button(new Vector2f(700, 200), new Vector2f(256, 32)).setText("button.button", font, 1, 1, 0.7F, 0));
 		guiElements.add(new Button(new Vector2f(20, 20), new Vector2f(64, 64)));
+		guiElements.add(new GuiElement(loader.loadTexture("texture/gui/background"), new Vector2f(0, 0), new Vector2f(Display.getWidth(), Display.getHeight())));
 		GuiRenderer gRenderer = new GuiRenderer(loader);
 		Input input = new Input(Display.getHeight());
 		MouseHandler mouse = new MouseHandler(guiElements);

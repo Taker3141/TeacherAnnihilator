@@ -16,6 +16,6 @@ public class MainManagerClass
 		
 		Loader loader = new Loader();
 		MainMenu.doMainMenu(loader);
-		MainGameLoop.doGame(loader);
+		//MainGameLoop.doGame(loader);
 	}
 }
