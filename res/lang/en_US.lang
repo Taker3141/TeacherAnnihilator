@@ -1,3 +1,6 @@
-label.isengart=This is Isengart!
-button.fuck=I don't give a fuck!
-button.button=I am a Button
+menu.walk_around=Walk around
+menu.missions=Missions
+menu.shop=Buy new Stuff!
+menu.settings=Settings
+menu.updates=Updates
+menu.credits=Credits

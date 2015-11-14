@@ -23,8 +23,9 @@ import terrain.Terrain;
 
 public class MainGameLoop
 {
-	public static void doGame(Loader loader)
+	public static void doGame()
 	{
+		Loader loader = new Loader();
 		ModelData kloData = OBJLoader.loadOBJModel("klo");
 		TexturedModel texturedModel = new TexturedModel(loader.loadToVAO(kloData.getVertices(), kloData.getTextureCoords(), kloData.getNormals(), kloData.getIndices()), new ModelTexture(loader.loadTexture("texture/test")));
 		ModelTexture texture = texturedModel.getTexture();

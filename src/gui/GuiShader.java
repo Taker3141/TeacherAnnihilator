@@ -9,6 +9,7 @@ public class GuiShader extends ShaderProgram
 	public static final String FRAGMENT_FILE = "src/gui/guiFragmentShader.txt";
 	
 	private int locationTransformationMatrix;
+	private int locationLayer;
 	
 	public GuiShader()
 	{
@@ -19,11 +20,17 @@ public class GuiShader extends ShaderProgram
 	{
 		super.loadMatrix(locationTransformationMatrix, transformationMatrix);
 	}
+	
+	public void loadLayer(int layer)
+	{
+		super.loadInt(locationLayer, layer);
+	}
 
 	@Override
 	protected void getAllUniformLocations()
 	{
 		locationTransformationMatrix = super.getUniformLoacation("transformationMatrix");
+		locationLayer = super.getUniformLoacation("layer");
 	}
 	
 	@Override

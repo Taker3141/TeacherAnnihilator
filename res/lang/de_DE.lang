@@ -1,3 +1,6 @@
-label.isengart=Dies ist Isengart!
-button.fuck=Ich gebe keinen Fick!
-button.button=Ich bin ein Button
+menu.walk_around=Herumlaufen
+menu.missions=Missionen
+menu.shop=Zeug kaufen!
+menu.settings=Einstellungen
+menu.updates=Updates
+menu.credits=Credits
