@@ -7,6 +7,8 @@ import renderer.Loader;
 import font.fontMeshCreator.FontType;
 import font.fontMeshCreator.GUIText;
 import font.fontRendering.TextMaster;
+import gui.Menu;
+import gui.handler.ClickHandler;
 
 public class Button extends GuiElement implements IClickable
 {
@@ -17,9 +19,11 @@ public class Button extends GuiElement implements IClickable
 	public GUIText text = null;
 	public Icon icon;
 	
-	public Button(Vector2f position, Vector2f size)
+	private ClickHandler handler;
+	
+	public Button(Vector2f position, Vector2f size, Menu parent)
 	{
-		super(textureButton, position, size);
+		super(textureButton, position, size, parent);
 	}
 	
 	public Button setText(String t, FontType f, float s, float r, float g, float b)
@@ -38,8 +42,14 @@ public class Button extends GuiElement implements IClickable
 	
 	public Button setIcon(int texture, List<GuiElement> list)
 	{
-		icon = new Icon(texture, new Vector2f(position.x + size.x - 32, position.y));
+		icon = new Icon(texture, new Vector2f(position.x + size.x - 32, position.y), parent);
 		list.add(icon);
+		return this;
+	}
+	
+	public Button setClickHandler(ClickHandler h)
+	{
+		handler = h;
 		return this;
 	}
 
@@ -55,6 +65,7 @@ public class Button extends GuiElement implements IClickable
 	public void leftReleased(int mouseX, int mouseY)
 	{
 		texture = textureButtonHover;
+		if (handler != null) handler.click(parent);
 	}
 
 	@Override public void rightReleased(int mouseX, int mouseY){}

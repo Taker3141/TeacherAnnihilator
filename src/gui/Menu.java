@@ -19,6 +19,9 @@ public abstract class Menu
 	protected List<GuiElement> guiElementsBackground = new ArrayList<GuiElement>();
 	protected List<GuiElement> guiElementsForeground = new ArrayList<GuiElement>();
 	protected GuiRenderer gRenderer = new GuiRenderer(loader);
+	protected boolean isCloseRequested = false;
+	protected Menu nextMenu;
+	protected boolean shouldStartGame = false;
 	
 	public Menu()
 	{
@@ -43,5 +46,17 @@ public abstract class Menu
 	{
 		TextMaster.cleanUp();
 		gRenderer.cleanUp();
+	}
+	
+	public void requestClose(Menu next)
+	{
+		isCloseRequested = true;
+		nextMenu = next;
+	}
+	
+	public void requestGameStart()
+	{
+		isCloseRequested = true;
+		shouldStartGame = true;
 	}
 }
