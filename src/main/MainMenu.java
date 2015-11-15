@@ -6,6 +6,7 @@ import org.newdawn.slick.Input;
 import gui.Menu;
 import gui.element.Button;
 import gui.element.GuiElement;
+import gui.handler.HandlerChangeMenu;
 import gui.handler.HandlerStartGame;
 import gui.handler.MouseHandler;
 
@@ -26,6 +27,7 @@ public class MainMenu extends Menu
 			guiElements.add(new Button(new Vector2f(indention, H - 350), size, this).setText("menu.settings", font, 1).setIcon(loader.loadTexture("texture/gui/icon_gear"), guiElementsForeground));
 			guiElements.add(new Button(new Vector2f(indention + 200, H - 400), size, this).setText("menu.updates", font, 1).setIcon(loader.loadTexture("texture/gui/icon_arrow"), guiElementsForeground));
 			guiElements.add(new Button(new Vector2f(indention, H - 450), size, this).setText("menu.credits", font, 1).setIcon(loader.loadTexture("texture/gui/icon_book"), guiElementsForeground));
+			guiElements.add(new Button(new Vector2f(indention + 200, H - 500), size, this).setText("menu.exit", font, 1).setIcon(loader.loadTexture("texture/gui/icon_door"), guiElementsForeground).setClickHandler(new HandlerChangeMenu(null)));
 		}
 		guiElements.add(new GuiElement(loader.loadTexture("texture/gui/banner"), new Vector2f(0, H - 150), new Vector2f(W, 128), this));
 		guiElementsBackground.add(new GuiElement(loader.loadTexture("texture/gui/background"), new Vector2f(0, 0), new Vector2f(W, H), this));
