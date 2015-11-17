@@ -1,9 +1,10 @@
-package gui;
+package gui.menu;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Vector2f;
 import font.fontMeshCreator.FontType;
 import font.fontRendering.TextMaster;
 import gui.element.Button;
@@ -13,6 +14,11 @@ import renderer.Loader;
 
 public abstract class Menu
 {
+	protected final int W = Display.getWidth();
+	protected final int H = Display.getHeight();
+	protected final Vector2f buttonSize = new Vector2f(256, 32);
+	
+	
 	protected Loader loader = new Loader();
 	protected FontType font = new FontType(loader.loadTexture("font/roboto"), new File("res/font/roboto.fnt"));
 	protected List<GuiElement> guiElements = new ArrayList<GuiElement>();

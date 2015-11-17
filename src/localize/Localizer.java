@@ -26,8 +26,11 @@ public class Localizer
 			
 			while(line != null)
 			{
-				String[] splitLine = line.split("=");
-				map.put(splitLine[0], splitLine[1]);
+				if (line.length() > 3)
+				{
+					String[] splitLine = line.split("=");
+					map.put(splitLine[0], splitLine[1]);
+				}
 				line = reader.readLine();
 			}
 			

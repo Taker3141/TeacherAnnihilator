@@ -199,4 +199,10 @@ public class GUIText
 		return textString;
 	}
 	
+	public void setText(String s)
+	{
+		remove();
+		textString = s;
+		TextMaster.loadText(this);
+	}
 }

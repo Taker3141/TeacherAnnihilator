@@ -1,6 +1,6 @@
 package gui.handler;
 
-import gui.Menu;
+import gui.menu.Menu;
 
 public class HandlerChangeMenu implements ClickHandler
 {

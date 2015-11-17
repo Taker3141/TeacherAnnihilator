@@ -57,5 +57,6 @@ public class TextMaster
 	public static void cleanUp()
 	{
 		renderer.cleanUp();
+		texts.clear();
 	}
 }

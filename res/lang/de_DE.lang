@@ -5,3 +5,8 @@ menu.settings=Einstellungen
 menu.updates=Updates
 menu.credits=Credits
 menu.exit=Spiel Verlassen
+menu.back=Zurück
+
+lang.lang=Sprache
+lang.german=Deutsch
+lang.english=Englisch

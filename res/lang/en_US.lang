@@ -5,3 +5,8 @@ menu.settings=Settings
 menu.updates=Updates
 menu.credits=Credits
 menu.exit=Exit
+menu.back=Back
+
+lang.lang=Language
+lang.german=German
+lang.english=English

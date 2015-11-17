@@ -7,8 +7,8 @@ import renderer.Loader;
 import font.fontMeshCreator.FontType;
 import font.fontMeshCreator.GUIText;
 import font.fontRendering.TextMaster;
-import gui.Menu;
 import gui.handler.ClickHandler;
+import gui.menu.Menu;
 
 public class Button extends GuiElement implements IClickable
 {

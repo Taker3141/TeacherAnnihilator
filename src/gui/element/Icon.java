@@ -1,6 +1,6 @@
 package gui.element;
 
-import gui.Menu;
+import gui.menu.Menu;
 import org.lwjgl.util.vector.Vector2f;
 
 public class Icon extends GuiElement
