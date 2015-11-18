@@ -4,7 +4,7 @@ import org.lwjgl.util.vector.Vector3f;
 import renderer.models.TexturedModel;
 import terrain.Terrain;
 
-public class Entity
+public class Entity implements Collidable
 {
 	private TexturedModel model;
 	protected Vector3f position;
@@ -98,5 +98,11 @@ public class Entity
 	public void setScale(float scale)
 	{
 		this.scale = scale;
+	}
+
+	@Override
+	public boolean isInsideHitBox(Vector3f point)
+	{
+		return false;
 	}
 }
