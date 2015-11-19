@@ -20,9 +20,10 @@ public class AABB
 	
 	public boolean isInside(Vector3f point)
 	{
-		if(point.x < location.x + offset.x || point.x > location.x + offset.x + size.x) return false;
-		if(point.y < location.y + offset.y || point.x > location.y + offset.y + size.y) return false;
-		if(point.z < location.z + offset.z || point.x > location.z + offset.z + size.z) return false;
+		Vector3f corner = Vector3f.add(location, offset, null);
+		if(point.x < corner.x || point.x > corner.x + size.x) return false;
+		if(point.y < corner.y || point.y > corner.y + size.y) return false;
+		if(point.z < corner.z || point.z > corner.z + size.z) return false;
 		return true;
 	}
 }

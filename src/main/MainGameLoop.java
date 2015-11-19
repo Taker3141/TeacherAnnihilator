@@ -41,6 +41,7 @@ public class MainGameLoop
 		Entity hans = new Teacher(new TexturedModel(loader.loadToVAO(personData.getVertices(), personData.getTextureCoords(), personData.getNormals(), personData.getIndices()), new ModelTexture(loader.loadTexture("texture/person/hans"))), new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans");
 		entities.add(hans);
 		Raycaster ray = new Raycaster();
+		ray.list.add(hans);
 		
 		Input input = new Input(Display.getHeight());
 		
@@ -55,7 +56,7 @@ public class MainGameLoop
 				e.update(t);
 				renderer.processEntities(e);
 			}
-			ray.getCurrentEntity(input.getAbsoluteMouseX(), Display.getHeight() - input.getAbsoluteMouseY(), renderer, c);
+			ray.castRay(input.getAbsoluteMouseX(), Display.getHeight() - input.getAbsoluteMouseY(), renderer, c);
 			renderer.processEntities(player);
 			renderer.processTerrain(t);
 			renderer.render(light, c);

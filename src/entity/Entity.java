@@ -12,7 +12,7 @@ public class Entity implements Collidable
 	protected Vector3f position;
 	protected float rotX, rotY, rotZ;
 	protected float scale;
-	protected AABB hitBox = new AABB(new Vector3f(), new Vector3f(), new Vector3f());
+	protected AABB hitBox;
 	
 	public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale)
 	{
@@ -22,6 +22,7 @@ public class Entity implements Collidable
 		this.rotY = rotY;
 		this.rotZ = rotZ;
 		this.scale = scale;
+		hitBox = new AABB(position, new Vector3f(), new Vector3f());
 	}
 	
 	public void update(Terrain t)
@@ -107,5 +108,17 @@ public class Entity implements Collidable
 	public boolean isInsideHitBox(Vector3f point)
 	{
 		return hitBox.isInside(point);
+	}
+
+	@Override
+	public void hover()
+	{
+		
+	}
+
+	@Override
+	public void click()
+	{
+		
 	}
 }
