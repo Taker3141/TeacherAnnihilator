@@ -1,15 +1,34 @@
 package raycasting;
 
 import java.util.List;
-import entity.Collidable;
-import entity.Entity;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.*;
+import renderer.MasterRenderer;
+import toolbox.Maths;
+import entity.*;
 
 public class Raycaster
 {
 	public List<Collidable> list;
 	
-	public Entity getCurrentEntity(int MouseX, int MouseY)
+	public Entity getCurrentEntity(int MouseX, int MouseY, MasterRenderer master, Camera c)
 	{
+		float xDevice = (((float)MouseX) / Display.getWidth() * 2) - 1;
+		float yDevice = (((float)MouseY) / Display.getHeight() * 2) - 1;
+		Vector4f device = new Vector4f(xDevice, yDevice, -1, 1);
+		Matrix4f inverseProjectionMatrix = null;
+		inverseProjectionMatrix = Matrix4f.invert(master.getProjectionMatrix(), inverseProjectionMatrix);
+		Vector4f rayEye = null;
+		rayEye = Matrix4f.transform(inverseProjectionMatrix, device, rayEye);
+		rayEye.z = -1;
+		rayEye.w = 0;
+		Matrix4f inverseViewMatrix = null;
+		inverseViewMatrix = Matrix4f.invert(Maths.createViewMatrix(c), inverseViewMatrix);
+		Vector4f rayWorld4 = null;
+		rayWorld4 = Matrix4f.transform(inverseViewMatrix, rayEye, rayWorld4);
+		Vector3f rayWorld = new Vector3f(rayWorld4.x, rayWorld4.y, rayWorld4.z);
+		rayWorld = rayWorld.normalise(rayWorld);
+		
 		return null;
 	}
 }
