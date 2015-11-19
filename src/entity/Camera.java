@@ -26,8 +26,8 @@ public class Camera
 		calculatePitch();
 		if (!isFirstPerson)
 		{
-			calculateZoom();
 			calculateAngleAroundPlayer();
+			calculateZoom();
 			calculateCameraPosition((float) (distanceFromPlayer * Math.cos(Math.toRadians(pitch))), (float) (distanceFromPlayer * Math.sin(Math.toRadians(pitch))));
 			yaw = 180 - (player.getRotY() + angleAroundPlayer);
 		}
@@ -35,6 +35,7 @@ public class Camera
 		{
 			position = new Vector3f(player.position.x, player.position.y + 0.5F, player.position.z);
 			yaw = -player.rotY + 180;
+			player.rotY -= calculateAngleChange();
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD0) && !isFirstPerson)
 		{
@@ -104,5 +105,19 @@ public class Camera
 			float angleChange = Mouse.getDX() * 0.3F;
 			angleAroundPlayer -= angleChange;
 		}
+	}
+	
+	private float calculateAngleChange()
+	{
+		if (Mouse.isButtonDown(2))
+		{
+			return Mouse.getDX() * 0.3F;
+		}
+		return 0;
+	}
+	
+	public boolean isFirstPerson()
+	{
+		return isFirstPerson;
 	}
 }

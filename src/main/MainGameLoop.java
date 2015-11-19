@@ -57,7 +57,7 @@ public class MainGameLoop
 				e.update(t);
 				renderer.processEntities(e);
 			}
-			renderer.processEntities(player);
+			if(!c.isFirstPerson()) renderer.processEntities(player);
 			renderer.processTerrain(t);
 			renderer.render(light, c);
 			DisplayManager.updateDisplay();
