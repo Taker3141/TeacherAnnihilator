@@ -18,6 +18,8 @@ public class Teacher extends Entity
 	{
 		super(model, position, rotX, rotY, rotZ, scale);
 		this.name = name;
+		hitBox.size = new Vector3f(1, 2, 1);
+		hitBox.offset = new Vector3f(-0.5F, 0, -0.5F);
 	}
 	
 	@Override

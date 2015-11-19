@@ -1,15 +1,18 @@
 package entity;
 
 import org.lwjgl.util.vector.Vector3f;
+import raycasting.AABB;
+import raycasting.Collidable;
 import renderer.models.TexturedModel;
 import terrain.Terrain;
 
-public class Entity
+public class Entity implements Collidable
 {
 	private TexturedModel model;
 	protected Vector3f position;
 	protected float rotX, rotY, rotZ;
 	protected float scale;
+	protected AABB hitBox;
 	
 	public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale)
 	{
@@ -19,6 +22,7 @@ public class Entity
 		this.rotY = rotY;
 		this.rotZ = rotZ;
 		this.scale = scale;
+		hitBox = new AABB(position, new Vector3f(), new Vector3f());
 	}
 	
 	public void update(Terrain t)
@@ -98,5 +102,23 @@ public class Entity
 	public void setScale(float scale)
 	{
 		this.scale = scale;
+	}
+
+	@Override
+	public boolean isInsideHitBox(Vector3f point)
+	{
+		return hitBox.isInside(point);
+	}
+
+	@Override
+	public void hover()
+	{
+		
+	}
+
+	@Override
+	public void click()
+	{
+		
 	}
 }

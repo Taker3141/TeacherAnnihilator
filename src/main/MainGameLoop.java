@@ -7,18 +7,12 @@ import objLoader.OBJLoader;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
-import entity.Camera;
-import entity.Entity;
-import entity.Light;
-import entity.Player;
-import entity.Teacher;
-import renderer.DisplayManager;
-import renderer.MasterRenderer;
-import renderer.Loader;
+import org.newdawn.slick.Input;
+import entity.*;
+import raycasting.Raycaster;
+import renderer.*;
 import renderer.models.TexturedModel;
-import renderer.textures.ModelTexture;
-import renderer.textures.TerrainTexture;
-import renderer.textures.TerrainTexturePack;
+import renderer.textures.*;
 import terrain.Terrain;
 
 public class MainGameLoop
@@ -46,10 +40,15 @@ public class MainGameLoop
 		entities.add(lmg);
 		Entity hans = new Teacher(new TexturedModel(loader.loadToVAO(personData.getVertices(), personData.getTextureCoords(), personData.getNormals(), personData.getIndices()), new ModelTexture(loader.loadTexture("texture/person/hans"))), new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans");
 		entities.add(hans);
+		Raycaster ray = new Raycaster();
+		ray.list.add(hans);
+		
+		Input input = new Input(Display.getHeight());
 		
 		MasterRenderer renderer = new MasterRenderer();
 		while (!Display.isCloseRequested())
 		{
+			input.poll(Display.getWidth(), Display.getHeight());
 			player.update(t);
 			c.update();
 			for(Entity e:entities)
@@ -57,7 +56,9 @@ public class MainGameLoop
 				e.update(t);
 				renderer.processEntities(e);
 			}
+			
 			if(!c.isFirstPerson()) renderer.processEntities(player);
+			ray.castRay(input.getAbsoluteMouseX(), Display.getHeight() - input.getAbsoluteMouseY(), renderer, c);
 			renderer.processTerrain(t);
 			renderer.render(light, c);
 			DisplayManager.updateDisplay();
