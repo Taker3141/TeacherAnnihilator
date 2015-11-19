@@ -1,6 +1,8 @@
 package entity;
 
 import org.lwjgl.util.vector.Vector3f;
+import raycasting.AABB;
+import raycasting.Collidable;
 import renderer.models.TexturedModel;
 import terrain.Terrain;
 
@@ -10,6 +12,7 @@ public class Entity implements Collidable
 	protected Vector3f position;
 	protected float rotX, rotY, rotZ;
 	protected float scale;
+	protected AABB hitBox = new AABB(new Vector3f(), new Vector3f(), new Vector3f());
 	
 	public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale)
 	{
@@ -103,6 +106,6 @@ public class Entity implements Collidable
 	@Override
 	public boolean isInsideHitBox(Vector3f point)
 	{
-		return false;
+		return hitBox.isInside(point);
 	}
 }

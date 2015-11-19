@@ -1,4 +1,4 @@
-package entity;
+package raycasting;
 
 import org.lwjgl.util.vector.Vector3f;
 
