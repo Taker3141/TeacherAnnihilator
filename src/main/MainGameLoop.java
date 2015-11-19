@@ -55,7 +55,7 @@ public class MainGameLoop
 				e.update(t);
 				renderer.processEntities(e);
 			}
-			ray.getCurrentEntity(input.getAbsoluteMouseX(), input.getAbsoluteMouseY(), renderer, c);
+			ray.getCurrentEntity(input.getAbsoluteMouseX(), Display.getHeight() - input.getAbsoluteMouseY(), renderer, c);
 			renderer.processEntities(player);
 			renderer.processTerrain(t);
 			renderer.render(light, c);
