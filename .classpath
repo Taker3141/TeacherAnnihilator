@@ -6,8 +6,8 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="TeacherAnnihilator/libs"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="D:/Dwnld/lwjgl-2.9.3/lwjgl-2.9.3/jar/lwjgl.jar"/>
-	<classpathentry kind="lib" path="D:/Dwnld/lwjgl-2.9.3/lwjgl-2.9.3/jar/lwjgl_util.jar"/>
-	<classpathentry kind="lib" path="D:/Dwnld/lwjgl-2.9.3/slick/lib/slick.jar"/>
+	<classpathentry kind="lib" path="libs/lwjgl.jar"/>
+	<classpathentry kind="lib" path="libs/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="libs/slick.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -4,9 +4,9 @@ import gui.menu.Menu;
 
 public class HandlerChangeMenu implements ClickHandler
 {
-	private Menu nextMenu;
+	private Class<? extends Menu> nextMenu;
 	
-	public HandlerChangeMenu(Menu next)
+	public HandlerChangeMenu(Class<? extends Menu> next)
 	{
 		nextMenu = next;
 	}

@@ -22,9 +22,9 @@ public class MainMenu extends Menu
 			guiElements.add(new Button(new Vector2f(indention + 200, H - 200), buttonSize, this).setText("menu.walk_around", font, 1).setIcon(loader.loadTexture("texture/gui/icon_walk_around"), guiElementsForeground).setClickHandler(new HandlerStartGame()));
 			guiElements.add(new Button(new Vector2f(indention, H - 250), buttonSize, this).setText("menu.missions", font, 1).setIcon(loader.loadTexture("texture/gui/icon_book"), guiElementsForeground));
 			guiElements.add(new Button(new Vector2f(indention + 200, H - 300), buttonSize, this).setText("menu.shop", font, 1).setIcon(loader.loadTexture("texture/gui/icon_shopping_cart"), guiElementsForeground));
-			guiElements.add(new Button(new Vector2f(indention, H - 350), buttonSize, this).setText("menu.settings", font, 1).setIcon(loader.loadTexture("texture/gui/icon_gear"), guiElementsForeground).setClickHandler(new HandlerChangeMenu(new MenuSettings())));
+			guiElements.add(new Button(new Vector2f(indention, H - 350), buttonSize, this).setText("menu.settings", font, 1).setIcon(loader.loadTexture("texture/gui/icon_gear"), guiElementsForeground).setClickHandler(new HandlerChangeMenu(MenuSettings.class)));
 			guiElements.add(new Button(new Vector2f(indention + 200, H - 400), buttonSize, this).setText("menu.updates", font, 1).setIcon(loader.loadTexture("texture/gui/icon_arrow"), guiElementsForeground));
-			guiElements.add(new Button(new Vector2f(indention, H - 450), buttonSize, this).setText("menu.credits", font, 1).setIcon(loader.loadTexture("texture/gui/icon_book"), guiElementsForeground).setClickHandler(new HandlerChangeMenu(new MenuCredits())));
+			guiElements.add(new Button(new Vector2f(indention, H - 450), buttonSize, this).setText("menu.credits", font, 1).setIcon(loader.loadTexture("texture/gui/icon_book"), guiElementsForeground).setClickHandler(new HandlerChangeMenu(MenuCredits.class)));
 			guiElements.add(new Button(new Vector2f(indention + 200, H - 500), buttonSize, this).setText("menu.exit", font, 1).setIcon(loader.loadTexture("texture/gui/icon_door"), guiElementsForeground).setClickHandler(new HandlerChangeMenu(null)));
 		}
 		guiElements.add(new GuiElement(loader.loadTexture("texture/gui/banner"), new Vector2f(0, H - 128), new Vector2f(W, 128), this));
@@ -43,7 +43,7 @@ public class MainMenu extends Menu
 		cleanUp();
 		if (nextMenu != null)
 		{
-			nextMenu.doMenu();
+			doNextMenu();
 		}
 		if(shouldStartGame)
 		{

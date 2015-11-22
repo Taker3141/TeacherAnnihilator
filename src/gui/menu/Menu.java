@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import font.fontMeshCreator.FontType;
 import font.fontRendering.TextMaster;
@@ -14,25 +15,28 @@ import renderer.Loader;
 
 public abstract class Menu
 {
-	protected final int W = Display.getWidth();
-	protected final int H = Display.getHeight();
+	protected int W;
+	protected int H;
 	protected final Vector2f buttonSize = new Vector2f(256, 32);
 	
 	
 	protected Loader loader = new Loader();
-	protected FontType font = new FontType(loader.loadTexture("font/roboto"), new File("res/font/roboto.fnt"));
+	public FontType font = new FontType(loader.loadTexture("font/roboto"), new File("res/font/roboto.fnt"));
 	protected List<GuiElement> guiElements = new ArrayList<GuiElement>();
 	protected List<GuiElement> guiElementsBackground = new ArrayList<GuiElement>();
 	protected List<GuiElement> guiElementsForeground = new ArrayList<GuiElement>();
 	protected GuiRenderer gRenderer = new GuiRenderer(loader);
 	protected boolean isCloseRequested = false;
-	protected Menu nextMenu;
+	protected Class<? extends Menu> nextMenu;
 	protected boolean shouldStartGame = false;
 	
 	public Menu()
 	{
 		TextMaster.init(loader);
 		Button.loadAllTextures(loader);
+		W = Display.getWidth();
+		H = Display.getHeight();
+		GL11.glViewport(0, 0, W, H);
 	}
 	
 	public abstract void doMenu();
@@ -54,7 +58,7 @@ public abstract class Menu
 		gRenderer.cleanUp();
 	}
 	
-	public void requestClose(Menu next)
+	public void requestClose(Class<? extends Menu> next)
 	{
 		isCloseRequested = true;
 		nextMenu = next;
@@ -64,5 +68,22 @@ public abstract class Menu
 	{
 		isCloseRequested = true;
 		shouldStartGame = true;
+	}
+	
+	protected void doNextMenu()
+	{
+		try
+		{
+			Menu next = (Menu)nextMenu.newInstance();
+			next.doMenu();
+		}
+		catch (InstantiationException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IllegalAccessException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

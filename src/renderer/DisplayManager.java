@@ -1,6 +1,5 @@
 package renderer;
 
-import java.awt.Toolkit;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.ContextAttribs;
@@ -11,11 +10,9 @@ import org.lwjgl.opengl.PixelFormat;
 
 public class DisplayManager
 {
-	private static final int width;
-	private static final int height;
+	private static final int width = 1280;
+	private static final int height = 720;
 	private static final int maxFPS = 60;
-	
-	private static final boolean fullscreen = false;
 	
 	private static long lastFrameTime;
 	private static float delta;
@@ -27,25 +24,7 @@ public class DisplayManager
 		
 		try
 		{
-			
-			if (fullscreen)
-			{
-				DisplayMode displayMode = null;
-				DisplayMode[] modes = Display.getAvailableDisplayModes();
-				for (int i = 0; i < modes.length; i++)
-				{
-					if (modes[i].getWidth() == width && modes[i].getHeight() == height && modes[i].isFullscreenCapable())
-					{
-						displayMode = modes[i];
-					}
-				}
-				Display.setFullscreen(true);
-				Display.setDisplayMode(displayMode);
-			}
-			else
-			{
-				Display.setDisplayMode(new DisplayMode(width, height));
-			}
+			Display.setDisplayMode(new DisplayMode(width, height));
 			Display.create(new PixelFormat(), attribs);
 			Display.setTitle("Teacher Annihilator");
 		}
@@ -56,6 +35,29 @@ public class DisplayManager
 		
 		GL11.glViewport(0, 0, width, height);
 		lastFrameTime = getCurrentTime();
+	}
+	
+	public static void recreateDisplay(int width, int height, boolean fullscreen)
+	{
+		try
+		{
+			DisplayMode[] modes = Display.getAvailableDisplayModes();
+			DisplayMode mode = null;
+			for (int i = 0; i < modes.length; i++)
+			{
+				if(modes[i].getWidth() == width && modes[i].getHeight() == height)
+				{
+					mode = modes[i];
+					break;
+				}
+			}
+			Display.setDisplayMode(mode);
+			Display.setFullscreen(fullscreen);
+		}
+		catch (LWJGLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public static void updateDisplay()
@@ -82,19 +84,5 @@ public class DisplayManager
 	private static long getCurrentTime()
 	{
 		return Sys.getTime() * 1000 / Sys.getTimerResolution();
-	}
-	
-	static
-	{
-		if (fullscreen)
-		{
-			width = Toolkit.getDefaultToolkit().getScreenSize().width;
-			height = Toolkit.getDefaultToolkit().getScreenSize().height;
-		}
-		else
-		{
-			width = 1280;
-			height = 720;
-		}
 	}
 }

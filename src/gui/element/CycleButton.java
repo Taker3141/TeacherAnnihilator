@@ -31,4 +31,9 @@ public class CycleButton extends Button
 		list = strings;
 		return this;
 	}
+	
+	public String getCurrent()
+	{
+		return list[index];
+	}
 }
