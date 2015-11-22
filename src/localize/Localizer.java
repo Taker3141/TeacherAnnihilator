@@ -24,7 +24,7 @@ public class Localizer
 			map = new HashMap<String, String>();
 			String line = reader.readLine();
 			
-			while(line != null)
+			while (line != null)
 			{
 				if (line.length() > 3)
 				{
@@ -50,6 +50,10 @@ public class Localizer
 	public String localizeString(String unlocalized)
 	{
 		String localized = map.get(unlocalized);
+		if(unlocalized.startsWith("o!"))
+		{
+			return unlocalized.substring(2);
+		}
 		if (localized == null)
 		{
 			System.out.println("\"" + unlocalized + "\" could not be found in the \"" + name + "\" lang file!");

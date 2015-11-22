@@ -27,7 +27,7 @@ public class CycleButton extends Button
 	
 	public Button setTextList(String[] strings, FontType font, float size)
 	{
-		super.setText(MainManagerClass.localizer.localizeString(strings[0]), font, size);
+		super.setText(strings[0], font, size);
 		list = strings;
 		return this;
 	}

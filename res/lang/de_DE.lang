@@ -4,9 +4,14 @@ menu.shop=Shop
 menu.settings=Einstellungen
 menu.updates=Updates
 menu.credits=Credits
-menu.exit=Spiel Verlassen
+menu.exit=Spiel verlassen
 menu.back=Zurück
+menu.yes=Ja
+menu.no=Nein
 
 lang.lang=Sprache
 lang.german=Deutsch
 lang.english=Englisch
+
+screen.resolution=Auflösung
+screen.fullscreen=Vollbild

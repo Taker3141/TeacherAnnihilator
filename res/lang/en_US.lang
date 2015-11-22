@@ -6,7 +6,12 @@ menu.updates=Updates
 menu.credits=Credits
 menu.exit=Exit
 menu.back=Back
+menu.yes=Yes
+menu.no=No
 
 lang.lang=Language
 lang.german=German
 lang.english=English
+
+screen.resolution=Resolution
+screen.fullscreen=Fullscreen
