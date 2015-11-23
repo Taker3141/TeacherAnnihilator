@@ -10,21 +10,21 @@ import org.lwjgl.opengl.PixelFormat;
 
 public class DisplayManager
 {
-	private static final int width = 1280;
-	private static final int height = 720;
+	private static final int standardWidth = 1280;
+	private static final int standardHeight = 720;
 	private static final int maxFPS = 60;
 	
 	private static long lastFrameTime;
 	private static float delta;
 	private static int frameCounter = 0;
 	
-	public static void createDisplay()
+	public static void createDisplay(int width, int height, boolean fullscreen)
 	{
 		ContextAttribs attribs = new ContextAttribs(3, 2).withForwardCompatible(true).withProfileCore(true);
 		
 		try
 		{
-			Display.setDisplayMode(new DisplayMode(width, height));
+			recreateDisplay(width, height, fullscreen);
 			Display.create(new PixelFormat(), attribs);
 			Display.setTitle("Teacher Annihilator");
 		}
@@ -51,7 +51,8 @@ public class DisplayManager
 					break;
 				}
 			}
-			Display.setDisplayMode(mode);
+			if (mode != null) Display.setDisplayMode(mode);
+			else Display.setDisplayMode(new DisplayMode(standardWidth, standardHeight));
 			Display.setFullscreen(fullscreen);
 		}
 		catch (LWJGLException e)

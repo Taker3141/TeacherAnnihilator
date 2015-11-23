@@ -1,15 +1,18 @@
 package main;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
 public class SettingsFile
 {
 	private File file;
-	public String language = "";
-	public String resolution = "";
-	public String fullscreen = "";
+	public String language = "en_US";
+	public int resolutionX = 1280;
+	public int resolutionY = 720;
+	public boolean fullscreen = false;
 	
 	public SettingsFile(String path)
 	{
@@ -18,9 +21,10 @@ public class SettingsFile
 		{
 			createFile();
 		}
+		readFile();
 	}
 	
-	public void createFile()
+	private void createFile()
 	{
 		try
 		{
@@ -34,12 +38,41 @@ public class SettingsFile
 		}
 		catch (IOException e)
 		{
+			System.out.println("Could not create settings file!");
 			e.printStackTrace();
 		}
 	}
 	
-	public void readFile()
+	private void readFile()
 	{
-		
+		try
+		{
+			FileReader fr = new FileReader(file);
+			BufferedReader reader = new BufferedReader(fr);
+			String line = reader.readLine();
+			while(line != null)
+			{
+				String[] part = line.split("=");
+				switch(part[0])
+				{
+					case "language" : language = part[1]; break;
+					case "resolution" : 
+					{
+						resolutionX = Integer.parseInt(part[1].split("x")[0]); 
+						resolutionY = Integer.parseInt(part[1].split("x")[1]);
+						break;
+					}
+					case "fullscreen" : fullscreen = Boolean.parseBoolean(part[1]);
+				}
+				line = reader.readLine();
+			}
+			reader.close();
+			fr.close();
+		}
+		catch (IOException e)
+		{
+			System.out.println("Could not read settings file!");
+			e.printStackTrace();
+		}
 	}
 }
