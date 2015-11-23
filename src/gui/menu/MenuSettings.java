@@ -29,7 +29,8 @@ public class MenuSettings extends Menu
 	public void doMenu()
 	{
 		final int buttonIndention = W / 4;
-		guiElements.add(new GuiElement(loader.loadTexture("texture/gui/banner"), new Vector2f(0, H - 128), new Vector2f(W, 128), this));
+		new GUIText("settings.settings", 3, font, new Vector2f(0, H - 32), 1, true).setColour(1, 1, 1);
+		guiElements.add(new GuiElement(loader.loadTexture("texture/gui/banner_settings"), new Vector2f(0, H - 128), new Vector2f(W, 128), this));
 		guiElementsBackground.add(new GuiElement(loader.loadTexture("texture/gui/background"), new Vector2f(0, 0), new Vector2f(W, H), this));
 		{
 			langButton = (CycleButton)new CycleButton(new Vector2f(buttonIndention, H - 200), buttonSize, this).setTextList(new String[]{"lang.german", "lang.english"}, font, 1);
