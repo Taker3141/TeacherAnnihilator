@@ -34,21 +34,34 @@ public class MenuSettings extends Menu
 		guiElementsBackground.add(new GuiElement(loader.loadTexture("texture/gui/background"), new Vector2f(0, 0), new Vector2f(W, H), this));
 		{
 			langButton = (CycleButton)new CycleButton(new Vector2f(buttonIndention, H - 200), buttonSize, this).setTextList(new String[]{"lang.german", "lang.english"}, font, 1);
+			langButton.index = MainManagerClass.settings.language.compareTo("en_US") == 0 ? 1 : 0;
+			langButton.updateText();
 			new GUIText("lang.lang", 1, font, new Vector2f(langButton.position.x - 100, langButton.position.y + (langButton.size.y / 2) + 10), buttonIndention, false);
 			guiElements.add(langButton);
 		}
 		{
 			fullscreenButton = (CycleButton) new CycleButton(new Vector2f(buttonIndention, H - 300), buttonSize, this).setTextList(new String[]{"menu.yes",  "menu.no"}, font, 1);
+			fullscreenButton.index = MainManagerClass.settings.fullscreen ? 0 : 1;
+			fullscreenButton.updateText();
 			new GUIText("screen.fullscreen", 1, font, new Vector2f(fullscreenButton.position.x - 100, fullscreenButton.position.y + (fullscreenButton.size.y / 2) + 10), buttonIndention, false);
 			guiElements.add(fullscreenButton);
 		}
 		{
 			screenButton = (CycleButton)new CycleButton(new Vector2f(buttonIndention, H - 250), buttonSize, this).setTextList(getDisplayModes(), font, 1);
+			for(int i = 0; i < screenButton.list.length; i++)
+			{
+				if(screenButton.list[i].compareTo("o!" + MainManagerClass.settings.resolutionX + "x" + MainManagerClass.settings.resolutionY) == 0)
+				{
+					screenButton.index = i;
+					break;
+				}
+			}
+			screenButton.updateText();
 			new GUIText("screen.resolution", 1, font, new Vector2f(screenButton.position.x - 100, screenButton.position.y + (screenButton.size.y / 2) + 10), buttonIndention, false);
 			guiElements.add(screenButton);
 		}
 		
-		guiElements.add(new Button(new Vector2f(200, 100), buttonSize, this).setText("menu.back", font, 1).setIcon(loader.loadTexture("texture/gui/icon_back"), guiElementsForeground).setClickHandler(new HandlerChangeMenu(MainMenu.class)));
+		guiElements.add(new Button(new Vector2f(200, 100), buttonSize, this).setText("menu.back_and_save", font, 1).setIcon(loader.loadTexture("texture/gui/icon_back"), guiElementsForeground).setClickHandler(new HandlerChangeMenu(MainMenu.class)));
 		
 		
 		Input input = new Input(Display.getHeight());
@@ -92,7 +105,9 @@ public class MenuSettings extends Menu
 		}
 		
 		String[] resolution = screenButton.getCurrent().substring(2).split("x");
-		DisplayManager.recreateDisplay(Integer.parseInt(resolution[0]), Integer.parseInt(resolution[1]), fullscreenButton.list[fullscreenButton.index] == "menu.yes");
+		int width = Integer.parseInt(resolution[0]);
+		int height = Integer.parseInt(resolution[1]);
+		if(Display.getWidth() != width || Display.getHeight() != height || (fullscreenButton.index == 0) != MainManagerClass.settings.fullscreen)DisplayManager.recreateDisplay(width, height, fullscreenButton.list[fullscreenButton.index] == "menu.yes");
 	}
 	
 	public String[] getDisplayModes()

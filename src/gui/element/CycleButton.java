@@ -21,6 +21,11 @@ public class CycleButton extends Button
 		super.leftClick(mouseX, mouseY);
 		index++;
 		if(index >= list.length) index = 0;
+		updateText();
+	}
+
+	public void updateText()
+	{
 		text.setText(MainManagerClass.localizer.localizeString(list[index]));
 	}
 
