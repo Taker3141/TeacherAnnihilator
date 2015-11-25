@@ -6,6 +6,7 @@ menu.updates=Updates
 menu.credits=Credits
 menu.exit=Exit
 menu.back=Back
+menu.back_and_save=Back and save
 menu.yes=Yes
 menu.no=No
 

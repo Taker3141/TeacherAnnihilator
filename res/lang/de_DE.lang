@@ -6,6 +6,7 @@ menu.updates=Updates
 menu.credits=Credits
 menu.exit=Spiel verlassen
 menu.back=Zurück
+menu.back_and_save=Zurück und speichern
 menu.yes=Ja
 menu.no=Nein
 
