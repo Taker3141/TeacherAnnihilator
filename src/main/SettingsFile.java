@@ -75,4 +75,21 @@ public class SettingsFile
 			e.printStackTrace();
 		}
 	}
+	
+	public void writeFile()
+	{
+		try
+		{
+			PrintWriter writer = new PrintWriter(file.getPath(), "UTF-8");
+			writer.write("language=" + language +"\n");
+			writer.write("resolution=" + resolutionX + "x" + resolutionY + "\n");
+			writer.write("fullscreen=" + fullscreen + "\n");
+			writer.close();
+		}
+		catch (IOException e)
+		{
+			System.out.println("Could not write settings file!");
+			e.printStackTrace();
+		}
+	}
 }

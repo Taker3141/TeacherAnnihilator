@@ -13,6 +13,7 @@ import main.MainGameLoop;
 import main.MainManagerClass;
 import main.MainMenu;
 import org.lwjgl.LWJGLException;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.util.vector.Vector2f;
@@ -95,11 +96,13 @@ public class MenuSettings extends Menu
 			case "lang.german":
 			{
 				MainManagerClass.localizer = new Localizer("de_DE");
+				MainManagerClass.settings.language = "de_DE";
 				break;
 			}
 			case "lang.english":
 			{
 				MainManagerClass.localizer = new Localizer("en_US");
+				MainManagerClass.settings.language = "en_US";
 				break;
 			}
 		}
@@ -107,7 +110,16 @@ public class MenuSettings extends Menu
 		String[] resolution = screenButton.getCurrent().substring(2).split("x");
 		int width = Integer.parseInt(resolution[0]);
 		int height = Integer.parseInt(resolution[1]);
-		if(Display.getWidth() != width || Display.getHeight() != height || (fullscreenButton.index == 0) != MainManagerClass.settings.fullscreen)DisplayManager.recreateDisplay(width, height, fullscreenButton.list[fullscreenButton.index] == "menu.yes");
+		boolean fullscreen = fullscreenButton.list[fullscreenButton.index] == "menu.yes";
+		if(Display.getWidth() != width || Display.getHeight() != height || (fullscreenButton.index == 0) != MainManagerClass.settings.fullscreen)
+		{
+			Mouse.setCursorPosition(0, 0);
+			DisplayManager.recreateDisplay(width, height, fullscreen);
+		}
+		MainManagerClass.settings.resolutionX = width;
+		MainManagerClass.settings.resolutionY = height;
+		MainManagerClass.settings.fullscreen = fullscreen;
+		MainManagerClass.settings.writeFile();
 	}
 	
 	public String[] getDisplayModes()
