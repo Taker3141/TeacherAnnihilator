@@ -9,6 +9,7 @@ import org.lwjgl.util.vector.Vector2f;
 import font.fontMeshCreator.FontType;
 import font.fontRendering.TextMaster;
 import gui.element.Button;
+import gui.element.Checkbox;
 import gui.element.GuiElement;
 import renderer.GuiRenderer;
 import renderer.Loader;
@@ -18,6 +19,7 @@ public abstract class Menu
 	protected int W;
 	protected int H;
 	protected final Vector2f buttonSize = new Vector2f(256, 32);
+	protected final Vector2f checkboxSize = new Vector2f(64, 64);
 	
 	
 	protected Loader loader = new Loader();
@@ -34,6 +36,7 @@ public abstract class Menu
 	{
 		TextMaster.init(loader);
 		Button.loadAllTextures(loader);
+		Checkbox.loadAllTextures(loader);
 		W = Display.getWidth();
 		H = Display.getHeight();
 		GL11.glViewport(0, 0, W, H);

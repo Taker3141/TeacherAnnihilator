@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import font.fontMeshCreator.GUIText;
 import gui.element.Button;
+import gui.element.Checkbox;
 import gui.element.CycleButton;
 import gui.element.GuiElement;
 import gui.handler.HandlerChangeMenu;
@@ -24,7 +25,7 @@ public class MenuSettings extends Menu
 {
 	private CycleButton langButton;
 	private CycleButton screenButton;
-	private CycleButton fullscreenButton;
+	private Checkbox fullscreenBox;
 	
 	@Override
 	public void doMenu()
@@ -41,11 +42,10 @@ public class MenuSettings extends Menu
 			guiElements.add(langButton);
 		}
 		{
-			fullscreenButton = (CycleButton) new CycleButton(new Vector2f(buttonIndention, H - 300), buttonSize, this).setTextList(new String[]{"menu.yes",  "menu.no"}, font, 1);
-			fullscreenButton.index = MainManagerClass.settings.fullscreen ? 0 : 1;
-			fullscreenButton.updateText();
-			new GUIText("screen.fullscreen", 1, font, new Vector2f(fullscreenButton.position.x - 100, fullscreenButton.position.y + (fullscreenButton.size.y / 2) + 10), buttonIndention, false);
-			guiElements.add(fullscreenButton);
+			fullscreenBox = new Checkbox(new Vector2f(buttonIndention * 2.2F, H - 225), checkboxSize, this);
+			fullscreenBox.setChecked(MainManagerClass.settings.fullscreen);
+			new GUIText("screen.fullscreen", 1, font, new Vector2f(fullscreenBox.position.x - 100, fullscreenBox.position.y + (fullscreenBox.size.y / 2) + 10), buttonIndention, false);
+			guiElements.add(fullscreenBox);
 		}
 		{
 			screenButton = (CycleButton)new CycleButton(new Vector2f(buttonIndention, H - 250), buttonSize, this).setTextList(getDisplayModes(), font, 1);
@@ -110,8 +110,8 @@ public class MenuSettings extends Menu
 		String[] resolution = screenButton.getCurrent().substring(2).split("x");
 		int width = Integer.parseInt(resolution[0]);
 		int height = Integer.parseInt(resolution[1]);
-		boolean fullscreen = fullscreenButton.list[fullscreenButton.index] == "menu.yes";
-		if(Display.getWidth() != width || Display.getHeight() != height || (fullscreenButton.index == 0) != MainManagerClass.settings.fullscreen)
+		boolean fullscreen = fullscreenBox.isChecked();
+		if(Display.getWidth() != width || Display.getHeight() != height || fullscreen != MainManagerClass.settings.fullscreen)
 		{
 			Mouse.setCursorPosition(0, 0);
 			DisplayManager.recreateDisplay(width, height, fullscreen);
