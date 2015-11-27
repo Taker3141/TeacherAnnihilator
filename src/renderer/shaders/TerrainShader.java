@@ -7,8 +7,8 @@ import entity.Light;
 
 public class TerrainShader extends ShaderProgram
 {
-	private static final String VERTEX_FILE = "src/renderer/shaders/terrainVertexShader.txt";
-	private static final String FRAGMENT_FILE = "src/renderer/shaders/terrainFragmentShader.txt";
+	private static final String VERTEX_FILE = "src/renderer/shaders/terrainVertexShader.vert";
+	private static final String FRAGMENT_FILE = "src/renderer/shaders/terrainFragmentShader.frag";
 	private int locationMatrix;
 	private int locationProjection;
 	private int locationView;

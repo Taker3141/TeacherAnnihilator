@@ -8,8 +8,8 @@ import entity.Light;
 
 public class StaticShader extends ShaderProgram
 {
-	private static final String VERTEX_FILE = "src/renderer/shaders/vertexShader.txt";
-	private static final String FRAGMENT_FILE = "src/renderer/shaders/fragmentShader.txt";
+	private static final String VERTEX_FILE = "src/renderer/shaders/vertexShader.vert";
+	private static final String FRAGMENT_FILE = "src/renderer/shaders/fragmentShader.frag";
 	private int locationMatrix;
 	private int locationProjection;
 	private int locationView;
