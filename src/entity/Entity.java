@@ -1,18 +1,20 @@
 package entity;
 
+import java.util.List;
 import org.lwjgl.util.vector.Vector3f;
 import raycasting.AABB;
-import raycasting.Collidable;
+import raycasting.ICollidable;
 import renderer.models.TexturedModel;
 import terrain.Terrain;
 
-public class Entity implements Collidable
+public class Entity implements ICollidable
 {
 	private TexturedModel model;
 	protected Vector3f position;
 	protected float rotX, rotY, rotZ;
 	protected float scale;
 	protected AABB hitBox;
+	protected List<Entity> entityList;
 	
 	public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale)
 	{
@@ -120,5 +122,16 @@ public class Entity implements Collidable
 	public void click()
 	{
 		
+	}
+	
+	public void register(List<Entity> list)
+	{
+		entityList = list;
+		list.add(this);
+	}
+	
+	public void unregister()
+	{
+		entityList.remove(this);
 	}
 }

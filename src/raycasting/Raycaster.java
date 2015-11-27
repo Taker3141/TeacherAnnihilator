@@ -11,7 +11,7 @@ import entity.*;
 
 public class Raycaster
 {
-	public List<Collidable> list = new ArrayList<Collidable>();
+	public List<ICollidable> list = new ArrayList<ICollidable>();
 	private static final float step = 0.1F;
 
 	private boolean isMouseDown = false;
@@ -34,7 +34,7 @@ public class Raycaster
 		for(int i = 0; i < 100; i++)
 		{
 			vec = Vector3f.add(vec, rayStep, vec);
-			for(Collidable e : list)
+			for(ICollidable e : list)
 			{
 				if(e.isInsideHitBox(vec)) 
 				{

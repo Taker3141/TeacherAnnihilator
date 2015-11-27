@@ -13,7 +13,7 @@ public class Teacher extends Entity
 
 	private float upwardsSpeed = 0;
 	private float terrainHeight = 0;
-	private int health = 100;
+	private int health = 10;
 	
 	public Teacher(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, String name)
 	{
@@ -47,6 +47,7 @@ public class Teacher extends Entity
 		else
 		{
 			System.out.println(name + " is dead");
+			unregister();
 		}
 	}
 }

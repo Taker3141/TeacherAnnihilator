@@ -1,6 +1,6 @@
 package gui.element;
 
-import gui.handler.ClickHandler;
+import gui.handler.IClickHandler;
 import gui.menu.Menu;
 import org.lwjgl.util.vector.Vector2f;
 import renderer.Loader;
@@ -15,7 +15,7 @@ public class Checkbox extends GuiElement implements IClickable
 	private static int textureCheckboxClickChecked;
 	
 	private boolean isChecked = false;
-	private ClickHandler handler;
+	private IClickHandler handler;
 	
 	public Checkbox(Vector2f position, Vector2f size, Menu parent)
 	{
@@ -76,7 +76,7 @@ public class Checkbox extends GuiElement implements IClickable
 		return this;
 	}
 	
-	public Checkbox setClickHandler(ClickHandler h)
+	public Checkbox setClickHandler(IClickHandler h)
 	{
 		handler = h;
 		return this;

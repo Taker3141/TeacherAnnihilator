@@ -2,7 +2,7 @@ package gui.handler;
 
 import gui.menu.Menu;
 
-public class HandlerChangeMenu implements ClickHandler
+public class HandlerChangeMenu implements IClickHandler
 {
 	private Class<? extends Menu> nextMenu;
 	

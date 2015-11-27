@@ -37,9 +37,9 @@ public class MainGameLoop
 		Terrain t = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg")), "height_map_lmg");
 		ModelData lmgData = OBJLoader.loadOBJModel("lmg");
 		Entity lmg = new Entity(new TexturedModel(loader.loadToVAO(lmgData.getVertices(), lmgData.getTextureCoords(), lmgData.getNormals(), lmgData.getIndices()), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(172, 33, 131), 0, 180, 0, 5);
-		entities.add(lmg);
+		lmg.register(entities);
 		Entity hans = new Teacher(new TexturedModel(loader.loadToVAO(personData.getVertices(), personData.getTextureCoords(), personData.getNormals(), personData.getIndices()), new ModelTexture(loader.loadTexture("texture/person/hans"))), new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans");
-		entities.add(hans);
+		hans.register(entities);
 		Raycaster ray = new Raycaster();
 		ray.list.add(hans);
 		
@@ -51,7 +51,7 @@ public class MainGameLoop
 			input.poll(Display.getWidth(), Display.getHeight());
 			player.update(t);
 			c.update();
-			for(Entity e:entities)
+			for(Entity e : entities)
 			{
 				e.update(t);
 				renderer.processEntities(e);

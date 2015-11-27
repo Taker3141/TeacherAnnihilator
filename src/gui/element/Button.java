@@ -7,7 +7,7 @@ import renderer.Loader;
 import font.fontMeshCreator.FontType;
 import font.fontMeshCreator.GUIText;
 import font.fontRendering.TextMaster;
-import gui.handler.ClickHandler;
+import gui.handler.IClickHandler;
 import gui.menu.Menu;
 
 public class Button extends GuiElement implements IClickable
@@ -19,7 +19,7 @@ public class Button extends GuiElement implements IClickable
 	public GUIText text = null;
 	public Icon icon;
 	
-	private ClickHandler handler;
+	private IClickHandler handler;
 	
 	public Button(Vector2f position, Vector2f size, Menu parent)
 	{
@@ -47,7 +47,7 @@ public class Button extends GuiElement implements IClickable
 		return this;
 	}
 	
-	public Button setClickHandler(ClickHandler h)
+	public Button setClickHandler(IClickHandler h)
 	{
 		handler = h;
 		return this;

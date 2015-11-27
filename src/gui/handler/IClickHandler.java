@@ -2,7 +2,7 @@ package gui.handler;
 
 import gui.menu.Menu;
 
-public interface ClickHandler
+public interface IClickHandler
 {
 	public void click(Menu parent);
 }
