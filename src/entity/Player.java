@@ -14,9 +14,8 @@ public class Player extends Entity
 	private static final float JUMP_POWER = 10;
 	
 	private float terrainHeight = 0;
-	private float currentSpeed = 0;
 	private float currentTurnSpeed = 0;
-	private float upwardsSpeed = 0;
+	private Vector3f move = new Vector3f();
 	private boolean isInAir = false;
 	
 	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale)
@@ -28,18 +27,15 @@ public class Player extends Entity
 	public void update(Terrain terrain)
 	{
 		checkInputs();
+		move.y += GRAVITY * DisplayManager.getFrameTimeSeconds();
 		rotY += currentTurnSpeed * DisplayManager.getFrameTimeSeconds();
-		double distance = currentSpeed * DisplayManager.getFrameTimeSeconds();
-		float dx = (float) (distance * Math.sin(Math.toRadians(getRotY())));
-		float dz = (float) (distance * Math.cos(Math.toRadians(getRotY())));
-		position.x += dx;
-		position.z += dz;
-		upwardsSpeed += GRAVITY * DisplayManager.getFrameTimeSeconds();
-		position.y += upwardsSpeed * DisplayManager.getFrameTimeSeconds();
+		position.x += move.x * DisplayManager.getFrameTimeSeconds();
+		position.y += move.y * DisplayManager.getFrameTimeSeconds();
+		position.z += move.z * DisplayManager.getFrameTimeSeconds();
 		terrainHeight = terrain.getHeight(position.x, position.z);
 		if(position.y < terrainHeight) 
 		{
-			upwardsSpeed = 0;
+			move.y = 0;
 			position.y = terrainHeight;
 			isInAir = false;
 		}
@@ -47,15 +43,24 @@ public class Player extends Entity
 	
 	private void jump()
 	{	
-		upwardsSpeed = JUMP_POWER;
+		move.y = JUMP_POWER;
 		isInAir = true;
 	}
 	
 	private void checkInputs()
 	{
-		if (Keyboard.isKeyDown(Keyboard.KEY_W)) currentSpeed = RUN_SPEED;
-		else if (Keyboard.isKeyDown(Keyboard.KEY_S)) currentSpeed = -RUN_SPEED;
-		else currentSpeed = 0;
+		move.x = 0;
+		move.z = 0;
+		if (Keyboard.isKeyDown(Keyboard.KEY_W)) 
+		{
+			move.x += (float) (RUN_SPEED * Math.sin(Math.toRadians(rotY)));
+			move.z += (float) (RUN_SPEED * Math.cos(Math.toRadians(rotY)));
+		}
+		else if (Keyboard.isKeyDown(Keyboard.KEY_S)) 
+		{
+			move.x += (float) (-RUN_SPEED * Math.sin(Math.toRadians(rotY)));
+			move.z += (float) (-RUN_SPEED * Math.cos(Math.toRadians(rotY)));
+		}
 		
 		if (Keyboard.isKeyDown(Keyboard.KEY_A)) currentTurnSpeed = TURN_SPEED;
 		else if (Keyboard.isKeyDown(Keyboard.KEY_D)) currentTurnSpeed = -TURN_SPEED;
