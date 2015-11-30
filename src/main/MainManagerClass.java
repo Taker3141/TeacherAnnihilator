@@ -18,7 +18,6 @@ public class MainManagerClass
 		
 		MainMenu mainMenu = new MainMenu();
 		mainMenu.doMenu();
-		//MainGameLoop.doGame();
 	}
 	
 	static 

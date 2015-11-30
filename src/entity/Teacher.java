@@ -31,6 +31,8 @@ public class Teacher extends Person
 		{
 			health--;
 			System.out.println(name + ".health == " + health);
+			
+			forces.add(new Vector3f(0, 5, 0));
 		}
 		else
 		{
