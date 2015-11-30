@@ -29,10 +29,7 @@ public class Person extends Entity
 		forces.clear();
 		v.y += GRAVITY * delta;
 		
-		System.out.println(v.x);
-		
-		if(Math.abs(v.x) < 0.01F) v.x = 0; else v.x -= 20 * delta * v.x;
-		if(Math.abs(v.z) < 0.01F) v.z = 0; else v.z -= 20 * delta * v.z;
+		calculateFriction(delta);
 		position.x += v.x * delta;
 		position.y += v.y * delta;
 		position.z += v.z * delta;
@@ -44,5 +41,11 @@ public class Person extends Entity
 			position.y = terrainHeight;
 			isInAir = false;
 		}
+	}
+	
+	private void calculateFriction(float delta)
+	{
+		if(Math.abs(v.x) < 0.01F) v.x = 0; else v.x *= Math.pow(0.9F, delta * 50);
+		if(Math.abs(v.z) < 0.01F) v.z = 0; else v.z *= Math.pow(0.9F, delta * 50);
 	}
 }

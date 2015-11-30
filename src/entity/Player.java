@@ -8,7 +8,7 @@ import terrain.Terrain;
 
 public class Player extends Person
 {
-	private static final float RUN_SPEED = 2;
+	private static final float RUN_SPEED = 5;
 	private static final float TURN_SPEED = 160;
 	private static final float JUMP_POWER = 10;
 	
@@ -38,13 +38,13 @@ public class Player extends Person
 	{
 		if (Keyboard.isKeyDown(Keyboard.KEY_W)) 
 		{
-			v.x += (float) (speed * Math.sin(Math.toRadians(rotY)));
-			v.z += (float) (speed * Math.cos(Math.toRadians(rotY)));
+			v.x = (float) (speed * Math.sin(Math.toRadians(rotY)));
+			v.z = (float) (speed * Math.cos(Math.toRadians(rotY)));
 		}
 		else if (Keyboard.isKeyDown(Keyboard.KEY_S)) 
 		{
-			v.x += (float) (-speed * Math.sin(Math.toRadians(rotY)));
-			v.z += (float) (-speed * Math.cos(Math.toRadians(rotY)));
+			v.x = (float) (-speed * Math.sin(Math.toRadians(rotY)));
+			v.z = (float) (-speed * Math.cos(Math.toRadians(rotY)));
 		}
 		
 		if (Keyboard.isKeyDown(Keyboard.KEY_A)) currentTurnSpeed = TURN_SPEED;
