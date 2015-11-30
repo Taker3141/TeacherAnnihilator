@@ -23,21 +23,25 @@ public class Person extends Entity
 	
 	public void update(Terrain terrain)
 	{
+		float delta = DisplayManager.getFrameTimeSeconds();
+		
 		for(Vector3f force : forces) v = Vector3f.add(v, force, v);
 		forces.clear();
-		v.y += GRAVITY * DisplayManager.getFrameTimeSeconds();
+		v.y += GRAVITY * delta;
 		
-		if(Math.abs(v.x) < 0.01F) v.x = 0; else v.x *= 0.9F;
-		if(Math.abs(v.z) < 0.01F) v.z = 0; else v.z *= 0.9F;
-		position.x += v.x * DisplayManager.getFrameTimeSeconds();
-		position.y += v.y * DisplayManager.getFrameTimeSeconds();
-		position.z += v.z * DisplayManager.getFrameTimeSeconds();
+		System.out.println(v.x);
+		
+		if(Math.abs(v.x) < 0.01F) v.x = 0; else v.x -= 20 * delta * v.x;
+		if(Math.abs(v.z) < 0.01F) v.z = 0; else v.z -= 20 * delta * v.z;
+		position.x += v.x * delta;
+		position.y += v.y * delta;
+		position.z += v.z * delta;
 		
 		terrainHeight = terrain.getHeight(position.x, position.z);
 		if(position.y <= terrainHeight && v.y <= 0) 
 		{
 			v.y = 0;
-			position.y = terrainHeight + 0.01F;
+			position.y = terrainHeight;
 			isInAir = false;
 		}
 	}

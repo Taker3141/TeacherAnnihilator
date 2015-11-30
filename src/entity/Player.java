@@ -8,11 +8,12 @@ import terrain.Terrain;
 
 public class Player extends Person
 {
-	private static final float RUN_SPEED = 0.5F;
+	private static final float RUN_SPEED = 2;
 	private static final float TURN_SPEED = 160;
 	private static final float JUMP_POWER = 10;
 	
 	private float currentTurnSpeed = 0;
+	private float speed = RUN_SPEED;
 	
 	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale)
 	{
@@ -37,22 +38,21 @@ public class Player extends Person
 	{
 		if (Keyboard.isKeyDown(Keyboard.KEY_W)) 
 		{
-			v.x += (float) (RUN_SPEED * Math.sin(Math.toRadians(rotY)));
-			v.z += (float) (RUN_SPEED * Math.cos(Math.toRadians(rotY)));
+			v.x += (float) (speed * Math.sin(Math.toRadians(rotY)));
+			v.z += (float) (speed * Math.cos(Math.toRadians(rotY)));
 		}
 		else if (Keyboard.isKeyDown(Keyboard.KEY_S)) 
 		{
-			v.x += (float) (-RUN_SPEED * Math.sin(Math.toRadians(rotY)));
-			v.z += (float) (-RUN_SPEED * Math.cos(Math.toRadians(rotY)));
+			v.x += (float) (-speed * Math.sin(Math.toRadians(rotY)));
+			v.z += (float) (-speed * Math.cos(Math.toRadians(rotY)));
 		}
 		
 		if (Keyboard.isKeyDown(Keyboard.KEY_A)) currentTurnSpeed = TURN_SPEED;
 		else if (Keyboard.isKeyDown(Keyboard.KEY_D)) currentTurnSpeed = -TURN_SPEED;
 		else currentTurnSpeed = 0;
 		
-		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !isInAir) 
-		{
-			jump();
-		}
+		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !isInAir) jump();
+		if (Keyboard.isKeyDown(Keyboard.KEY_ADD)) speed = 2 * RUN_SPEED;
+		if(Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT)) speed = RUN_SPEED;
 	}
 }
