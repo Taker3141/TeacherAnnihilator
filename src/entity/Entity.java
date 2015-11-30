@@ -32,13 +32,6 @@ public class Entity implements ICollidable
 		
 	}
 	
-	public void increasePosition(float dx, float dy, float dz)
-	{
-		position.x += dx;
-		position.y += dy;
-		position.z += dz;
-	}
-	
 	public void increaseRotation(float dx, float dy, float dz)
 	{
 		rotX += dx;

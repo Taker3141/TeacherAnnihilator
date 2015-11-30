@@ -27,20 +27,18 @@ public class Person extends Entity
 		forces.clear();
 		v.y += GRAVITY * DisplayManager.getFrameTimeSeconds();
 		
-		if(position.y <= terrainHeight && v.y <= 0) 
-		{
-			v.y = 0;
-			position.y = terrainHeight;
-			isInAir = false;
-		}
-		
-		terrainHeight = terrain.getHeight(position.x, position.z);
-		
+		if(Math.abs(v.x) < 0.01F) v.x = 0; else v.x *= 0.9F;
+		if(Math.abs(v.z) < 0.01F) v.z = 0; else v.z *= 0.9F;
 		position.x += v.x * DisplayManager.getFrameTimeSeconds();
 		position.y += v.y * DisplayManager.getFrameTimeSeconds();
 		position.z += v.z * DisplayManager.getFrameTimeSeconds();
 		
-		if(Math.abs(v.x) < 0.01F) v.x = 0; else v.x *= 0.9F;
-		if(Math.abs(v.z) < 0.01F) v.z = 0; else v.z *= 0.9F;
+		terrainHeight = terrain.getHeight(position.x, position.z);
+		if(position.y <= terrainHeight && v.y <= 0) 
+		{
+			v.y = 0;
+			position.y = terrainHeight + 0.01F;
+			isInAir = false;
+		}
 	}
 }
