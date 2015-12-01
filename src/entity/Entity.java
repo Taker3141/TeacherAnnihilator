@@ -9,10 +9,10 @@ import terrain.Terrain;
 
 public class Entity implements ICollidable
 {
-	private TexturedModel model;
-	protected Vector3f position;
-	protected float rotX, rotY, rotZ;
-	protected float scale;
+	public TexturedModel model;
+	public Vector3f position;
+	public float rotX, rotY, rotZ;
+	public float scale;
 	protected AABB hitBox;
 	protected List<Entity> entityList;
 	
@@ -37,66 +37,6 @@ public class Entity implements ICollidable
 		rotX += dx;
 		rotY += dy;
 		rotZ += dz;
-	}
-
-	public TexturedModel getModel()
-	{
-		return model;
-	}
-
-	public void setModel(TexturedModel model)
-	{
-		this.model = model;
-	}
-
-	public Vector3f getPosition()
-	{
-		return position;
-	}
-
-	public void setPosition(Vector3f position)
-	{
-		this.position = position;
-	}
-
-	public float getRotX()
-	{
-		return rotX;
-	}
-
-	public void setRotX(float rotX)
-	{
-		this.rotX = rotX;
-	}
-
-	public float getRotY()
-	{
-		return rotY;
-	}
-
-	public void setRotY(float rotY)
-	{
-		this.rotY = rotY;
-	}
-
-	public float getRotZ()
-	{
-		return rotZ;
-	}
-
-	public void setRotZ(float rotZ)
-	{
-		this.rotZ = rotZ;
-	}
-
-	public float getScale()
-	{
-		return scale;
-	}
-
-	public void setScale(float scale)
-	{
-		this.scale = scale;
 	}
 
 	@Override

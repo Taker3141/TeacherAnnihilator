@@ -9,7 +9,7 @@ import terrain.Terrain;
 
 public class Person extends Entity
 {
-	protected static final float GRAVITY = -9.81F;
+	protected static final float GRAVITY = -50F;
 	
 	protected boolean isInAir = false;
 	public Vector3f v = new Vector3f();
@@ -35,7 +35,11 @@ public class Person extends Entity
 		position.x += v.x * delta;
 		position.y += v.y * delta;
 		position.z += v.z * delta;
-		
+		checkTerrain(terrain);
+	}
+
+	protected void checkTerrain(Terrain terrain)
+	{
 		terrainHeight = terrain.getHeight(position.x, position.z);
 		if(position.y <= terrainHeight && v.y <= 0) 
 		{
@@ -47,8 +51,10 @@ public class Person extends Entity
 	
 	private void calculateFriction(float delta)
 	{
-		if(Math.abs(v.x) < 0.01F) v.x = 0; else v.x *= Math.pow(0.9F, delta * 50);
-		if(Math.abs(v.z) < 0.01F) v.z = 0; else v.z *= Math.pow(0.9F, delta * 50);
+		
+		double factor = Math.pow(0.9F, delta * 50);
+		if(Math.abs(v.x) < 0.01F) v.x = 0; else v.x *= factor;
+		if(Math.abs(v.z) < 0.01F) v.z = 0; else v.z *= factor;
 	}
 	
 	public void damage(int ammount)
@@ -60,5 +66,10 @@ public class Person extends Entity
 			unregister();
 			System.out.println(name + " is dead");
 		}
+	}
+	
+	protected boolean canMove(float x, float z, Terrain terrain)
+	{
+		return position.y > terrainHeight || (terrain.getHeight(position.x + x, position.z + z) - terrainHeight) < 0.2F;
 	}
 }
