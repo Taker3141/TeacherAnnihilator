@@ -9,12 +9,14 @@ import terrain.Terrain;
 
 public class Person extends Entity
 {
-	protected static final float GRAVITY = -50;
+	protected static final float GRAVITY = -9.81F;
 	
 	protected boolean isInAir = false;
 	public Vector3f v = new Vector3f();
 	public List<Vector3f> forces = new ArrayList<Vector3f>();
 	protected float terrainHeight = 0;
+	protected int health = 10;
+	protected String name;
 	
 	public Person(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale)
 	{
@@ -47,5 +49,16 @@ public class Person extends Entity
 	{
 		if(Math.abs(v.x) < 0.01F) v.x = 0; else v.x *= Math.pow(0.9F, delta * 50);
 		if(Math.abs(v.z) < 0.01F) v.z = 0; else v.z *= Math.pow(0.9F, delta * 50);
+	}
+	
+	public void damage(int ammount)
+	{
+		health -= ammount;
+		if(health <= 0)
+		{
+			health = 0;
+			unregister();
+			System.out.println(name + " is dead");
+		}
 	}
 }

@@ -13,8 +13,14 @@ public class Raycaster
 {
 	public List<ICollidable> list = new ArrayList<ICollidable>();
 	private static final float step = 0.1F;
+	private Player player;
 
 	private boolean isMouseDown = false;
+	
+	public Raycaster(Player p)
+	{
+		player = p;
+	}
 	
 	public void castRay(int MouseX, int MouseY, MasterRenderer master, Camera c)
 	{
@@ -39,7 +45,7 @@ public class Raycaster
 				if(e.isInsideHitBox(vec)) 
 				{
 					e.hover();
-					if(clickFlag) e.click();
+					if(clickFlag) player.clickAt(e);
 					break endLoop;
 				}
 			}

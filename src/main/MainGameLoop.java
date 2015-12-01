@@ -40,7 +40,7 @@ public class MainGameLoop
 		lmg.register(entities);
 		Entity hans = new Teacher(new TexturedModel(loader.loadToVAO(personData.getVertices(), personData.getTextureCoords(), personData.getNormals(), personData.getIndices()), new ModelTexture(loader.loadTexture("texture/person/hans"))), new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans");
 		hans.register(entities);
-		Raycaster ray = new Raycaster();
+		Raycaster ray = new Raycaster(player);
 		ray.list.add(hans);
 		
 		Input input = new Input(Display.getHeight());
