@@ -17,6 +17,7 @@ public class Entity implements ICollidable
 	public float scale;
 	protected AABB hitBox;
 	protected List<Entity> entityList;
+	public boolean invisible = false;
 	
 	public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
 	{

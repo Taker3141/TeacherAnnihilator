@@ -52,10 +52,8 @@ public class MainGameLoop
 			for(Entity e : entities)
 			{
 				e.update(t);
-				renderer.processEntities(e);
+				if(!e.invisible) renderer.processEntities(e);
 			}
-			
-			if(!c.isFirstPerson()) renderer.processEntities(player);
 			ray.castRay(input.getAbsoluteMouseX(), Display.getHeight() - input.getAbsoluteMouseY(), renderer, c);
 			renderer.processTerrain(t);
 			renderer.render(light, c);

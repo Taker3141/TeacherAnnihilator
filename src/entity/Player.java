@@ -46,6 +46,7 @@ public class Player extends Person
 			Movable m = (Movable)e;
 			Vector3f force = Vector3f.sub(m.position, position, null);
 			force = force.normalise(force);
+			if(force.x != force.x) force = new Vector3f();
 			force.x = force.x * PUNCH_POWER;
 			force.y = force.y * PUNCH_POWER;
 			force.z = force.z * PUNCH_POWER;

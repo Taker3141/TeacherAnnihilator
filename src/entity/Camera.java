@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.Map.Entry;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector3f;
@@ -39,10 +40,23 @@ public class Camera
 		{
 			pitch = 20;
 		}
-		if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1)) isFirstPerson = true;
+		if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD1)) 
+		{
+			isFirstPerson = true;
+			player.invisible = true;
+			for(Entry<String, BodyPart> e : player.bodyParts.entrySet())
+			{
+				if(e.getValue().isAttatched) e.getValue().invisible = true;
+			}
+		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_NUMPAD3))
 		{
 			isFirstPerson = false;
+			player.invisible = false;
+			for(Entry<String, BodyPart> e : player.bodyParts.entrySet())
+			{
+				e.getValue().invisible = false;
+			}
 			pitch = 20;
 		}
 	}
