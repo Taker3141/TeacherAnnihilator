@@ -106,10 +106,13 @@ public class Person extends Entity
 	
 	private Matrix4f getNewMatrix(boolean mirrored)
 	{
-		if(!mirrored) return Matrix4f.setIdentity(new Matrix4f());
 		Matrix4f ret = Matrix4f.setIdentity(new Matrix4f());
-		ret.m00 = -1;
-		ret.m22 = -1;
+		if(mirrored)
+		{
+			ret.m00 *= -1;
+			ret.m22 *= -1;
+		}
+		ret = Matrix4f.rotate((float)(Math.PI / 2), new Vector3f(0, 1, 0), ret, ret);
 		return ret;
 	}
 	
