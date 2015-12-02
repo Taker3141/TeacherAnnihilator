@@ -70,7 +70,6 @@ public class EntityRenderer
 	
 	private void prepareInstance(Entity e)
 	{
-		Matrix4f transformation = Maths.createTransformationMatrix(e.position, e.rotX, e.rotY, e.rotZ, e.scale);
-		shader.loadTransformationMatrix(transformation);
+		shader.loadTransformationMatrix(e.getTransformationMatrix());
 	}
 }

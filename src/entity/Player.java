@@ -1,10 +1,13 @@
 package entity;
 
+import java.util.List;
+import main.MainManagerClass;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 import raycasting.ICollidable;
 import renderer.DisplayManager;
 import renderer.models.TexturedModel;
+import renderer.textures.ModelTexture;
 import terrain.Terrain;
 
 public class Player extends Person
@@ -17,9 +20,14 @@ public class Player extends Person
 	private float currentTurnSpeed = 0;
 	private float speed = RUN_SPEED;
 	
-	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale)
+	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
 	{
-		super(model, position, rotX, rotY, rotZ, scale);
+		super(model, position, rotX, rotY, rotZ, scale, list);
+	}
+	
+	public Player(String texture, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
+	{
+		this(new TexturedModel(body, new ModelTexture(MainManagerClass.loader.loadTexture(texture))), position, rotX, rotY, rotZ, scale, list);
 	}
 	
 	@Override

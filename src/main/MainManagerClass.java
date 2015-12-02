@@ -2,6 +2,7 @@ package main;
 
 import localize.Localizer;
 import renderer.DisplayManager;
+import renderer.Loader;
 import toolbox.LogStream;
 
 public class MainManagerClass
@@ -9,6 +10,7 @@ public class MainManagerClass
 	public static Localizer localizer;
 	public static final String workingPath;
 	public static SettingsFile settings;
+	public static Loader loader = new Loader();
 	
 	public static void main(String[] args)
 	{

@@ -19,7 +19,8 @@ public class MainGameLoop
 {
 	public static void doGame()
 	{
-		Loader loader = new Loader();
+		Loader loader = MainManagerClass.loader;
+		Person.init();
 		ModelData kloData = OBJLoader.loadOBJModel("klo");
 		TexturedModel texturedModel = new TexturedModel(loader.loadToVAO(kloData.getVertices(), kloData.getTextureCoords(), kloData.getNormals(), kloData.getIndices()), new ModelTexture(loader.loadTexture("texture/test")));
 		ModelTexture texture = texturedModel.getTexture();
@@ -29,17 +30,14 @@ public class MainGameLoop
 		grass.getTexture().setUseFakeLightning(true);
 		texture.setShineDamper(10);
 		texture.setReflectivity(1);
-		ModelData personData = OBJLoader.loadOBJModel("person");
-		Player player = new Player(new TexturedModel(loader.loadToVAO(personData.getVertices(), personData.getTextureCoords(), personData.getNormals(), personData.getIndices()), new ModelTexture(loader.loadTexture("texture/test"))), new Vector3f(100, 0, 100), 0, 0, 0, 0.1F);
 		List<Entity> entities = new ArrayList<Entity>();
+		Player player = new Player("texture/test", new Vector3f(100, 0, 100), 0, 0, 0, 0.1F, entities);
 		Light light = new Light(new Vector3f(0, 100, 0), new Vector3f(1, 1, 1));
 		Camera c = new Camera(player);
 		Terrain t = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg")), "height_map_lmg");
 		ModelData lmgData = OBJLoader.loadOBJModel("lmg");
-		Entity lmg = new Entity(new TexturedModel(loader.loadToVAO(lmgData.getVertices(), lmgData.getTextureCoords(), lmgData.getNormals(), lmgData.getIndices()), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(172, 33, 131), 0, 180, 0, 5);
-		lmg.register(entities);
-		Entity hans = new Teacher(new TexturedModel(loader.loadToVAO(personData.getVertices(), personData.getTextureCoords(), personData.getNormals(), personData.getIndices()), new ModelTexture(loader.loadTexture("texture/person/hans"))), new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans");
-		hans.register(entities);
+		new Entity(new TexturedModel(loader.loadToVAO(lmgData.getVertices(), lmgData.getTextureCoords(), lmgData.getNormals(), lmgData.getIndices()), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(172, 33, 131), 0, 180, 0, 5, entities);
+		Entity hans = new Teacher("texture/person/hans", new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans", entities);
 		Raycaster ray = new Raycaster(player);
 		ray.list.add(hans);
 		
