@@ -13,8 +13,8 @@ public class Teacher extends Person
 	{
 		super(model, position, rotX, rotY, rotZ, scale, list);
 		this.name = name;
-		hitBox.size = new Vector3f(0.2F, 0.8F, 0.2F);
-		hitBox.offset = new Vector3f(-0.1F, 0, -0.1F);
+		hitBox.size = new Vector3f(0.2F, 0.3F, 0.2F);
+		hitBox.offset = new Vector3f(-0.1F, 0.15F, -0.1F);
 	}
 	
 	public Teacher(String texture, Vector3f position, float rotX, float rotY, float rotZ, float scale, String name, List<Entity> list)

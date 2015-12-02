@@ -12,7 +12,6 @@ import renderer.models.SimpleModel;
 import renderer.models.TexturedModel;
 import renderer.shaders.StaticShader;
 import renderer.textures.ModelTexture;
-import toolbox.Maths;
 
 public class EntityRenderer
 {

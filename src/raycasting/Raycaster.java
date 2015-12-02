@@ -11,7 +11,7 @@ import entity.*;
 
 public class Raycaster
 {
-	public List<ICollidable> list = new ArrayList<ICollidable>();
+	private List<ICollidable> list = new ArrayList<ICollidable>();
 	private static final float step = 0.1F;
 	private Player player;
 
@@ -49,6 +49,14 @@ public class Raycaster
 					break endLoop;
 				}
 			}
+		}
+	}
+	
+	public void setList(List<Entity> entityList)
+	{
+		for(Entity e : entityList)
+		{
+			list.add(e);
 		}
 	}
 }
