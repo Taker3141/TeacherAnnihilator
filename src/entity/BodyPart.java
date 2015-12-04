@@ -2,6 +2,7 @@ package entity;
 
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
 import renderer.models.TexturedModel;
 import terrain.Terrain;
 import toolbox.Maths;
@@ -10,19 +11,19 @@ public class BodyPart extends Movable
 {
 	protected boolean isAttatched = true;
 	protected Person p;
-	protected Matrix4f transformFromParent;
+	protected final Vector3f offset;
 	
-	BodyPart(TexturedModel model, Person parent, Matrix4f transform)
+	BodyPart(TexturedModel model, Person parent, Vector3f offset)
 	{
-		super(model, new Vector3f(0, 0, 0), 0, 0, 0, transform.m00, parent.entityList);
+		super(model, Vector3f.add(parent.position, offset, null), 0, 0, 0, parent.scale, parent.entityList);
 		p = parent;
-		position = copyPosition();
-		transformFromParent = transform;
+		this.offset = offset;
+		position = calculatePosition();
 	}
 	
-	BodyPart(TexturedModel model, Person parent, Matrix4f transform, Vector3f hitboxSize, Vector3f hitboxOffset)
+	BodyPart(TexturedModel model, Person parent, Vector3f offset, Vector3f hitboxSize, Vector3f hitboxOffset)
 	{
-		this(model, parent, transform);
+		this(model, parent, offset);
 		hitBox.location = p.position;
 		hitBox.size = hitboxSize;
 		hitBox.offset = hitboxOffset;
@@ -31,28 +32,22 @@ public class BodyPart extends Movable
 	@Override
 	public void update(Terrain terrain)
 	{
-		if(!isAttatched) 
-		{
-			super.update(terrain);
-			hitBox.location = position;
-		}
-		else 
-		{
-			position = copyPosition();
-			hitBox.location = position;
-		}
+		if(!isAttatched) super.update(terrain);
+		else position = calculatePosition();
+		hitBox.location = position;
 	}
 	
 	@Override
 	public Matrix4f getTransformationMatrix()
 	{
-		if(isAttatched) return Matrix4f.mul(p.getTransformationMatrix(), transformFromParent, null);
+		if(isAttatched) return p.getTransformationMatrix().translate(offset);
 		else return Maths.createTransformationMatrix(position, rotX, rotY, rotZ, p.scale);
 	}
 	
-	private Vector3f copyPosition()
+	private Vector3f calculatePosition()
 	{
-		return new Vector3f(p.position);
+		Vector4f vec = Matrix4f.transform(p.getTransformationMatrix().translate(offset), new Vector4f(0, 0, 0, 1), null);
+		return new Vector3f(vec.x, vec.y, vec.z);
 	}
 	
 	public void ripOff()

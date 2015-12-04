@@ -21,6 +21,7 @@ public class Movable extends Entity
 		super(model, position, rotX, rotY, rotZ, scale, list);
 	}
 	
+	@Override
 	public void update(Terrain terrain)
 	{
 		float delta = DisplayManager.getFrameTimeSeconds();

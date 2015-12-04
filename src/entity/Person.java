@@ -6,7 +6,6 @@ import java.util.Map;
 import main.MainManagerClass;
 import objLoader.ModelData;
 import objLoader.OBJLoader;
-import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import renderer.models.SimpleModel;
 import renderer.models.TexturedModel;
@@ -46,27 +45,25 @@ public class Person extends Movable
 		}
 	}
 	
+//	@Override
+//	public void update(Terrain terrain)
+//	{
+//		super.update(terrain);
+//		for(Entry<String, BodyPart> e : bodyParts.entrySet())
+//		{
+//			e.getValue().position = 
+//		}
+//	}
+	
 	protected void addBodyParts()
 	{
 		bodyParts = new HashMap<String, BodyPart>();
 		ModelTexture tex = model.getTexture();
-		bodyParts.put("head", new BodyPart(new TexturedModel(head, tex), this, getNewMatrix(false), new Vector3f(0.2F, 0.2F, 0.2F), new Vector3f(-0.1F, 0.45F, -0.1F)));
-		bodyParts.put("leftLeg", new BodyPart(new TexturedModel(leg, tex), this, getNewMatrix(false)));
-		bodyParts.put("rightLeg", new BodyPart(new TexturedModel(leg, tex), this, getNewMatrix(true)));
-		bodyParts.put("leftArm", new BodyPart(new TexturedModel(arm, tex), this, getNewMatrix(false)));
-		bodyParts.put("rightArm", new BodyPart(new TexturedModel(arm, tex), this, getNewMatrix(true)));
-	}
-	
-	private Matrix4f getNewMatrix(boolean mirrored)
-	{
-		Matrix4f ret = Matrix4f.setIdentity(new Matrix4f());
-		if(mirrored)
-		{
-			ret.m00 *= -1;
-			ret.m22 *= -1;
-		}
-		ret = Matrix4f.rotate((float)(Math.PI / 2), new Vector3f(0, 1, 0), ret, ret);
-		return ret;
+		bodyParts.put("head", new BodyPart(new TexturedModel(head, tex), this, new Vector3f(0, 4.3F, 0), new Vector3f(0.2F, 0.2F, 0.2F), new Vector3f(-0.1F, 0, -0.1F)));
+		bodyParts.put("leftLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(-0.4F, 0, 0)));
+		bodyParts.put("rightLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(0.4F, 0, 0)));
+		bodyParts.put("leftArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(1.1F, 3.1F, 0)));
+		bodyParts.put("rightArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(-1.1F, 3.1F, 0)));
 	}
 	
 	public static void init()
