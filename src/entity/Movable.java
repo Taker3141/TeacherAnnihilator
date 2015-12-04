@@ -14,7 +14,6 @@ public class Movable extends Entity
 	public Vector3f v = new Vector3f();
 	public List<Vector3f> forces = new ArrayList<Vector3f>();
 	protected float terrainHeight = 0;
-	protected float yOffset = 0;
 	
 	public Movable(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
 	{
@@ -36,7 +35,6 @@ public class Movable extends Entity
 			v.y = 0;
 			v.z = 0;
 		}
-		
 		calculateFriction(delta);
 		position.x += v.x * delta;
 		position.y += v.y * delta;
@@ -59,8 +57,8 @@ public class Movable extends Entity
 	
 	protected void checkTerrain(Terrain terrain)
 	{
-		terrainHeight = terrain.getHeight(position.x, position.z) - yOffset;
-		if(position.y <= terrainHeight && v.y <= 0) 
+		terrainHeight = terrain.getHeight(position.x, position.z);
+		if(position.y <= terrainHeight)
 		{
 			v.y = 0;
 			position.y = terrainHeight;
@@ -70,6 +68,6 @@ public class Movable extends Entity
 	
 	protected boolean canMove(float x, float z, Terrain terrain)
 	{
-		return position.y > terrainHeight || (terrain.getHeight(position.x + x, position.z + z) - yOffset -  terrainHeight) < 0.2F;
+		return position.y > terrainHeight || (terrain.getHeight(position.x + x, position.z + z) -  terrainHeight) < 0.2F;
 	}
 }

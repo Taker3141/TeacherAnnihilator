@@ -54,7 +54,6 @@ public class BodyPart extends Movable
 	{
 		isAttatched = false;
 		position = new Vector3f(position.x, position.y - hitBox.offset.y, position.z);
-		yOffset = hitBox.offset.y;
 	}
 	
 	@Override

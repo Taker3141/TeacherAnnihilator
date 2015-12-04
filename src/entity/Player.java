@@ -52,6 +52,7 @@ public class Player extends Person
 			force.z = force.z * PUNCH_POWER;
 			m.click();
 			m.forces.add(force);
+			m.isInAir = true;
 			//m.damage(1);
 		}
 	}

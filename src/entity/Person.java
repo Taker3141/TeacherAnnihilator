@@ -3,6 +3,7 @@ package entity;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import main.MainManagerClass;
 import objLoader.ModelData;
 import objLoader.OBJLoader;
@@ -37,33 +38,18 @@ public class Person extends Movable
 	{
 		health -= ammount;
 		System.out.println(name + ".health == " + health);
-		if(health <= 0)
-		{
-			health = 0;
-			unregister();
-			System.out.println(name + " is dead");
-		}
+		if(health <= 0) die();
 	}
-	
-//	@Override
-//	public void update(Terrain terrain)
-//	{
-//		super.update(terrain);
-//		for(Entry<String, BodyPart> e : bodyParts.entrySet())
-//		{
-//			e.getValue().position = 
-//		}
-//	}
 	
 	protected void addBodyParts()
 	{
 		bodyParts = new HashMap<String, BodyPart>();
 		ModelTexture tex = model.getTexture();
 		bodyParts.put("head", new BodyPart(new TexturedModel(head, tex), this, new Vector3f(0, 4.3F, 0), new Vector3f(0.2F, 0.2F, 0.2F), new Vector3f(-0.1F, 0, -0.1F)));
-		bodyParts.put("leftLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(-0.4F, 0, 0)));
-		bodyParts.put("rightLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(0.4F, 0, 0)));
-		bodyParts.put("leftArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(1.1F, 3.1F, 0)));
-		bodyParts.put("rightArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(-1.1F, 3.1F, 0)));
+		bodyParts.put("leftLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(-0.4F, 0, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, 0, -0.025F)));
+		bodyParts.put("rightLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(0.4F, 0, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, 0, -0.025F)));
+		bodyParts.put("leftArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(1.1F, 3.1F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.05F, -0.025F)));
+		bodyParts.put("rightArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(-1.1F, 3.1F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.05F, -0.025F)));
 	}
 	
 	public static void init()
@@ -76,5 +62,13 @@ public class Person extends Movable
 		leg = MainManagerClass.loader.loadToVAO(legData.getVertices(), legData.getTextureCoords(), legData.getNormals(), legData.getIndices());
 		ModelData headData = OBJLoader.loadOBJModel("head");
 		head = MainManagerClass.loader.loadToVAO(headData.getVertices(), headData.getTextureCoords(), headData.getNormals(), headData.getIndices());
+	}
+	
+	protected void die()
+	{
+		health = 0;
+		unregister();
+		for(Entry<String, BodyPart> e : bodyParts.entrySet()) e.getValue().ripOff();
+		System.out.println(name + " is dead");
 	}
 }
