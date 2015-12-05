@@ -40,7 +40,7 @@ public class BodyPart extends Movable
 	@Override
 	public Matrix4f getTransformationMatrix()
 	{
-		if(isAttatched) return p.getTransformationMatrix().translate(offset);
+		if(isAttatched) return Matrix4f.mul(p.getTransformationMatrix(), Maths.createTransformationMatrix(offset, rotX, rotY, rotZ, 1), null);
 		else return Maths.createTransformationMatrix(position, rotX, rotY, rotZ, p.scale);
 	}
 	

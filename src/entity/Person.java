@@ -50,6 +50,10 @@ public class Person extends Movable
 		bodyParts.put("rightLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(0.4F, 0, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, 0, -0.025F)));
 		bodyParts.put("leftArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(1.1F, 3.1F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.05F, -0.025F)));
 		bodyParts.put("rightArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(-1.1F, 3.1F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.05F, -0.025F)));
+		
+		bodyParts.get("head").rotY = 90;
+		bodyParts.get("leftArm").rotZ = 15;
+		bodyParts.get("rightArm").rotZ = -15;
 	}
 	
 	public static void init()
