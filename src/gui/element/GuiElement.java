@@ -13,7 +13,6 @@ public class GuiElement
 	
 	public GuiElement(int texture, Vector2f position, Vector2f size, Menu parent)
 	{
-		super();
 		this.texture = texture;
 		this.position = position;
 		this.size = size;

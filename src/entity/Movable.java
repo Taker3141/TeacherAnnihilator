@@ -27,7 +27,7 @@ public class Movable extends Entity
 		
 		for(Vector3f force : forces) v = Vector3f.add(v, force, v);
 		forces.clear();
-		v.y += GRAVITY * delta;
+		v.y += getGravity() * delta;
 		
 		if(!canMove(v.x * delta, v.z * delta, terrain))
 		{
@@ -69,5 +69,10 @@ public class Movable extends Entity
 	protected boolean canMove(float x, float z, Terrain terrain)
 	{
 		return position.y > terrainHeight || (terrain.getHeight(position.x + x, position.z + z) -  terrainHeight) < 0.2F;
+	}
+	
+	protected float getGravity()
+	{
+		return GRAVITY;
 	}
 }

@@ -45,7 +45,7 @@ public class Raycaster
 				if(e.isInsideHitBox(vec)) 
 				{
 					e.hover();
-					if(clickFlag) player.clickAt(e);
+					if(clickFlag) player.clickAt(e, vec);
 					break endLoop;
 				}
 			}

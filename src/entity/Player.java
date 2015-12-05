@@ -39,7 +39,7 @@ public class Player extends Person
 		super.update(terrain);
 	}
 	
-	public void clickAt(ICollidable e)
+	public void clickAt(ICollidable e, Vector3f point)
 	{
 		if (e instanceof Movable)
 		{
@@ -54,6 +54,8 @@ public class Player extends Person
 			m.forces.add(force);
 			m.isInAir = true;
 			//m.damage(1);
+			
+			entityList.add(new Particle("blood", point, entityList));
 		}
 	}
 	

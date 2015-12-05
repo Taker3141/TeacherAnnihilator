@@ -21,6 +21,7 @@ public class MainGameLoop
 	{
 		Loader loader = MainManagerClass.loader;
 		Person.init();
+		Particle.init();
 		ModelData kloData = OBJLoader.loadOBJModel("klo");
 		TexturedModel texturedModel = new TexturedModel(loader.loadToVAO(kloData.getVertices(), kloData.getTextureCoords(), kloData.getNormals(), kloData.getIndices()), new ModelTexture(loader.loadTexture("texture/test")));
 		ModelTexture texture = texturedModel.getTexture();
@@ -49,8 +50,9 @@ public class MainGameLoop
 			input.poll(Display.getWidth(), Display.getHeight());
 			player.update(t);
 			c.update();
-			for(Entity e : entities)
+			for(int i = 0; i < entities.size(); i++)
 			{
+				Entity e = entities.get(i);
 				e.update(t);
 				if(!e.invisible) renderer.processEntities(e);
 			}
