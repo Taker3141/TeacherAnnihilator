@@ -18,8 +18,7 @@ public class MainManagerClass
 		localizer = new Localizer(settings.language);
 		DisplayManager.createDisplay(settings.resolutionX, settings.resolutionY, settings.fullscreen);
 		
-		MainMenu mainMenu = new MainMenu();
-		mainMenu.doMenu();
+		new MainMenu().doMenu();
 	}
 	
 	static 

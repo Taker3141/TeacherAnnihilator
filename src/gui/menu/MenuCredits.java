@@ -5,7 +5,6 @@ import gui.element.Button;
 import gui.element.GuiElement;
 import gui.handler.HandlerChangeMenu;
 import gui.handler.MouseHandler;
-import main.MainGameLoop;
 import main.MainMenu;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector2f;
@@ -37,10 +36,6 @@ public class MenuCredits extends Menu
 		if (nextMenu != null)
 		{
 			doNextMenu();
-		}
-		if(shouldStartGame)
-		{
-			MainGameLoop.doGame();
 		}
 	}
 }

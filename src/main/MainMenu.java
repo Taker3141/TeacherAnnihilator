@@ -35,19 +35,28 @@ public class MainMenu extends Menu
 		input.addMouseListener(mouse);
 		mouse.setInput(input);
 		
-		while(!Display.isCloseRequested() && !isCloseRequested)
+		boolean loopFlag = true;
+		
+		while (loopFlag)
 		{
-			render();
-			input.poll(W, H);
+			loopFlag = false;
+			while (!Display.isCloseRequested() && !isCloseRequested)
+			{
+				render();
+				input.poll(W, H);
+			}
+			isCloseRequested = false;
+			if (nextMenu != null)
+			{
+				doNextMenu();
+			}
+			if (shouldStartGame)
+			{
+				shouldStartGame = false;
+				MainGameLoop.doGame();
+				loopFlag = true;
+			}
 		}
 		cleanUp();
-		if (nextMenu != null)
-		{
-			doNextMenu();
-		}
-		if(shouldStartGame)
-		{
-			MainGameLoop.doGame();
-		}
 	}
 }

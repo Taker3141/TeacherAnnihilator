@@ -64,7 +64,7 @@ public class MainGameLoop
 		}
 		renderer.cleanUp();
 		loader.cleanUp();
-		DisplayManager.closeDisplay();
+		//DisplayManager.closeDisplay();
 	}
 
 	private static TerrainTexturePack loadTerrainTexturePack(Loader loader)

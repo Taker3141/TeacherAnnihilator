@@ -10,7 +10,6 @@ import gui.element.GuiElement;
 import gui.handler.HandlerChangeMenu;
 import gui.handler.MouseHandler;
 import localize.Localizer;
-import main.MainGameLoop;
 import main.MainManagerClass;
 import main.MainMenu;
 import org.lwjgl.LWJGLException;
@@ -79,10 +78,6 @@ public class MenuSettings extends Menu
 		if (nextMenu != null)
 		{
 			super.doNextMenu();
-		}
-		if(shouldStartGame)
-		{
-			MainGameLoop.doGame();
 		}
 	}
 	
