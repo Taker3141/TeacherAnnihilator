@@ -3,6 +3,7 @@ package entity;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
+import entity.animation.Animation;
 import renderer.models.TexturedModel;
 import terrain.Terrain;
 import toolbox.Maths;
@@ -12,6 +13,7 @@ public class BodyPart extends Movable
 	protected boolean isAttatched = true;
 	protected Person p;
 	protected final Vector3f offset;
+	protected Animation animation = new Animation(new Vector3f[]{new Vector3f(60, 0, 0), new Vector3f(-60, 0, 0)}, new float[]{0.5F, 0.5F});
 	
 	BodyPart(TexturedModel model, Person parent, Vector3f offset)
 	{
@@ -19,6 +21,7 @@ public class BodyPart extends Movable
 		p = parent;
 		this.offset = offset;
 		position = calculatePosition();
+		animation.start();
 	}
 	
 	BodyPart(TexturedModel model, Person parent, Vector3f offset, Vector3f hitboxSize, Vector3f hitboxOffset)
@@ -35,6 +38,10 @@ public class BodyPart extends Movable
 		if(!isAttatched) super.update(terrain);
 		else position = calculatePosition();
 		hitBox.location = position;
+		Vector3f rotation = Vector3f.add(animation.getTurn(), new Vector3f(rotX, rotY, rotZ), null);
+		rotX = rotation.x;
+		rotY = rotation.y;
+		rotZ = rotation.z;
 	}
 	
 	@Override

@@ -17,6 +17,7 @@ public class DisplayManager
 	private static long lastFrameTime;
 	private static float delta;
 	private static int frameCounter = 0;
+	private static long absoluteTime = 0;
 	
 	public static void createDisplay(int width, int height, boolean fullscreen)
 	{
@@ -70,6 +71,7 @@ public class DisplayManager
 		delta = ((float) (currentFrameTime - lastFrameTime)) / 1000F;
 		if (frameCounter % 10 == 0) Display.setTitle("Teacher Annihilator (" + (int) (1 / delta) + " FPS)");
 		lastFrameTime = currentFrameTime;
+		absoluteTime += getFrameTimeSeconds();
 	}
 	
 	public static float getFrameTimeSeconds()
@@ -85,5 +87,10 @@ public class DisplayManager
 	private static long getCurrentTime()
 	{
 		return Sys.getTime() * 1000 / Sys.getTimerResolution();
+	}
+	
+	public static long getTime()
+	{
+		return absoluteTime;
 	}
 }
