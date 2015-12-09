@@ -9,10 +9,10 @@ public class Camera
 {
 	private float distanceFromPlayer = 20;
 	
-	private Vector3f position = new Vector3f(0, 10, 0);
-	private float pitch = 20;
-	private float yaw;
-	private float roll;
+	public Vector3f position = new Vector3f(0, 10, 0);
+	public float pitch = 20;
+	public float yaw;
+	public float roll;
 	private Player player;
 	private boolean isFirstPerson = false;
 	
@@ -59,26 +59,6 @@ public class Camera
 			}
 			pitch = 20;
 		}
-	}
-	
-	public Vector3f getPosition()
-	{
-		return position;
-	}
-	
-	public float getPitch()
-	{
-		return pitch;
-	}
-	
-	public float getYaw()
-	{
-		return yaw;
-	}
-	
-	public float getRoll()
-	{
-		return roll;
 	}
 	
 	private void calculateCameraPosition(float hDistance, float vDistance)

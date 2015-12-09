@@ -30,7 +30,7 @@ public class Raycaster
 		rayWorld = rayWorld.normalise(rayWorld);
 		
 		Vector3f rayStep = new Vector3f(rayWorld.x * step, rayWorld.y * step, rayWorld.z * step);
-		Vector3f vec = new Vector3f(c.getPosition());
+		Vector3f vec = new Vector3f(c.position);
 		
 		boolean clickFlag = false;
 		if(!isMouseDown && Mouse.isButtonDown(0)) clickFlag = true;
