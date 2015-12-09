@@ -51,8 +51,8 @@ public class Movable extends Entity
 	{
 		
 		double factor = Math.pow(0.9F, delta * 50);
-		if(Math.abs(v.x) < 0.01F) v.x = 0; else v.x *= factor;
-		if(Math.abs(v.z) < 0.01F) v.z = 0; else v.z *= factor;
+		if(Math.abs(v.x) < 0.05F) v.x = 0; else v.x *= factor;
+		if(Math.abs(v.z) < 0.05F) v.z = 0; else v.z *= factor;
 	}
 	
 	protected void checkTerrain(Terrain terrain)

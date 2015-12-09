@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
@@ -13,7 +15,7 @@ public class BodyPart extends Movable
 	protected boolean isAttatched = true;
 	protected Person p;
 	protected final Vector3f offset;
-	protected Animation animation = new Animation(new Vector3f[]{new Vector3f(60, 0, 0), new Vector3f(-60, 0, 0)}, new float[]{0.5F, 0.5F});
+	protected Map<State, Animation> animations = new HashMap<>();
 	
 	BodyPart(TexturedModel model, Person parent, Vector3f offset)
 	{
@@ -21,7 +23,6 @@ public class BodyPart extends Movable
 		p = parent;
 		this.offset = offset;
 		position = calculatePosition();
-		animation.start();
 	}
 	
 	BodyPart(TexturedModel model, Person parent, Vector3f offset, Vector3f hitboxSize, Vector3f hitboxOffset)
@@ -32,13 +33,24 @@ public class BodyPart extends Movable
 		hitBox.offset = hitboxOffset;
 	}
 	
+	public BodyPart setAnimations(Map<State, Animation> a)
+	{
+		animations = a;
+		animations.get(State.IDLE).start();
+		return this;
+	}
+	
 	@Override
 	public void update(Terrain terrain)
 	{
 		if(!isAttatched) super.update(terrain);
 		else position = calculatePosition();
 		hitBox.location = position;
-		Vector3f rotation = Vector3f.add(animation.getTurn(), new Vector3f(rotX, rotY, rotZ), null);
+		Vector3f rotation = Vector3f.add(animations.get(p.state).getTurn(), new Vector3f(rotX, rotY, rotZ), null);
+		if(p.state == State.IDLE)
+		{
+			rotation = new Vector3f();
+		}
 		rotX = rotation.x;
 		rotY = rotation.y;
 		rotZ = rotation.z;
@@ -49,6 +61,12 @@ public class BodyPart extends Movable
 	{
 		if(isAttatched) return Matrix4f.mul(p.getTransformationMatrix(), Maths.createTransformationMatrix(offset, rotX, rotY, rotZ, 1), null);
 		else return Maths.createTransformationMatrix(position, rotX, rotY, rotZ, p.scale);
+	}
+	
+	void stateChanged(State newState)
+	{
+		animations.get(p.state).stop();
+		animations.get(newState).start();
 	}
 	
 	private Vector3f calculatePosition()

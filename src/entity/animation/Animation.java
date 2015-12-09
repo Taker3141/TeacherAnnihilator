@@ -17,15 +17,10 @@ public class Animation
 		this.durations = durations;
 	}
 	
-	public void setPointer(int newPointer)
-	{
-		pointer = newPointer;
-	}
-	
 	public void start()
 	{
 		isRunning = true;
-		currentDuration = durations[pointer] / 2;
+		currentDuration = 0;
 	}
 	
 	public void stop()
@@ -43,7 +38,7 @@ public class Animation
 				next();
 				return new Vector3f();
 			}
-			return (Vector3f)new Vector3f(turningSpeeds[pointer]).scale(DisplayManager.getFrameTimeSeconds());
+			return (Vector3f)new Vector3f(turningSpeeds[pointer]).scale(DisplayManager.getFrameTimeSeconds() / durations[pointer]);
 		}
 		else return new Vector3f();
 	}

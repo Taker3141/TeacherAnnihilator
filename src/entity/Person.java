@@ -8,6 +8,7 @@ import main.MainManagerClass;
 import objLoader.ModelData;
 import objLoader.OBJLoader;
 import org.lwjgl.util.vector.Vector3f;
+import entity.animation.Animation;
 import renderer.models.SimpleModel;
 import renderer.models.TexturedModel;
 import renderer.textures.ModelTexture;
@@ -22,6 +23,7 @@ public class Person extends Movable
 	protected int health = 10;
 	protected String name;
 	protected Map<String, BodyPart> bodyParts;
+	State state = State.IDLE;
 	
 	public Person(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
 	{
@@ -45,11 +47,14 @@ public class Person extends Movable
 	{
 		bodyParts = new HashMap<String, BodyPart>();
 		ModelTexture tex = model.getTexture();
-		bodyParts.put("head", new BodyPart(new TexturedModel(head, tex), this, new Vector3f(0, 4.3F, 0), new Vector3f(0.2F, 0.2F, 0.2F), new Vector3f(-0.1F, 0, -0.1F)));
-		bodyParts.put("leftLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(-0.4F, 1.7F, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, -0.15F, -0.025F)));
-		bodyParts.put("rightLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(0.4F, 1.7F, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, -0.15F, -0.025F)));
-		bodyParts.put("leftArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(1F, 3.7F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.1F, -0.025F)));
-		bodyParts.put("rightArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(-1F, 3.7F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.1F, -0.025F)));
+		Map<State, Animation> animations = new HashMap<>();
+		animations.put(State.IDLE, new Animation(new Vector3f[] {new Vector3f(0, 0, 0)}, new float[] {1}));
+		animations.put(State.WALKING, new Animation(new Vector3f[] {new Vector3f(360, 0, 0)}, new float[] {1}));
+		bodyParts.put("head", new BodyPart(new TexturedModel(head, tex), this, new Vector3f(0, 4.3F, 0), new Vector3f(0.2F, 0.2F, 0.2F), new Vector3f(-0.1F, 0, -0.1F)).setAnimations(animations));
+		bodyParts.put("leftLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(-0.4F, 1.7F, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, -0.15F, -0.025F)).setAnimations(animations));
+		bodyParts.put("rightLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(0.4F, 1.7F, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, -0.15F, -0.025F)).setAnimations(animations));
+		bodyParts.put("leftArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(1F, 3.7F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.1F, -0.025F)).setAnimations(animations));
+		bodyParts.put("rightArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(-1F, 3.7F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.1F, -0.025F)).setAnimations(animations));
 		
 		bodyParts.get("head").rotY = 90;
 		bodyParts.get("leftArm").rotZ = 15;
@@ -74,5 +79,13 @@ public class Person extends Movable
 		unregister();
 		for(Entry<String, BodyPart> e : bodyParts.entrySet()) e.getValue().ripOff();
 		System.out.println(name + " is dead");
+	}
+	
+	protected void stateChanged(State newState)
+	{
+		for(Entry<String, BodyPart> e : bodyParts.entrySet())
+		{
+			e.getValue().stateChanged(newState);
+		}
 	}
 }

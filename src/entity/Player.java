@@ -35,6 +35,16 @@ public class Player extends Person
 	{		
 		float delta = DisplayManager.getFrameTimeSeconds();
 		checkInputs();
+		if(v.x != 0 || v.z != 0) 
+		{
+			if(state != State.WALKING) stateChanged(State.WALKING);
+			state = State.WALKING;
+		}
+		else 
+		{
+			if(state != State.IDLE) stateChanged(State.IDLE);
+			state = State.IDLE;
+		}
 		rotY += currentTurnSpeed * delta;
 		super.update(terrain);
 	}
