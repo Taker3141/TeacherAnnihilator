@@ -47,18 +47,22 @@ public class Person extends Movable
 	{
 		bodyParts = new HashMap<String, BodyPart>();
 		ModelTexture tex = model.getTexture();
-		Map<State, Animation> animations = new HashMap<>();
-		animations.put(State.IDLE, new Animation(new Vector3f[] {new Vector3f(0, 0, 0)}, new float[] {1}));
-		animations.put(State.WALKING, new Animation(new Vector3f[] {new Vector3f(360, 0, 0)}, new float[] {1}));
-		bodyParts.put("head", new BodyPart(new TexturedModel(head, tex), this, new Vector3f(0, 4.3F, 0), new Vector3f(0.2F, 0.2F, 0.2F), new Vector3f(-0.1F, 0, -0.1F)).setAnimations(animations));
-		bodyParts.put("leftLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(-0.4F, 1.7F, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, -0.15F, -0.025F)).setAnimations(animations));
-		bodyParts.put("rightLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(0.4F, 1.7F, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, -0.15F, -0.025F)).setAnimations(animations));
-		bodyParts.put("leftArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(1F, 3.7F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.1F, -0.025F)).setAnimations(animations));
-		bodyParts.put("rightArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(-1F, 3.7F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.1F, -0.025F)).setAnimations(animations));
+		Map<State, Animation> a = new HashMap<>();
 		
-		bodyParts.get("head").rotY = 90;
-		bodyParts.get("leftArm").rotZ = 15;
-		bodyParts.get("rightArm").rotZ = -15;
+		bodyParts.put("head", new BodyPart(new TexturedModel(head, tex), this, new Vector3f(0, 4.3F, 0), new Vector3f(0.2F, 0.2F, 0.2F), new Vector3f(-0.1F, 0, -0.1F)));
+		a.put(State.IDLE, new Animation(new Vector3f[] {new Vector3f(0, 0, 0)}, new float[] {1}));
+		a.put(State.WALKING, new Animation(new Vector3f[] {new Vector3f(-30, 0, 0), new Vector3f(60, 0, 0), new Vector3f(-30, 0, 0)}, new float[] {0.2F, 0.4F, 0.2F}));
+		bodyParts.put("leftLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(-0.4F, 1.7F, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, -0.15F, -0.025F)).setAnimations(a));
+		bodyParts.put("rightArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(-1F, 3.7F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.1F, -0.025F)).setAnimations(a));
+		a = new HashMap<>();
+		a.put(State.IDLE, new Animation(new Vector3f[] {new Vector3f(0, 0, 0)}, new float[] {1}));
+		a.put(State.WALKING, new Animation(new Vector3f[] {new Vector3f(30, 0, 0), new Vector3f(-60, 0, 0), new Vector3f(30, 0, 0)}, new float[] {0.2F, 0.4F, 0.2F}));
+		bodyParts.put("rightLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(0.4F, 1.7F, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, -0.15F, -0.025F)).setAnimations(a));
+		bodyParts.put("leftArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(1F, 3.7F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.1F, -0.025F)).setAnimations(a));
+		
+		bodyParts.get("head").standardRotation = new Vector3f(0, 90, 0);
+		bodyParts.get("leftArm").standardRotation = new Vector3f(0, 0, 15);
+		bodyParts.get("rightArm").standardRotation = new Vector3f(0, 0, -15);
 	}
 	
 	public static void init()

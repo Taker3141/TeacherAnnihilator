@@ -17,7 +17,7 @@ public class DisplayManager
 	private static long lastFrameTime;
 	private static float delta;
 	private static int frameCounter = 0;
-	private static long absoluteTime = 0;
+	private static float absoluteTime = 0;
 	
 	public static void createDisplay(int width, int height, boolean fullscreen)
 	{
@@ -89,7 +89,7 @@ public class DisplayManager
 		return Sys.getTime() * 1000 / Sys.getTimerResolution();
 	}
 	
-	public static long getTime()
+	public static float getTime()
 	{
 		return absoluteTime;
 	}

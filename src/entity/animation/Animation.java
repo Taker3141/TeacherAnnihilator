@@ -5,11 +5,12 @@ import renderer.DisplayManager;
 
 public class Animation
 {
-	private float currentDuration = 0;
+	private float startTime = 0;
 	private Vector3f[] turningSpeeds;
 	private float[] durations;
 	private int pointer = 0;
 	private boolean isRunning = false;
+	private boolean resetFlag = false;
 	
 	public Animation(Vector3f[] turningSpeeds, float[] durations)
 	{
@@ -20,7 +21,8 @@ public class Animation
 	public void start()
 	{
 		isRunning = true;
-		currentDuration = 0;
+		startTime = DisplayManager.getTime();
+		pointer = 0;
 	}
 	
 	public void stop()
@@ -30,23 +32,33 @@ public class Animation
 	
 	public Vector3f getTurn()
 	{
+		Vector3f ret = new Vector3f();
 		if (isRunning)
 		{
-			currentDuration += DisplayManager.getFrameTimeSeconds();
-			if(currentDuration > durations[pointer]) 
-			{
-				next();
-				return new Vector3f();
-			}
-			return (Vector3f)new Vector3f(turningSpeeds[pointer]).scale(DisplayManager.getFrameTimeSeconds() / durations[pointer]);
+			ret =  (Vector3f)new Vector3f(turningSpeeds[pointer]).scale(DisplayManager.getFrameTimeSeconds() / durations[pointer]);
 		}
-		else return new Vector3f();
+		if(DisplayManager.getTime() - startTime > durations[pointer]) next();
+		return ret;
+	}
+	
+	public boolean getReset()
+	{
+		if(resetFlag)
+		{
+			resetFlag = false;
+			return true;
+		}
+		return false;
 	}
 	
 	private void next()
 	{
-		currentDuration = 0;
+		startTime = DisplayManager.getTime();
 		pointer++;
-		if(pointer >= turningSpeeds.length) pointer = 0;
+		if(pointer == turningSpeeds.length) 
+		{
+			pointer = 0;
+			resetFlag = true;
+		}
 	}
 }

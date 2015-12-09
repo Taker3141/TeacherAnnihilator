@@ -16,6 +16,7 @@ public class BodyPart extends Movable
 	protected Person p;
 	protected final Vector3f offset;
 	protected Map<State, Animation> animations = new HashMap<>();
+	public Vector3f standardRotation = new Vector3f();
 	
 	BodyPart(TexturedModel model, Person parent, Vector3f offset)
 	{
@@ -46,14 +47,18 @@ public class BodyPart extends Movable
 		if(!isAttatched) super.update(terrain);
 		else position = calculatePosition();
 		hitBox.location = position;
-		Vector3f rotation = Vector3f.add(animations.get(p.state).getTurn(), new Vector3f(rotX, rotY, rotZ), null);
-		if(p.state == State.IDLE)
+		if (animations.containsKey(p.state) && isAttatched)
 		{
-			rotation = new Vector3f();
+			Vector3f rotation = animations.get(p.state).getTurn();
+			rotX += rotation.x;
+			rotY += rotation.y;
+			rotZ += rotation.z;
+			
+			if (p.state == State.IDLE || animations.get(p.state).getReset()) 
+			{
+				rotX = standardRotation.x; rotY = standardRotation.y; rotZ = standardRotation.z;
+			}
 		}
-		rotX = rotation.x;
-		rotY = rotation.y;
-		rotZ = rotation.z;
 	}
 	
 	@Override
@@ -65,8 +70,8 @@ public class BodyPart extends Movable
 	
 	void stateChanged(State newState)
 	{
-		animations.get(p.state).stop();
-		animations.get(newState).start();
+		if(animations.containsKey(p.state)) animations.get(p.state).stop();
+		if(animations.containsKey(newState)) animations.get(newState).start();
 	}
 	
 	private Vector3f calculatePosition()
