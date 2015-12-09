@@ -19,6 +19,10 @@ public class Player extends Person
 	
 	private float currentTurnSpeed = 0;
 	private float speed = RUN_SPEED;
+	private float punchTimer = 0;
+	private boolean timerStarted = false;
+	private ICollidable toPunch;
+	private Vector3f punchPoint;
 	
 	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
 	{
@@ -52,10 +56,26 @@ public class Player extends Person
 			state = State.IDLE;
 		}
 		rotY += currentTurnSpeed * delta;
+		if(timerStarted) punchTimer += DisplayManager.getFrameTimeSeconds();
+		if(punchTimer > 0.9F)
+		{
+			punchTimer = 0;
+			timerStarted = false;
+			punch(toPunch, punchPoint);
+		}
 		super.update(terrain);
 	}
 	
 	public void clickAt(ICollidable e, Vector3f point)
+	{
+		toPunch = e;
+		punchPoint = point;
+		stateChanged(State.PUNCHING);
+		state = State.PUNCHING;
+		timerStarted = true;
+	}
+	
+	private void punch(ICollidable e, Vector3f point)
 	{
 		if (e instanceof Movable)
 		{
@@ -72,9 +92,6 @@ public class Player extends Person
 			//m.damage(1);
 			
 			entityList.add(new Particle("blood", point, entityList));
-			
-			stateChanged(State.PUNCHING);
-			state = State.PUNCHING;
 		}
 	}
 	
