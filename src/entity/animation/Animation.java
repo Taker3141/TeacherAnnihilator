@@ -25,11 +25,6 @@ public class Animation
 		pointer = 0;
 	}
 	
-	public void stop()
-	{
-		isRunning = false;
-	}
-	
 	public Vector3f getTurn()
 	{
 		Vector3f ret = new Vector3f();

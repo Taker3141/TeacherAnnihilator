@@ -35,7 +35,13 @@ public class Player extends Person
 	{		
 		float delta = DisplayManager.getFrameTimeSeconds();
 		checkInputs();
-		if(v.x != 0 || v.z != 0) 
+
+		if(Math.abs(v.x) > 1.5 * RUN_SPEED || Math.abs(v.z) > 1.5 * RUN_SPEED)
+		{
+			if(state != State.RUNNING) stateChanged(State.RUNNING);
+			state = State.RUNNING;
+		}		
+		else if(v.x != 0 || v.z != 0) 
 		{
 			if(state != State.WALKING) stateChanged(State.WALKING);
 			state = State.WALKING;
@@ -66,6 +72,9 @@ public class Player extends Person
 			//m.damage(1);
 			
 			entityList.add(new Particle("blood", point, entityList));
+			
+			stateChanged(State.PUNCHING);
+			state = State.PUNCHING;
 		}
 	}
 	

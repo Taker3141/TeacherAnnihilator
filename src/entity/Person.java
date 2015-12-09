@@ -52,11 +52,15 @@ public class Person extends Movable
 		bodyParts.put("head", new BodyPart(new TexturedModel(head, tex), this, new Vector3f(0, 4.3F, 0), new Vector3f(0.2F, 0.2F, 0.2F), new Vector3f(-0.1F, 0, -0.1F)));
 		a.put(State.IDLE, new Animation(new Vector3f[] {new Vector3f(0, 0, 0)}, new float[] {1}));
 		a.put(State.WALKING, new Animation(new Vector3f[] {new Vector3f(-30, 0, 0), new Vector3f(60, 0, 0), new Vector3f(-30, 0, 0)}, new float[] {0.2F, 0.4F, 0.2F}));
+		a.put(State.RUNNING, new Animation(new Vector3f[] {new Vector3f(-40, 0, 0), new Vector3f(80, 0, 0), new Vector3f(-40, 0, 0)}, new float[] {0.1F, 0.2F, 0.1F}));
 		bodyParts.put("leftLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(-0.4F, 1.7F, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, -0.15F, -0.025F)).setAnimations(a));
+		a = new HashMap<>(a);
+		a.put(State.PUNCHING, new Animation(new Vector3f[] {new Vector3f(360, 0, 0)}, new float[] {0.5F}));
 		bodyParts.put("rightArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(-1F, 3.7F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.1F, -0.025F)).setAnimations(a));
 		a = new HashMap<>();
 		a.put(State.IDLE, new Animation(new Vector3f[] {new Vector3f(0, 0, 0)}, new float[] {1}));
 		a.put(State.WALKING, new Animation(new Vector3f[] {new Vector3f(30, 0, 0), new Vector3f(-60, 0, 0), new Vector3f(30, 0, 0)}, new float[] {0.2F, 0.4F, 0.2F}));
+		a.put(State.RUNNING, new Animation(new Vector3f[] {new Vector3f(40, 0, 0), new Vector3f(-80, 0, 0), new Vector3f(40, 0, 0)}, new float[] {0.1F, 0.2F, 0.1F}));
 		bodyParts.put("rightLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(0.4F, 1.7F, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, -0.15F, -0.025F)).setAnimations(a));
 		bodyParts.put("leftArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(1F, 3.7F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.1F, -0.025F)).setAnimations(a));
 		

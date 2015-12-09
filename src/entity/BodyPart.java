@@ -9,6 +9,7 @@ import entity.animation.Animation;
 import renderer.models.TexturedModel;
 import terrain.Terrain;
 import toolbox.Maths;
+import static entity.State.*;
 
 public class BodyPart extends Movable
 {
@@ -17,6 +18,7 @@ public class BodyPart extends Movable
 	protected final Vector3f offset;
 	protected Map<State, Animation> animations = new HashMap<>();
 	public Vector3f standardRotation = new Vector3f();
+	protected State state;
 	
 	BodyPart(TexturedModel model, Person parent, Vector3f offset)
 	{
@@ -24,6 +26,7 @@ public class BodyPart extends Movable
 		p = parent;
 		this.offset = offset;
 		position = calculatePosition();
+		state = p.state;
 	}
 	
 	BodyPart(TexturedModel model, Person parent, Vector3f offset, Vector3f hitboxSize, Vector3f hitboxOffset)
@@ -37,7 +40,7 @@ public class BodyPart extends Movable
 	public BodyPart setAnimations(Map<State, Animation> a)
 	{
 		animations = a;
-		animations.get(State.IDLE).start();
+		animations.get(IDLE).start();
 		return this;
 	}
 	
@@ -47,16 +50,17 @@ public class BodyPart extends Movable
 		if(!isAttatched) super.update(terrain);
 		else position = calculatePosition();
 		hitBox.location = position;
-		if (animations.containsKey(p.state) && isAttatched)
+		if (animations.containsKey(state) && isAttatched)
 		{
-			Vector3f rotation = animations.get(p.state).getTurn();
+			Vector3f rotation = animations.get(state).getTurn();
 			rotX += rotation.x;
 			rotY += rotation.y;
 			rotZ += rotation.z;
 			
-			if (p.state == State.IDLE || animations.get(p.state).getReset()) 
+			if (state == IDLE || animations.get(state).getReset()) 
 			{
 				rotX = standardRotation.x; rotY = standardRotation.y; rotZ = standardRotation.z;
+				if(state == PUNCHING) state = p.state;
 			}
 		}
 	}
@@ -70,8 +74,11 @@ public class BodyPart extends Movable
 	
 	void stateChanged(State newState)
 	{
-		if(animations.containsKey(p.state)) animations.get(p.state).stop();
-		if(animations.containsKey(newState)) animations.get(newState).start();
+		if (animations.containsKey(newState) && state != PUNCHING) 
+		{
+			animations.get(newState).start();
+			state = newState;
+		}
 	}
 	
 	private Vector3f calculatePosition()
