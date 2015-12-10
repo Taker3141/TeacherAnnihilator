@@ -57,7 +57,7 @@ public class Player extends Person
 		}
 		rotY += currentTurnSpeed * delta;
 		if(timerStarted) punchTimer += DisplayManager.getFrameTimeSeconds();
-		if(punchTimer > 0.9F)
+		if(punchTimer > 1.1F)
 		{
 			punchTimer = 0;
 			timerStarted = false;
@@ -68,11 +68,14 @@ public class Player extends Person
 	
 	public void clickAt(ICollidable e, Vector3f point)
 	{
-		toPunch = e;
-		punchPoint = point;
-		stateChanged(State.PUNCHING);
-		state = State.PUNCHING;
-		timerStarted = true;
+		if (bodyParts.get("rightArm").isAttatched)
+		{
+			toPunch = e;
+			punchPoint = point;
+			stateChanged(State.PUNCHING);
+			state = State.PUNCHING;
+			timerStarted = true;
+		}
 	}
 	
 	private void punch(ICollidable e, Vector3f point)
