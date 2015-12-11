@@ -59,4 +59,9 @@ public class TextMaster
 		renderer.cleanUp();
 		texts.clear();
 	}
+	
+	public static void clear()
+	{
+		texts.clear();
+	}
 }
