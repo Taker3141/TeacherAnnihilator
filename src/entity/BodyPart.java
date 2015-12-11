@@ -60,7 +60,7 @@ public class BodyPart extends Movable
 			if (state == IDLE || animations.get(state).getReset()) 
 			{
 				rotX = standardRotation.x; rotY = standardRotation.y; rotZ = standardRotation.z;
-				if(state == PUNCHING) state = p.state;
+				if(state == PUNCHING || state == KICKING) state = p.state;
 			}
 		}
 	}
@@ -74,7 +74,7 @@ public class BodyPart extends Movable
 	
 	void stateChanged(State newState)
 	{
-		if (animations.containsKey(newState) && state != PUNCHING) 
+		if (animations.containsKey(newState) && state != PUNCHING && state != KICKING) 
 		{
 			animations.get(newState).start();
 			state = newState;

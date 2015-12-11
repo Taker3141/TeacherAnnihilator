@@ -68,7 +68,7 @@ public class Player extends Person
 			punch(toPunch, punchPoint);
 		}
 		if(kickTimerStarted) kickTimer += DisplayManager.getFrameTimeSeconds();
-		if(kickTimer > 1)
+		if(kickTimer > 0.25F)
 		{
 			kickTimer = 0;
 			kickTimerStarted = false;
