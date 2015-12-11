@@ -2,6 +2,7 @@ package raycasting;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.*;
@@ -16,6 +17,7 @@ public class Raycaster
 	private Player player;
 
 	private boolean isMouseDown = false;
+	private boolean isKeyDown = false;
 	
 	public Raycaster(Player p)
 	{
@@ -32,9 +34,10 @@ public class Raycaster
 		Vector3f rayStep = new Vector3f(rayWorld.x * step, rayWorld.y * step, rayWorld.z * step);
 		Vector3f vec = new Vector3f(c.position);
 		
-		boolean clickFlag = false;
-		if(!isMouseDown && Mouse.isButtonDown(0)) clickFlag = true;
+		boolean clickFlag = !isMouseDown && Mouse.isButtonDown(0);
+		boolean keyFlag = !isKeyDown && Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
 		isMouseDown = Mouse.isButtonDown(0);
+		isKeyDown = Keyboard.isKeyDown(Keyboard.KEY_LCONTROL);
 
 		endLoop:
 		for(int i = 0; i < 100; i++)
@@ -46,6 +49,7 @@ public class Raycaster
 				{
 					e.hover();
 					if(clickFlag) player.clickAt(e, vec);
+					if(keyFlag) player.kickAt(e, vec);
 					break endLoop;
 				}
 			}

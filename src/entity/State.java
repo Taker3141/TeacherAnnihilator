@@ -5,5 +5,6 @@ enum State
 	IDLE,
 	WALKING,
 	RUNNING,
-	PUNCHING
+	PUNCHING,
+	KICKING
 }

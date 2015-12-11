@@ -20,9 +20,13 @@ public class Player extends Person
 	private float currentTurnSpeed = 0;
 	private float speed = RUN_SPEED;
 	private float punchTimer = 0;
-	private boolean timerStarted = false;
+	private boolean punchTimerStarted = false;
+	private float kickTimer = 0;
+	private boolean kickTimerStarted = false;
 	private ICollidable toPunch;
 	private Vector3f punchPoint;
+	private ICollidable toKick;
+	private Vector3f kickPoint;
 	
 	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
 	{
@@ -56,12 +60,19 @@ public class Player extends Person
 			state = State.IDLE;
 		}
 		rotY += currentTurnSpeed * delta;
-		if(timerStarted) punchTimer += DisplayManager.getFrameTimeSeconds();
+		if(punchTimerStarted) punchTimer += DisplayManager.getFrameTimeSeconds();
 		if(punchTimer > 1.1F)
 		{
 			punchTimer = 0;
-			timerStarted = false;
+			punchTimerStarted = false;
 			punch(toPunch, punchPoint);
+		}
+		if(kickTimerStarted) kickTimer += DisplayManager.getFrameTimeSeconds();
+		if(kickTimer > 1)
+		{
+			kickTimer = 0;
+			kickTimerStarted = false;
+			kick(toKick, kickPoint);
 		}
 		super.update(terrain);
 	}
@@ -74,8 +85,25 @@ public class Player extends Person
 			punchPoint = point;
 			stateChanged(State.PUNCHING);
 			state = State.PUNCHING;
-			timerStarted = true;
+			punchTimerStarted = true;
 		}
+	}
+
+	public void kickAt(ICollidable e, Vector3f point)
+	{
+		if (bodyParts.get("rightLeg").isAttatched)
+		{
+			toKick = e;
+			kickPoint = point;
+			stateChanged(State.KICKING);
+			state = State.KICKING;
+			kickTimerStarted = true;
+		}
+	}
+	
+	private void kick(ICollidable e, Vector3f point)
+	{
+		punch(e, point);
 	}
 	
 	private void punch(ICollidable e, Vector3f point)
