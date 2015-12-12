@@ -63,7 +63,6 @@ public class BodyPart extends Movable
 				if(state == PUNCHING || state == KICKING || state == ARM_DOWN) state = p.state;
 			}
 		}
-		System.out.println(rotZ);
 	}
 	
 	@Override
