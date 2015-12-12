@@ -2,6 +2,7 @@ bin/**/*.txt
 *.class
 .class
 settings.txt
+libs/**/*
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
