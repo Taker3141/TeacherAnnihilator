@@ -11,11 +11,18 @@ public class Animation
 	private int pointer = 0;
 	private boolean isRunning = false;
 	private boolean resetFlag = false;
+	private boolean loop;
 	
 	public Animation(Vector3f[] turningSpeeds, float[] durations)
 	{
+		this(turningSpeeds, durations, true);
+	}
+	
+	public Animation(Vector3f[] turningSpeeds, float[] durations, boolean loop)
+	{
 		this.turningSpeeds = turningSpeeds;
 		this.durations = durations;
+		this.loop = loop;
 	}
 	
 	public void start()
@@ -50,10 +57,16 @@ public class Animation
 	{
 		startTime = DisplayManager.getTime();
 		pointer++;
-		if(pointer == turningSpeeds.length) 
+		if (pointer == turningSpeeds.length)
 		{
 			pointer = 0;
 			resetFlag = true;
-		}
+			if(!loop) 
+			{
+				isRunning = false;
+				pointer = turningSpeeds.length - 1;
+				resetFlag = false;
+			}
+		}	
 	}
 }

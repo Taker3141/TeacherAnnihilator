@@ -6,5 +6,7 @@ enum State
 	WALKING,
 	RUNNING,
 	PUNCHING,
-	KICKING
+	ARM_UP,
+	ARM_DOWN,
+	KICKING;
 }

@@ -9,6 +9,7 @@ import renderer.DisplayManager;
 import renderer.models.TexturedModel;
 import renderer.textures.ModelTexture;
 import terrain.Terrain;
+import static entity.State.*;
 
 public class Player extends Person
 {
@@ -27,6 +28,7 @@ public class Player extends Person
 	private Vector3f punchPoint;
 	private ICollidable toKick;
 	private Vector3f kickPoint;
+	private boolean isArmUp = false;
 	
 	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
 	{
@@ -41,23 +43,35 @@ public class Player extends Person
 	@Override
 	public void update(Terrain terrain)
 	{		
+		boolean armFlag = isArmUp;
 		float delta = DisplayManager.getFrameTimeSeconds();
 		checkInputs();
-
+		boolean idleFlag = true;
+		
 		if(Math.abs(v.x) > 1.5 * RUN_SPEED || Math.abs(v.z) > 1.5 * RUN_SPEED)
 		{
-			if(state != State.RUNNING) stateChanged(State.RUNNING);
-			state = State.RUNNING;
-		}		
+			if(state != RUNNING) stateChanged(RUNNING);
+			state = RUNNING;
+			idleFlag = false;
+		}
 		else if(v.x != 0 || v.z != 0) 
 		{
-			if(state != State.WALKING) stateChanged(State.WALKING);
-			state = State.WALKING;
+			if(state != WALKING) stateChanged(WALKING);
+			state = WALKING;
+			idleFlag = false;
 		}
-		else 
+		if(idleFlag) 
 		{
-			if(state != State.IDLE) stateChanged(State.IDLE);
-			state = State.IDLE;
+			if(state != IDLE) stateChanged(IDLE);
+			state = IDLE;
+		}
+		if(!armFlag && isArmUp)
+		{
+			stateChanged(ARM_UP);
+		}
+		if(armFlag && !isArmUp)
+		{
+			stateChanged(ARM_DOWN);
 		}
 		rotY += currentTurnSpeed * delta;
 		if(punchTimerStarted) punchTimer += DisplayManager.getFrameTimeSeconds();
@@ -83,8 +97,8 @@ public class Player extends Person
 		{
 			toPunch = e;
 			punchPoint = point;
-			stateChanged(State.PUNCHING);
-			state = State.PUNCHING;
+			stateChanged(PUNCHING);
+			state = PUNCHING;
 			punchTimerStarted = true;
 		}
 	}
@@ -95,8 +109,8 @@ public class Player extends Person
 		{
 			toKick = e;
 			kickPoint = point;
-			stateChanged(State.KICKING);
-			state = State.KICKING;
+			stateChanged(KICKING);
+			state = KICKING;
 			kickTimerStarted = true;
 		}
 	}
@@ -151,5 +165,6 @@ public class Player extends Person
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !isInAir) jump();
 		if (Keyboard.isKeyDown(Keyboard.KEY_ADD)) speed = 2 * RUN_SPEED;
 		if (Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT)) speed = RUN_SPEED;
+		isArmUp = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
 	}
 }

@@ -57,6 +57,8 @@ public class Person extends Movable
 		bodyParts.put("leftLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(0.4F, 1.7F, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, -0.15F, -0.025F)).setAnimations(a));
 		a = new HashMap<>(a);
 		a.put(PUNCHING, new Animation(new Vector3f[] {new Vector3f(-50, 0, -120), new Vector3f(-20, 0, -20), new Vector3f(0, 0, 150), new Vector3f(0, 0, -150), new Vector3f(-110, 0, -0)}, new float[] {0.2F, 0.3F, 0.1F, 0.2F, 0.2F}));
+		a.put(ARM_UP, new Animation(new Vector3f[] {new Vector3f(-50, 0, -120), new Vector3f(-20, 0, -20)}, new float[] {0.2F, 0.3F}, false));
+		a.put(ARM_DOWN, new Animation(new Vector3f[] {new Vector3f(20, 0, 20), new Vector3f(50, 0, 120)}, new float[] {0.3F, 0.2F}));
 		bodyParts.put("rightArm", new BodyPart(new TexturedModel(arm, tex), this, new Vector3f(-1F, 3.7F, 0), new Vector3f(0.05F, 0.1F, 0.05F), new Vector3f(-0.025F, -0.1F, -0.025F)).setAnimations(a));
 		a = new HashMap<>();
 		a.put(IDLE, new Animation(new Vector3f[] {new Vector3f(0, 0, 0)}, new float[] {1}));
