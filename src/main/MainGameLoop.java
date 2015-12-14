@@ -61,10 +61,10 @@ public class MainGameLoop
 			renderer.render(light, c);
 			DisplayManager.updateDisplay();
 			if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) break;
+			if(Keyboard.isKeyDown(Keyboard.KEY_F5)) t = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg")), "height_map_lmg");
 		}
 		renderer.cleanUp();
 		loader.cleanUp();
-		//DisplayManager.closeDisplay();
 	}
 
 	private static TerrainTexturePack loadTerrainTexturePack(Loader loader)

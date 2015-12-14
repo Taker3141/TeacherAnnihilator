@@ -69,7 +69,7 @@ public class DisplayManager
 		frameCounter++;
 		long currentFrameTime = getCurrentTime();
 		delta = ((float) (currentFrameTime - lastFrameTime)) / 1000F;
-		if (absoluteTime % 10 == 0) Display.setTitle("Teacher Annihilator (" + (int) (1 / delta) + " FPS)");
+		if (frameCounter % 10 == 0) Display.setTitle("Teacher Annihilator (" + (int) (1 / delta) + " FPS)");
 		lastFrameTime = currentFrameTime;
 		absoluteTime += getFrameTimeSeconds();
 	}
