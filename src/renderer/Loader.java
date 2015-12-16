@@ -56,17 +56,25 @@ public class Loader
 		try
 		{
 			texture = TextureLoader.getTexture("PNG", new FileInputStream("res/" + fileName + ".png"));
-			GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
-			GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
 		}
 		catch (FileNotFoundException e)
 		{
-			e.printStackTrace();
+			System.out.println("Texture \"" + fileName + "\" could not be found!");
+			try
+			{
+				texture = TextureLoader.getTexture("PNG", new FileInputStream("res/texture/test.png"));
+			}
+			catch (IOException e1)
+			{
+				System.out.println("The deafault texture could not be loaded!!!");
+			}
 		}
 		catch (IOException e)
 		{
 			e.printStackTrace();
 		}
+		GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
+		GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
 		int textureID = texture.getTextureID();
 		textures.add(textureID);
 		return textureID;

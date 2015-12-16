@@ -32,7 +32,7 @@ public class MainGameLoop
 		texture.setShineDamper(10);
 		texture.setReflectivity(1);
 		List<Entity> entities = new ArrayList<Entity>();
-		Player player = new Player("texture/test", new Vector3f(100, 0, 100), 0, 0, 0, 0.1F, entities);
+		Player player = new Player("texture/player", new Vector3f(100, 0, 100), 0, 0, 0, 0.1F, entities);
 		Light light = new Light(new Vector3f(0, 100, 0), new Vector3f(1, 1, 1));
 		Camera c = new Camera(player);
 		Terrain t = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg")), "height_map_lmg");
@@ -40,7 +40,7 @@ public class MainGameLoop
 		new Entity(new TexturedModel(loader.loadToVAO(lmgData.getVertices(), lmgData.getTextureCoords(), lmgData.getNormals(), lmgData.getIndices()), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(172, 33, 131), 0, 180, 0, 5, entities);
 		new Teacher("texture/person/hans", new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans", entities);
 		ModelData treeData = OBJLoader.loadOBJModel("tree");
-		ModelTexture treeTexture = new ModelTexture(loader.loadTexture("texture/test"));
+		ModelTexture treeTexture = new ModelTexture(loader.loadTexture("texture/tree"));
 		TexturedModel tree = new TexturedModel(loader.loadToVAO(treeData.getVertices(), treeData.getTextureCoords(), treeData.getNormals(), treeData.getIndices()), treeTexture);
 		{
 			final int offsetX = 100;
