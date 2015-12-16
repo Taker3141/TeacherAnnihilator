@@ -39,6 +39,22 @@ public class MainGameLoop
 		ModelData lmgData = OBJLoader.loadOBJModel("lmg");
 		new Entity(new TexturedModel(loader.loadToVAO(lmgData.getVertices(), lmgData.getTextureCoords(), lmgData.getNormals(), lmgData.getIndices()), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(172, 33, 131), 0, 180, 0, 5, entities);
 		new Teacher("texture/person/hans", new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans", entities);
+		ModelData treeData = OBJLoader.loadOBJModel("tree");
+		ModelTexture treeTexture = new ModelTexture(loader.loadTexture("texture/test"));
+		TexturedModel tree = new TexturedModel(loader.loadToVAO(treeData.getVertices(), treeData.getTextureCoords(), treeData.getNormals(), treeData.getIndices()), treeTexture);
+		{
+			final int offsetX = 100;
+			final int offsetZ = 200;
+			for(int i = 0; i < 10; i++)
+			{
+				for(int j = 0; j < 5; j++)
+				{
+					int x = i * 10 + offsetX;
+					int z = j * 10 + offsetZ;
+					new Entity(tree, new Vector3f(x, t.getHeight(x, z), z), 0, 0, 0, 0.5F, entities);
+				}
+			}
+		}
 		Raycaster ray = new Raycaster(player);
 		ray.setList(entities);
 		
