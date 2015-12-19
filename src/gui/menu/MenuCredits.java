@@ -33,9 +33,5 @@ public class MenuCredits extends Menu
 			input.poll(W, H);
 		}
 		cleanUp();
-		if (nextMenu != null)
-		{
-			doNextMenu();
-		}
 	}
 }

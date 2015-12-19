@@ -17,7 +17,8 @@ public class BodyPart extends Movable
 	protected Person p;
 	protected final Vector3f offset;
 	protected Map<State, Animation> animations = new HashMap<>();
-	public Vector3f standardRotation = new Vector3f();
+	protected Vector3f standardRotation = new Vector3f();
+
 	protected State state;
 	
 	BodyPart(TexturedModel model, Person parent, Vector3f offset)
@@ -97,5 +98,13 @@ public class BodyPart extends Movable
 	public void click()
 	{
 		if(isAttatched) ripOff();
+	}
+	
+	public void setStandardRotation(Vector3f standardRotation)
+	{
+		this.standardRotation = standardRotation;
+		rotX = standardRotation.x;
+		rotY = standardRotation.y;
+		rotZ = standardRotation.z;
 	}
 }

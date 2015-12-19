@@ -1,13 +1,8 @@
 package main;
 
-import java.io.IOException;
-import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.openal.Audio;
-import org.newdawn.slick.openal.AudioLoader;
-import org.newdawn.slick.util.ResourceLoader;
 import gui.element.Button;
 import gui.element.GuiElement;
 import gui.handler.HandlerChangeMenu;
@@ -40,17 +35,6 @@ public class MainMenu extends Menu
 		MouseHandler mouse = new MouseHandler(guiElements);
 		input.addMouseListener(mouse);
 		mouse.setInput(input);
-		Audio music;
-		try
-		{
-			music = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("res/music/music.ogg"));
-			music.playAsMusic(1, 1, true);
-		}
-		catch (IOException e)
-		{
-			System.out.println("Could not load music!");
-			e.printStackTrace();
-		}
 		
 		boolean loopFlag = true;
 		
@@ -63,10 +47,6 @@ public class MainMenu extends Menu
 				input.poll(W, H);
 			}
 			isCloseRequested = false;
-			if (nextMenu != null)
-			{
-				doNextMenu();
-			}
 			if (shouldStartGame)
 			{
 				shouldStartGame = false;
@@ -75,6 +55,5 @@ public class MainMenu extends Menu
 			}
 		}
 		cleanUp();
-		AL.destroy();
 	}
 }

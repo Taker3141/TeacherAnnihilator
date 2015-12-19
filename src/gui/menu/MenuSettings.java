@@ -25,6 +25,7 @@ public class MenuSettings extends Menu
 	private CycleButton langButton;
 	private CycleButton screenButton;
 	private Checkbox fullscreenBox;
+	private Checkbox musicBox;
 	
 	@Override
 	public void doMenu()
@@ -60,6 +61,12 @@ public class MenuSettings extends Menu
 			new GUIText("screen.resolution", 1, font, new Vector2f(screenButton.position.x - 100, screenButton.position.y + (screenButton.size.y / 2) + 10), buttonIndention, false);
 			guiElements.add(screenButton);
 		}
+		{
+			musicBox = new Checkbox(new Vector2f(buttonIndention * 2.2F, H - 300), checkboxSize, this);
+			musicBox.setChecked(MainManagerClass.settings.music);
+			new GUIText("settings.music", 1, font, new Vector2f(musicBox.position.x - 100, musicBox.position.y + (musicBox.size.y / 2) + 10), buttonIndention, false);
+			guiElements.add(musicBox);
+		}
 		
 		guiElements.add(new Button(new Vector2f(200, 100), buttonSize, this).setText("menu.back_and_save", font, 1).setIcon(loader.loadTexture("texture/gui/icon_back"), guiElementsForeground).setClickHandler(new HandlerChangeMenu(MainMenu.class)));
 		
@@ -75,10 +82,6 @@ public class MenuSettings extends Menu
 			input.poll(W, H);
 		}
 		cleanUp();
-		if (nextMenu != null)
-		{
-			super.doNextMenu();
-		}
 	}
 	
 	@Override
@@ -114,6 +117,7 @@ public class MenuSettings extends Menu
 		MainManagerClass.settings.resolutionX = width;
 		MainManagerClass.settings.resolutionY = height;
 		MainManagerClass.settings.fullscreen = fullscreen;
+		MainManagerClass.settings.music = musicBox.isChecked();
 		MainManagerClass.settings.writeFile();
 	}
 	

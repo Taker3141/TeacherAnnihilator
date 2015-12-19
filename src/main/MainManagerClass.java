@@ -1,5 +1,10 @@
 package main;
 
+import java.io.IOException;
+import org.newdawn.slick.openal.Audio;
+import org.newdawn.slick.openal.AudioLoader;
+import org.newdawn.slick.util.ResourceLoader;
+import gui.menu.Menu;
 import localize.Localizer;
 import renderer.DisplayManager;
 import renderer.Loader;
@@ -11,14 +16,26 @@ public class MainManagerClass
 	public static final String workingPath;
 	public static SettingsFile settings;
 	public static Loader loader = new Loader();
+	public static Class<? extends Menu> nextMenu;
+	private static Audio music;
 	
 	public static void main(String[] args)
 	{
 		settings = new SettingsFile(workingPath + "/save/settings.txt");
 		localizer = new Localizer(settings.language);
 		DisplayManager.createDisplay(settings.resolutionX, settings.resolutionY, settings.fullscreen);
+		playMusic();
 		
 		new MainMenu().doMenu();
+		while(nextMenu != null)
+		{
+			doNextMenu();
+		}
+	}
+
+	private static void playMusic()
+	{
+		music.playAsMusic(MainManagerClass.settings.music ? 1 : 0, 1, true);
 	}
 	
 	static 
@@ -26,5 +43,31 @@ public class MainManagerClass
 		System.setOut(new LogStream());
 		workingPath = System.getProperty("user.dir");
 		System.out.println("Working path is: " + workingPath);
+		try
+		{
+			music = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("res/music/music.ogg"));
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public static void doNextMenu()
+	{
+		try
+		{
+			Menu next = (Menu)MainManagerClass.nextMenu.newInstance();
+			next.doMenu();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public static void update()
+	{
+		playMusic();
 	}
 }

@@ -13,6 +13,7 @@ public class SettingsFile
 	public int resolutionX = 1280;
 	public int resolutionY = 720;
 	public boolean fullscreen = false;
+	public boolean music = true;
 	
 	public SettingsFile(String path)
 	{
@@ -34,6 +35,7 @@ public class SettingsFile
 			writer.write("language=en_US\n");
 			writer.write("resolution=1280x720\n");
 			writer.write("fullscreen=false\n");
+			writer.write("music=true\n");
 			writer.close();
 		}
 		catch (IOException e)
@@ -63,6 +65,7 @@ public class SettingsFile
 						break;
 					}
 					case "fullscreen" : fullscreen = Boolean.parseBoolean(part[1]);
+					case "music" : music = Boolean.parseBoolean(part[1]);
 				}
 				line = reader.readLine();
 			}
@@ -84,7 +87,9 @@ public class SettingsFile
 			writer.write("language=" + language +"\n");
 			writer.write("resolution=" + resolutionX + "x" + resolutionY + "\n");
 			writer.write("fullscreen=" + fullscreen + "\n");
+			writer.write("music=" + music + "\n");
 			writer.close();
+			MainManagerClass.update();
 		}
 		catch (IOException e)
 		{

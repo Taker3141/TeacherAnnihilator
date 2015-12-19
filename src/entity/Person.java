@@ -69,9 +69,9 @@ public class Person extends Movable
 		a.put(KICKING, new Animation(new Vector3f[] {new Vector3f(20, 0, -80), new Vector3f(0, 90, 0), new Vector3f(30, 0, 50)}, new float[] {0.2F, 0.05F, 0.2F}));
 		bodyParts.put("rightLeg", new BodyPart(new TexturedModel(leg, tex), this, new Vector3f(-0.4F, 1.7F, 0), new Vector3f(0.05F, 0.15F, 0.05F), new Vector3f(-0.025F, -0.15F, -0.025F)).setAnimations(a));
 		
-		bodyParts.get("head").standardRotation = new Vector3f(0, 90, 0);
-		bodyParts.get("leftArm").standardRotation = new Vector3f(0, 0, 15);
-		bodyParts.get("rightArm").standardRotation = new Vector3f(0, 0, -15);
+		bodyParts.get("head").setStandardRotation(new Vector3f(0, 90, 0));
+		bodyParts.get("leftArm").setStandardRotation(new Vector3f(0, 0, 15));
+		bodyParts.get("rightArm").setStandardRotation(new Vector3f(0, 0, -15));
 	}
 	
 	public static void init()
