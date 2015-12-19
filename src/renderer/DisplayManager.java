@@ -1,5 +1,8 @@
 package renderer;
 
+import java.io.File;
+import java.nio.ByteBuffer;
+import javax.imageio.ImageIO;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.opengl.ContextAttribs;
@@ -7,6 +10,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.PixelFormat;
+import org.newdawn.slick.opengl.ImageIOImageData;
 
 public class DisplayManager
 {
@@ -26,10 +30,14 @@ public class DisplayManager
 		try
 		{
 			recreateDisplay(width, height, fullscreen);
-			Display.create(new PixelFormat(), attribs);
 			Display.setTitle("Teacher Annihilator");
+			ByteBuffer[] icon = new ByteBuffer[2];
+			icon[0] = new ImageIOImageData().imageToByteBuffer(ImageIO.read(new File("res/texture/icons/x32.png")), false, false, null);
+			icon[1] = new ImageIOImageData().imageToByteBuffer(ImageIO.read(new File("res/texture/icons/x16.png")), false, false, null);
+			Display.setIcon(icon);
+			Display.create(new PixelFormat(), attribs);
 		}
-		catch (LWJGLException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
