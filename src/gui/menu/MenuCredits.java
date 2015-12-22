@@ -20,7 +20,7 @@ public class MenuCredits extends Menu
 		guiElements.add(new Button(new Vector2f(200, 100), buttonSize, this).setText("menu.back", font, 1).setIcon(loader.loadTexture("texture/gui/icon_back"), guiElementsForeground).setClickHandler(new HandlerChangeMenu(MainMenu.class)));
 		
 		new GUIText("o!Taker (minecrafty512@gmail.com)", 2, font, new Vector2f(50, H - 150), 1, false).setColour(0, 0.5F, 1);
-		new GUIText("o!KlötzchenTV", 2, font, new Vector2f(50, H - 200), 1, false).setColour(1, 0.5F, 0);
+		new GUIText("o!KloetzchenTV (kloetzchentv@googlemail.com)", 2, font, new Vector2f(50, H - 200), 1, false).setColour(1, 0.5F, 0);
 		
 		Input input = new Input(Display.getHeight());
 		MouseHandler mouse = new MouseHandler(guiElements);
