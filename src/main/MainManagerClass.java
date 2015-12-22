@@ -1,6 +1,7 @@
 package main;
 
 import java.io.IOException;
+import org.lwjgl.openal.AL;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.util.ResourceLoader;
@@ -31,6 +32,7 @@ public class MainManagerClass
 		{
 			doNextMenu();
 		}
+		AL.destroy();
 	}
 
 	private static void playMusic()
