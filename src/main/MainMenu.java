@@ -28,6 +28,7 @@ public class MainMenu extends Menu
 			guiElements.add(new Button(new Vector2f(indention + 200, H - 500), buttonSize, this).setText("menu.exit", font, 1).setIcon(loader.loadTexture("texture/gui/icon_door"), guiElementsForeground).setClickHandler(new HandlerChangeMenu(null)));
 		}
 		guiElements.add(new GuiElement(loader.loadTexture("texture/gui/banner"), new Vector2f(0, H - 128), new Vector2f(W, 128), this));
+		guiElements.add(new GuiElement(loader.loadTexture("texture/drawings/drawing_1"), new Vector2f(W * 0.7F, H - 500), new Vector2f(256, 256), this));
 		guiElementsBackground.add(new GuiElement(loader.loadTexture("texture/gui/background"), new Vector2f(0, 0), new Vector2f(W, H), this));
 		
 		Input input = new Input(Display.getHeight());
@@ -46,10 +47,6 @@ public class MainMenu extends Menu
 				input.poll(W, H);
 			}
 			isCloseRequested = false;
-			if (nextMenu != null)
-			{
-				doNextMenu();
-			}
 			if (shouldStartGame)
 			{
 				shouldStartGame = false;

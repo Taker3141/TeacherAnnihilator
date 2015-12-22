@@ -3,6 +3,7 @@ package gui.menu;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import main.MainManagerClass;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
@@ -29,7 +30,6 @@ public abstract class Menu
 	protected List<GuiElement> guiElementsForeground = new ArrayList<GuiElement>();
 	protected GuiRenderer gRenderer = new GuiRenderer(loader);
 	protected boolean isCloseRequested = false;
-	protected Class<? extends Menu> nextMenu;
 	protected boolean shouldStartGame = false;
 	
 	public Menu()
@@ -65,29 +65,12 @@ public abstract class Menu
 	public void requestClose(Class<? extends Menu> next)
 	{
 		isCloseRequested = true;
-		nextMenu = next;
+		MainManagerClass.nextMenu = next;
 	}
 	
 	public void requestGameStart()
 	{
 		isCloseRequested = true;
 		shouldStartGame = true;
-	}
-	
-	protected void doNextMenu()
-	{
-		try
-		{
-			Menu next = (Menu)nextMenu.newInstance();
-			next.doMenu();
-		}
-		catch (InstantiationException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IllegalAccessException e)
-		{
-			e.printStackTrace();
-		}
 	}
 }

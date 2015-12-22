@@ -32,13 +32,29 @@ public class MainGameLoop
 		texture.setShineDamper(10);
 		texture.setReflectivity(1);
 		List<Entity> entities = new ArrayList<Entity>();
-		Player player = new Player("texture/test", new Vector3f(100, 0, 100), 0, 0, 0, 0.1F, entities);
+		Player player = new Player("texture/player", new Vector3f(100, 0, 100), 0, 0, 0, 0.1F, entities);
 		Light light = new Light(new Vector3f(0, 100, 0), new Vector3f(1, 1, 1));
 		Camera c = new Camera(player);
 		Terrain t = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg")), "height_map_lmg");
 		ModelData lmgData = OBJLoader.loadOBJModel("lmg");
 		new Entity(new TexturedModel(loader.loadToVAO(lmgData.getVertices(), lmgData.getTextureCoords(), lmgData.getNormals(), lmgData.getIndices()), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(172, 33, 131), 0, 180, 0, 5, entities);
 		new Teacher("texture/person/hans", new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans", entities);
+		ModelData treeData = OBJLoader.loadOBJModel("tree");
+		ModelTexture treeTexture = new ModelTexture(loader.loadTexture("texture/tree"));
+		TexturedModel tree = new TexturedModel(loader.loadToVAO(treeData.getVertices(), treeData.getTextureCoords(), treeData.getNormals(), treeData.getIndices()), treeTexture);
+		{
+			final int offsetX = 100;
+			final int offsetZ = 200;
+			for(int i = 0; i < 10; i++)
+			{
+				for(int j = 0; j < 5; j++)
+				{
+					int x = i * 10 + offsetX;
+					int z = j * 10 + offsetZ;
+					new Entity(tree, new Vector3f(x, t.getHeight(x, z), z), 0, 0, 0, 0.5F, entities);
+				}
+			}
+		}
 		Raycaster ray = new Raycaster(player);
 		ray.setList(entities);
 		
@@ -61,10 +77,10 @@ public class MainGameLoop
 			renderer.render(light, c);
 			DisplayManager.updateDisplay();
 			if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) break;
+			if(Keyboard.isKeyDown(Keyboard.KEY_F5)) t = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg")), "height_map_lmg");
 		}
 		renderer.cleanUp();
 		loader.cleanUp();
-		//DisplayManager.closeDisplay();
 	}
 
 	private static TerrainTexturePack loadTerrainTexturePack(Loader loader)
