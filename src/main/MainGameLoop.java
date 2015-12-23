@@ -55,6 +55,9 @@ public class MainGameLoop
 				}
 			}
 		}
+		ModelData bushData = OBJLoader.loadOBJModel("bush");
+		TexturedModel bush = new TexturedModel(loader.loadToVAO(bushData.getVertices(), bushData.getTextureCoords(), bushData.getNormals(), bushData.getIndices()), treeTexture);
+		new Entity(bush, new Vector3f(100, t.getHeight(100, 100), 100), 0, 0, 0, 0.5F, entities);
 		Raycaster ray = new Raycaster(player);
 		ray.setList(entities);
 		
