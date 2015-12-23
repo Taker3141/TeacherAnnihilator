@@ -43,6 +43,7 @@ public class MainManagerClass
 	static 
 	{
 		System.setOut(new LogStream());
+		System.setProperty("file.encoding", "Cp1252");
 		workingPath = System.getProperty("user.dir");
 		System.out.println("Working path is: " + workingPath);
 		try
