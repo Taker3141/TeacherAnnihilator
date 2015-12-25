@@ -165,6 +165,7 @@ public class Player extends Person
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !isInAir) jump();
 		if (Keyboard.isKeyDown(Keyboard.KEY_ADD)) speed = 2 * RUN_SPEED;
 		if (Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT)) speed = RUN_SPEED;
+		if (Keyboard.isKeyDown(Keyboard.KEY_F3)) System.out.println(position);
 		isArmUp = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
 	}
 }

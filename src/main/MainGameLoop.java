@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import objLoader.ModelData;
 import objLoader.OBJLoader;
 import org.lwjgl.input.Keyboard;
@@ -57,7 +58,9 @@ public class MainGameLoop
 		}
 		ModelData bushData = OBJLoader.loadOBJModel("bush");
 		TexturedModel bush = new TexturedModel(loader.loadToVAO(bushData.getVertices(), bushData.getTextureCoords(), bushData.getNormals(), bushData.getIndices()), treeTexture);
-		new Entity(bush, new Vector3f(100, t.getHeight(100, 100), 100), 0, 0, 0, 0.5F, entities);
+		new Entity(bush, new Vector3f(100, t.getHeight(100, 100), 100), 0, 0, 0, 0.2F, entities);
+		generateBushRow(63, 172, 132, 172, entities, 1, bush, t);
+		generateBushRow(35, 77, 90, 83, entities, 1, bush, t);
 		Raycaster ray = new Raycaster(player);
 		ray.setList(entities);
 		
@@ -84,6 +87,20 @@ public class MainGameLoop
 		}
 		renderer.cleanUp();
 		loader.cleanUp();
+	}
+	
+	private static void generateBushRow(float x1, float z1, float x2, float z2, List<Entity> list, float step, TexturedModel bush, Terrain t)
+	{
+		Random r = new Random();
+		float dx = x2 - x1;
+		float dz = z2 - z1;
+		int count = (int)(dx / step);
+		for(int i = 0; i < count; i++)
+		{
+			float x = x1 + i * step + r.nextFloat();
+			float z = z1 + (dz / count) * i + r.nextFloat();
+			new Entity(bush, new Vector3f(x, t.getHeight(x, z), z), 0, 0, 0, 0.5F, list);
+		}
 	}
 
 	private static TerrainTexturePack loadTerrainTexturePack(Loader loader)
