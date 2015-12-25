@@ -4,6 +4,7 @@ in vec2 passTextureCoord;
 in vec3 surfaceNormal;
 in vec3 toLightVector;
 in vec3 toCameraVector;
+in float visibility;
 
 out vec4 outColor;
 
@@ -12,6 +13,7 @@ uniform sampler2D rTexture;
 uniform sampler2D gTexture;
 uniform sampler2D bTexture;
 uniform sampler2D blendMap;
+uniform vec3 skyColor;
 
 uniform vec3 lightColor;
 
@@ -38,4 +40,5 @@ void main(void)
 	vec3 diffuse = brightness * lightColor;
 	
 	outColor = vec4(diffuse, 1.0) * totalColor;
+	outColor = mix(vec4(skyColor, 1.0), outColor, visibility);
 }

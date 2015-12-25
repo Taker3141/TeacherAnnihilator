@@ -20,7 +20,7 @@ public class MasterRenderer
 	private static final float FOV = 70;
 	private static final float NEAR_PLANE = 0.1F;
 	private static final float FAR_PLANE = 1000;
-	private static final float SKY_RED = 0.5F;
+	private static final float SKY_RED = 0.3F;
 	private static final float SKY_GREEN = 0.5F;
 	private static final float SKY_BLUE = 1.0F;
 	private Matrix4f projection;
@@ -62,6 +62,7 @@ public class MasterRenderer
 		terrainShader.start();
 		terrainShader.loadLight(sun);
 		terrainShader.loadViewMatrix(camera);
+		terrainShader.loadSkyColor(SKY_RED, SKY_GREEN, SKY_BLUE);
 		terrainRenderer.render(terrains);
 		terrainShader.stop();
 		terrains.clear();

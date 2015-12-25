@@ -1,6 +1,7 @@
 package renderer.shaders;
 
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 import toolbox.Maths;
 import entity.Camera;
 import entity.Light;
@@ -21,6 +22,7 @@ public class TerrainShader extends ShaderProgram
 	private int locationG;
 	private int locationB;
 	private int locationMap;
+	private int locationSkyColor;
 	
 	public TerrainShader()
 	{
@@ -50,6 +52,7 @@ public class TerrainShader extends ShaderProgram
 		locationG = super.getUniformLoacation("gTexture");
 		locationB = super.getUniformLoacation("bTexture");
 		locationMap = super.getUniformLoacation("blendMap");
+		locationSkyColor = super.getUniformLoacation("skyColor");
 	}
 	
 	public void loadTransformationMatrix(Matrix4f matrix)
@@ -87,5 +90,10 @@ public class TerrainShader extends ShaderProgram
 		super.loadInt(locationG, 2);
 		super.loadInt(locationB, 3);
 		super.loadInt(locationMap, 4);
+	}
+	
+	public void loadSkyColor(float r, float b, float g)
+	{
+		super.loadVector(locationSkyColor, new Vector3f(r, g, b));
 	}
 }
