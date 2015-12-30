@@ -78,7 +78,15 @@ public class Movable extends Entity
 		for (ICollidable c : entityList)
 		{
 			if (c instanceof BodyPart || c == this) continue;
-			if (c.isInsideHitBox(hitBox)) return false;
+			if (c.isInsideHitBox(hitBox)) 
+			{
+				if(c instanceof Movable)
+				{
+					Movable m = (Movable)c;
+					m.forces.add((Vector3f)Vector3f.sub(position, m.position, null).normalise().scale(v.length()));
+				}
+				return false;
+			}
 		}
 		return true;
 	}
