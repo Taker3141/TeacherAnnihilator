@@ -33,6 +33,8 @@ public class Player extends Person
 	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
 	{
 		super(model, position, rotX, rotY, rotZ, scale, list);
+		hitBox.size = new Vector3f(0.2F, 0.3F, 0.2F);
+		hitBox.offset = new Vector3f(-0.1F, 0.15F, -0.1F);
 	}
 	
 	public Player(String texture, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)

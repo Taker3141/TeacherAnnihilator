@@ -26,4 +26,19 @@ public class AABB
 		if(point.z < corner.z || point.z > corner.z + size.z) return false;
 		return true;
 	}
+	
+	public boolean isInside(AABB box)
+	{
+		Vector3f l = box.location;
+		Vector3f o = box.offset;
+		if(isInside(l)) return false;
+		if(isInside(new Vector3f(l.x, l.y, l.z + o.z))) return true;
+		if(isInside(new Vector3f(l.x, l.y + o.y, l.z))) return true;
+		if(isInside(new Vector3f(l.x, l.y + o.y, l.z + o.z))) return true;
+		if(isInside(new Vector3f(l.x + o.x, l.y, l.z + o.z))) return true;
+		if(isInside(new Vector3f(l.x + o.x, l.y + o.y, l.z))) return true;
+		if(isInside(new Vector3f(l.x + o.x, l.y + o.y, l.z + o.z))) return true;
+		if(isInside(Vector3f.add(l, box.offset, null))) return true;
+		return false;
+	}
 }

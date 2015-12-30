@@ -49,6 +49,12 @@ public class Entity implements ICollidable
 	{
 		return hitBox.isInside(point);
 	}
+	
+	@Override
+	public boolean isInsideHitBox(AABB box)
+	{
+		return hitBox.isInside(box);
+	}
 
 	@Override
 	public void hover()

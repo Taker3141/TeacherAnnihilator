@@ -3,6 +3,7 @@ package entity;
 import java.util.ArrayList;
 import java.util.List;
 import org.lwjgl.util.vector.Vector3f;
+import raycasting.ICollidable;
 import renderer.DisplayManager;
 import renderer.models.TexturedModel;
 import terrain.Terrain;
@@ -25,22 +26,22 @@ public class Movable extends Entity
 	{
 		float delta = DisplayManager.getFrameTimeSeconds();
 		
-		for(Vector3f force : forces) v = Vector3f.add(v, force, v);
+		for (Vector3f force : forces) v = Vector3f.add(v, force, v);
 		forces.clear();
 		v.y += getGravity() * delta;
 		
-		if(!canMove(v.x * delta, v.z * delta, terrain))
+		if (!canMove(v.x * delta, v.z * delta, terrain))
 		{
-			v.x = 0;
+			v.x *= -1;
 			v.y = 0;
-			v.z = 0;
+			v.z *= -1;
 		}
 		calculateFriction(delta);
 		position.x += v.x * delta;
 		position.y += v.y * delta;
 		position.z += v.z * delta;
 		checkTerrain(terrain);
-		if(position.x != position.x)
+		if (position.x != position.x)
 		{
 			System.out.println("Oh, shit! Position is Not A Number!");
 			position = new Vector3f();
@@ -49,16 +50,17 @@ public class Movable extends Entity
 	
 	private void calculateFriction(float delta)
 	{
-		
 		double factor = Math.pow(0.9F, delta * 50);
-		if(Math.abs(v.x) < 0.05F) v.x = 0; else v.x *= factor;
-		if(Math.abs(v.z) < 0.05F) v.z = 0; else v.z *= factor;
+		if (Math.abs(v.x) < 0.05F) v.x = 0;
+		else v.x *= factor;
+		if (Math.abs(v.z) < 0.05F) v.z = 0;
+		else v.z *= factor;
 	}
 	
 	protected void checkTerrain(Terrain terrain)
 	{
 		terrainHeight = terrain.getHeight(position.x, position.z);
-		if(position.y <= terrainHeight)
+		if (position.y <= terrainHeight)
 		{
 			v.y = 0;
 			position.y = terrainHeight;
@@ -68,7 +70,17 @@ public class Movable extends Entity
 	
 	protected boolean canMove(float x, float z, Terrain terrain)
 	{
-		return position.y > terrainHeight || (terrain.getHeight(position.x + x, position.z + z) -  terrainHeight) < 0.2F;
+		return (position.y > terrainHeight || (terrain.getHeight(position.x + x, position.z + z) - terrainHeight) < 0.2F) && noCollision();
+	}
+	
+	private boolean noCollision()
+	{
+		for (ICollidable c : entityList)
+		{
+			if (c instanceof BodyPart || c == this) continue;
+			if (c.isInsideHitBox(hitBox)) return false;
+		}
+		return true;
 	}
 	
 	protected float getGravity()
