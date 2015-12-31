@@ -19,7 +19,7 @@ public class Entity implements ICollidable
 	protected List<Entity> entityList;
 	public boolean invisible = false;
 	
-	public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
+	public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list, AABB hitBox)
 	{
 		this.model = model;
 		this.position = position;
@@ -27,9 +27,14 @@ public class Entity implements ICollidable
 		this.rotY = rotY;
 		this.rotZ = rotZ;
 		this.scale = scale;
-		hitBox = new AABB(position, new Vector3f(), new Vector3f());
+		this.hitBox = hitBox;
 		entityList = list;
 		register();
+	}
+	
+	public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
+	{
+		this(model, position, rotX, rotY, rotZ, scale, list, new AABB(position, new Vector3f(), new Vector3f()));
 	}
 	
 	public void update(Terrain t)
@@ -54,6 +59,11 @@ public class Entity implements ICollidable
 	public boolean isInsideHitBox(AABB box)
 	{
 		return hitBox.isInside(box);
+	}
+	
+	public void setHitBox(AABB hitBox)
+	{
+		this.hitBox = hitBox;
 	}
 
 	@Override
