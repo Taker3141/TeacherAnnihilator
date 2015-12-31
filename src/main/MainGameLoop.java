@@ -33,7 +33,7 @@ public class MainGameLoop
 		texture.setShineDamper(10);
 		texture.setReflectivity(1);
 		List<Entity> entities = new ArrayList<Entity>();
-		Player player = new Player("texture/player", new Vector3f(100, 0, 100), 0, 0, 0, 0.1F, entities);
+		Player player = new Player("texture/player", new Vector3f(100, 0, 40), 0, 0, 0, 0.1F, entities);
 		Light light = new Light(new Vector3f(0, 100, 0), new Vector3f(1, 1, 1));
 		Camera c = new Camera(player);
 		Terrain t = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg")), "height_map_lmg");
@@ -61,6 +61,9 @@ public class MainGameLoop
 		new Entity(bush, new Vector3f(100, t.getHeight(100, 90), 90), 0, 0, 0, 0.2F, entities);
 		generateBushRow(63, 172, 132, 172, entities, 1, bush, t);
 		generateBushRow(35, 77, 90, 83, entities, 1, bush, t);
+		ModelData houseData = OBJLoader.loadOBJModel("house");
+		TexturedModel house = new TexturedModel(loader.loadToVAO(houseData.getVertices(), houseData.getTextureCoords(), houseData.getNormals(), houseData.getIndices()), new ModelTexture(loader.loadTexture("texture/test")));
+		new Entity(house, new Vector3f(122, t.getHeight(122, 45), 45), 0, 120, 0, 6, entities);
 		Raycaster ray = new Raycaster(player);
 		ray.setList(entities);
 		
