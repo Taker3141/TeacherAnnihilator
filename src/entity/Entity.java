@@ -5,6 +5,7 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import raycasting.AABB;
 import raycasting.ICollidable;
+import raycasting.IHitBox;
 import renderer.models.TexturedModel;
 import terrain.Terrain;
 import toolbox.Maths;
@@ -15,7 +16,7 @@ public class Entity implements ICollidable
 	public Vector3f position;
 	public float rotX, rotY, rotZ;
 	public float scale;
-	protected AABB hitBox;
+	protected IHitBox hitBox;
 	protected List<Entity> entityList;
 	public boolean invisible = false;
 	
@@ -56,7 +57,7 @@ public class Entity implements ICollidable
 	}
 	
 	@Override
-	public boolean isInsideHitBox(AABB box)
+	public boolean isInsideHitBox(IHitBox box)
 	{
 		return hitBox.isInside(box);
 	}

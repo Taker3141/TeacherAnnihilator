@@ -80,6 +80,7 @@ public class Movable extends Entity
 			if (c instanceof BodyPart || c == this) continue;
 			if (c.isInsideHitBox(hitBox)) 
 			{
+				System.out.println("FICK");
 				if(c instanceof Movable)
 				{
 					Movable m = (Movable)c;
