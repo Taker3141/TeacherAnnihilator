@@ -40,7 +40,7 @@ public class Entity implements ICollidable
 	
 	public void update(Terrain t)
 	{
-		
+		noCollision();
 	}
 	
 	public void increaseRotation(float dx, float dy, float dz)
@@ -48,6 +48,24 @@ public class Entity implements ICollidable
 		rotX += dx;
 		rotY += dy;
 		rotZ += dz;
+	}
+	
+	protected boolean noCollision()
+	{
+		for (ICollidable c : entityList)
+		{
+			if (c instanceof BodyPart || c == this) continue;
+			if (c.isInsideHitBox(hitBox)) 
+			{
+				if(c instanceof Movable)
+				{
+					Movable m = (Movable)c;
+					m.forces.add((Vector3f)Vector3f.sub(m.position, position, null).normalise().scale(2));
+				}
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
@@ -62,7 +80,13 @@ public class Entity implements ICollidable
 		return hitBox.isInside(box);
 	}
 	
-	public void setHitBox(AABB hitBox)
+	@Override
+	public IHitBox getHitBox()
+	{
+		return hitBox;
+	}
+	
+	public void setHitBox(IHitBox hitBox)
 	{
 		this.hitBox = hitBox;
 	}

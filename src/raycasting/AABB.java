@@ -31,16 +31,16 @@ public class AABB implements IHitBox
 	@Override
 	public boolean isInside(IHitBox box)
 	{
-		Vector3f l = Vector3f.add(location, offset, null);
-		Vector3f s = size;
-		if(isInside(l)) return false;
-		if(box.isInside(new Vector3f(l.x, l.y, l.z + s.z))) return true;
-		if(box.isInside(new Vector3f(l.x, l.y + s.y, l.z))) return true;
-		if(box.isInside(new Vector3f(l.x, l.y + s.y, l.z + s.z))) return true;
-		if(box.isInside(new Vector3f(l.x + s.x, l.y, l.z + s.z))) return true;
-		if(box.isInside(new Vector3f(l.x + s.x, l.y + s.y, l.z))) return true;
-		if(box.isInside(new Vector3f(l.x + s.x, l.y + s.y, l.z + s.z))) return true;
-		if(box.isInside(Vector3f.add(l, offset, null))) return true;
+		Vector3f c1 = Vector3f.add(location, offset, null);
+		Vector3f c2 = Vector3f.add(c1, size, null);
+		if(box.isInside(c1)) return true;
+		if(box.isInside(new Vector3f(c1.x, c1.y, c2.z))) return true;
+		if(box.isInside(new Vector3f(c1.x, c2.y, c1.z))) return true;
+		if(box.isInside(new Vector3f(c1.x, c2.y, c2.z))) return true;
+		if(box.isInside(new Vector3f(c2.x, c1.y, c1.z))) return true;
+		if(box.isInside(new Vector3f(c2.x, c1.y, c2.z))) return true;
+		if(box.isInside(new Vector3f(c2.x, c2.y, c1.z))) return true;
+		if(box.isInside(c2)) return true;
 		return false;
 	}
 }

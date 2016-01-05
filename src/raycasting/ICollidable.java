@@ -6,6 +6,7 @@ public interface ICollidable
 {
 	public boolean isInsideHitBox(Vector3f point);
 	public boolean isInsideHitBox(IHitBox box);
+	public IHitBox getHitBox();
 	public void hover();
 	public void click();
 }
