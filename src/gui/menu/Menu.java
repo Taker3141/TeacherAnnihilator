@@ -35,7 +35,6 @@ public abstract class Menu
 	public Menu()
 	{
 		TextMaster.clear();
-		TextMaster.init(loader);
 		Button.loadAllTextures(loader);
 		Checkbox.loadAllTextures(loader);
 		W = Display.getWidth();

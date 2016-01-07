@@ -5,6 +5,7 @@ import org.lwjgl.openal.AL;
 import org.newdawn.slick.openal.Audio;
 import org.newdawn.slick.openal.AudioLoader;
 import org.newdawn.slick.util.ResourceLoader;
+import font.fontRendering.TextMaster;
 import gui.menu.Menu;
 import localize.Localizer;
 import renderer.DisplayManager;
@@ -26,6 +27,7 @@ public class MainManagerClass
 		localizer = new Localizer(settings.language);
 		DisplayManager.createDisplay(settings.resolutionX, settings.resolutionY, settings.fullscreen);
 		playMusic();
+		TextMaster.init(loader);
 		
 		new MainMenu().doMenu();
 		while(nextMenu != null)
@@ -33,6 +35,7 @@ public class MainManagerClass
 			doNextMenu();
 		}
 		AL.destroy();
+		TextMaster.cleanUp();
 	}
 
 	private static void playMusic()

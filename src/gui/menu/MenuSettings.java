@@ -3,6 +3,7 @@ package gui.menu;
 import java.util.ArrayList;
 import java.util.List;
 import font.fontMeshCreator.GUIText;
+import font.fontRendering.TextMaster;
 import gui.element.Button;
 import gui.element.Checkbox;
 import gui.element.CycleButton;
@@ -76,6 +77,7 @@ public class MenuSettings extends Menu
 		input.addMouseListener(mouse);
 		mouse.setInput(input);
 		
+		TextMaster.init(loader);
 		while(!Display.isCloseRequested() && !isCloseRequested)
 		{
 			render();

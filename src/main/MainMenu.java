@@ -3,6 +3,7 @@ package main;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Input;
+import font.fontRendering.TextMaster;
 import gui.element.Button;
 import gui.element.GuiElement;
 import gui.handler.HandlerChangeMenu;
@@ -38,6 +39,7 @@ public class MainMenu extends Menu
 		
 		boolean loopFlag = true;
 		
+		TextMaster.init(loader);
 		while (loopFlag)
 		{
 			loopFlag = false;
@@ -51,7 +53,7 @@ public class MainMenu extends Menu
 			{
 				shouldStartGame = false;
 				MainGameLoop.doGame();
-				loopFlag = true;
+				MainManagerClass.nextMenu = MainMenu.class;
 			}
 		}
 		cleanUp();
