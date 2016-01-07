@@ -48,7 +48,7 @@ public class MainManagerClass
 		System.out.println("Working path is: " + workingPath);
 		try
 		{
-			music = AudioLoader.getAudio("WAV", ResourceLoader.getResourceAsStream("res/music/music.wav"));
+			music = AudioLoader.getAudio("OGG", ResourceLoader.getResourceAsStream("res/music/music.ogg"));
 		}
 		catch (IOException e)
 		{
