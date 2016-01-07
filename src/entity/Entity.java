@@ -5,6 +5,7 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import raycasting.AABB;
 import raycasting.ICollidable;
+import raycasting.IHitBox;
 import renderer.models.TexturedModel;
 import terrain.Terrain;
 import toolbox.Maths;
@@ -15,11 +16,11 @@ public class Entity implements ICollidable
 	public Vector3f position;
 	public float rotX, rotY, rotZ;
 	public float scale;
-	protected AABB hitBox;
+	protected IHitBox hitBox;
 	protected List<Entity> entityList;
 	public boolean invisible = false;
 	
-	public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
+	public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list, AABB hitBox)
 	{
 		this.model = model;
 		this.position = position;
@@ -27,14 +28,19 @@ public class Entity implements ICollidable
 		this.rotY = rotY;
 		this.rotZ = rotZ;
 		this.scale = scale;
-		hitBox = new AABB(position, new Vector3f(), new Vector3f());
+		this.hitBox = hitBox;
 		entityList = list;
 		register();
 	}
 	
+	public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
+	{
+		this(model, position, rotX, rotY, rotZ, scale, list, new AABB(position, new Vector3f(), new Vector3f()));
+	}
+	
 	public void update(Terrain t)
 	{
-		
+		noCollision();
 	}
 	
 	public void increaseRotation(float dx, float dy, float dz)
@@ -42,6 +48,24 @@ public class Entity implements ICollidable
 		rotX += dx;
 		rotY += dy;
 		rotZ += dz;
+	}
+	
+	protected boolean noCollision()
+	{
+		for (ICollidable c : entityList)
+		{
+			if (c instanceof BodyPart || c == this) continue;
+			if (c.isInsideHitBox(hitBox)) 
+			{
+				if(c instanceof Movable)
+				{
+					Movable m = (Movable)c;
+					m.forces.add((Vector3f)Vector3f.sub(m.position, position, null).normalise().scale(2));
+				}
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
@@ -51,9 +75,20 @@ public class Entity implements ICollidable
 	}
 	
 	@Override
-	public boolean isInsideHitBox(AABB box)
+	public boolean isInsideHitBox(IHitBox box)
 	{
 		return hitBox.isInside(box);
+	}
+	
+	@Override
+	public IHitBox getHitBox()
+	{
+		return hitBox;
+	}
+	
+	public void setHitBox(IHitBox hitBox)
+	{
+		this.hitBox = hitBox;
 	}
 
 	@Override

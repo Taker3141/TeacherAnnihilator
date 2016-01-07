@@ -6,6 +6,7 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 import entity.animation.Animation;
+import raycasting.AABB;
 import renderer.models.TexturedModel;
 import terrain.Terrain;
 import toolbox.Maths;
@@ -33,9 +34,7 @@ public class BodyPart extends Movable
 	BodyPart(TexturedModel model, Person parent, Vector3f offset, Vector3f hitboxSize, Vector3f hitboxOffset)
 	{
 		this(model, parent, offset);
-		hitBox.location = p.position;
-		hitBox.size = hitboxSize;
-		hitBox.offset = hitboxOffset;
+		hitBox = new AABB(p.position, hitboxSize, hitboxOffset);
 	}
 	
 	public BodyPart setAnimations(Map<State, Animation> a)
@@ -50,7 +49,7 @@ public class BodyPart extends Movable
 	{
 		if(!isAttatched) super.update(terrain);
 		else position = calculatePosition();
-		hitBox.location = position;
+		((AABB)hitBox).location = position;
 		if (animations.containsKey(state) && isAttatched)
 		{
 			Vector3f rotation = animations.get(state).getTurn();
@@ -91,7 +90,7 @@ public class BodyPart extends Movable
 	public void ripOff()
 	{
 		isAttatched = false;
-		position = new Vector3f(position.x, position.y - hitBox.offset.y, position.z);
+		position = new Vector3f(position.x, position.y - ((AABB)hitBox).offset.y, position.z);
 	}
 	
 	@Override

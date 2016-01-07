@@ -7,7 +7,7 @@ import org.lwjgl.util.vector.Vector3f;
  * @author Taker
  */
 
-public class AABB
+public class AABB implements IHitBox
 {
 	public Vector3f location, size, offset;
 
@@ -18,6 +18,7 @@ public class AABB
 		this.offset = offset;
 	}
 	
+	@Override
 	public boolean isInside(Vector3f point)
 	{
 		Vector3f corner = Vector3f.add(location, offset, null);
@@ -27,18 +28,19 @@ public class AABB
 		return true;
 	}
 	
-	public boolean isInside(AABB box)
+	@Override
+	public boolean isInside(IHitBox box)
 	{
-		Vector3f l = box.location;
-		Vector3f o = box.offset;
-		if(isInside(l)) return false;
-		if(isInside(new Vector3f(l.x, l.y, l.z + o.z))) return true;
-		if(isInside(new Vector3f(l.x, l.y + o.y, l.z))) return true;
-		if(isInside(new Vector3f(l.x, l.y + o.y, l.z + o.z))) return true;
-		if(isInside(new Vector3f(l.x + o.x, l.y, l.z + o.z))) return true;
-		if(isInside(new Vector3f(l.x + o.x, l.y + o.y, l.z))) return true;
-		if(isInside(new Vector3f(l.x + o.x, l.y + o.y, l.z + o.z))) return true;
-		if(isInside(Vector3f.add(l, box.offset, null))) return true;
+		Vector3f c1 = Vector3f.add(location, offset, null);
+		Vector3f c2 = Vector3f.add(c1, size, null);
+		if(box.isInside(c1)) return true;
+		if(box.isInside(new Vector3f(c1.x, c1.y, c2.z))) return true;
+		if(box.isInside(new Vector3f(c1.x, c2.y, c1.z))) return true;
+		if(box.isInside(new Vector3f(c1.x, c2.y, c2.z))) return true;
+		if(box.isInside(new Vector3f(c2.x, c1.y, c1.z))) return true;
+		if(box.isInside(new Vector3f(c2.x, c1.y, c2.z))) return true;
+		if(box.isInside(new Vector3f(c2.x, c2.y, c1.z))) return true;
+		if(box.isInside(c2)) return true;
 		return false;
 	}
 }

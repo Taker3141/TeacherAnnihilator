@@ -10,6 +10,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Input;
 import entity.*;
+import raycasting.AABB;
 import raycasting.Raycaster;
 import renderer.*;
 import renderer.models.TexturedModel;
@@ -33,7 +34,7 @@ public class MainGameLoop
 		texture.setShineDamper(10);
 		texture.setReflectivity(1);
 		List<Entity> entities = new ArrayList<Entity>();
-		Player player = new Player("texture/player", new Vector3f(100, 0, 40), 0, 0, 0, 0.1F, entities);
+		Player player = new Player("texture/player", new Vector3f(100, 0, 100), 0, 0, 0, 0.1F, entities);
 		Light light = new Light(new Vector3f(0, 100, 0), new Vector3f(1, 1, 1));
 		Camera c = new Camera(player);
 		Terrain t = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg")), "height_map_lmg");
@@ -52,13 +53,17 @@ public class MainGameLoop
 				{
 					int x = i * 10 + offsetX;
 					int z = j * 10 + offsetZ;
-					new Entity(tree, new Vector3f(x, t.getHeight(x, z), z), 0, 0, 0, 0.5F, entities);
+					Entity entity = new Entity(tree, new Vector3f(x, t.getHeight(x, z), z), 0, 0, 0, 0.5F, entities);
+					entity.setHitBox(new AABB(new Vector3f(entity.position), new Vector3f(0.8F, 10, 0.8F), new Vector3f(-0.4F, 0, -0.4F)));
 				}
 			}
 		}
 		ModelData bushData = OBJLoader.loadOBJModel("bush");
 		TexturedModel bush = new TexturedModel(loader.loadToVAO(bushData.getVertices(), bushData.getTextureCoords(), bushData.getNormals(), bushData.getIndices()), treeTexture);
-		new Entity(bush, new Vector3f(100, t.getHeight(100, 90), 90), 0, 0, 0, 0.2F, entities);
+		{
+			Entity entity = new Entity(bush, new Vector3f(100, t.getHeight(100, 110), 110), 0, 0, 0, 0.2F, entities);
+			entity.setHitBox(new AABB(new Vector3f(entity.position), new Vector3f(0.5F, 5, 0.5F), new Vector3f(-0.5F, 0, -0.5F)));
+		}
 		generateBushRow(63, 172, 132, 172, entities, 1, bush, t);
 		generateBushRow(35, 77, 90, 83, entities, 1, bush, t);
 		ModelData houseData = OBJLoader.loadOBJModel("house");
@@ -102,7 +107,8 @@ public class MainGameLoop
 		{
 			float x = x1 + i * step + r.nextFloat();
 			float z = z1 + (dz / count) * i + r.nextFloat();
-			new Entity(bush, new Vector3f(x, t.getHeight(x, z), z), 0, 0, 0, 0.5F, list);
+			Entity b = new Entity(bush, new Vector3f(x, t.getHeight(x, z), z), 0, 0, 0, 0.5F, list);
+			b.setHitBox(new AABB(new Vector3f(b.position), new Vector3f(0.8F, 5, 0.8F), new Vector3f(-0.4F, 0, -0.4F)));
 		}
 	}
 

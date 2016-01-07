@@ -3,7 +3,7 @@ package entity;
 import java.util.ArrayList;
 import java.util.List;
 import org.lwjgl.util.vector.Vector3f;
-import raycasting.ICollidable;
+import raycasting.AABB;
 import renderer.DisplayManager;
 import renderer.models.TexturedModel;
 import terrain.Terrain;
@@ -41,6 +41,7 @@ public class Movable extends Entity
 		position.y += v.y * delta;
 		position.z += v.z * delta;
 		checkTerrain(terrain);
+		((AABB)hitBox).location = position;
 		if (position.x != position.x)
 		{
 			System.out.println("Oh, shit! Position is Not A Number!");
@@ -71,24 +72,6 @@ public class Movable extends Entity
 	protected boolean canMove(float x, float z, Terrain terrain)
 	{
 		return (position.y > terrainHeight || (terrain.getHeight(position.x + x, position.z + z) - terrainHeight) < 0.2F) && noCollision();
-	}
-	
-	private boolean noCollision()
-	{
-		for (ICollidable c : entityList)
-		{
-			if (c instanceof BodyPart || c == this) continue;
-			if (c.isInsideHitBox(hitBox)) 
-			{
-				if(c instanceof Movable)
-				{
-					Movable m = (Movable)c;
-					m.forces.add((Vector3f)Vector3f.sub(position, m.position, null).normalise().scale(v.length()));
-				}
-				return false;
-			}
-		}
-		return true;
 	}
 	
 	protected float getGravity()
