@@ -9,6 +9,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Input;
 import renderer.DisplayManager;
 import renderer.OverlayRenderer;
+import font.fontMeshCreator.GUIText;
 import font.fontRendering.TextMaster;
 import gui.element.GuiElement;
 import gui.handler.MouseHandler;
@@ -21,12 +22,14 @@ public class MenuInventory extends Menu
 		gRenderer = new OverlayRenderer(loader);
 		
 		guiElementsBackground.add(new GuiElement(loader.loadTexture("texture/gui/inventory/background"), new Vector2f(W / 2 - 256, H / 2 - 256), new Vector2f(512, 512), (Menu)this));
+		new GUIText("inventory.schoolBag", 2, font, new Vector2f(W / 2 - 200, H / 2 + 200), 1, false);
 		
 		Input input = new Input(Display.getHeight());
 		MouseHandler mouse = new MouseHandler(guiElements);
 		input.addMouseListener(mouse);
 		mouse.setInput(input);
 		
+		TextMaster.init(loader);
 		while(!Keyboard.isKeyDown(Keyboard.KEY_RETURN))
 		{
 			MainGameLoop.render();
