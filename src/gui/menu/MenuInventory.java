@@ -12,17 +12,22 @@ import renderer.OverlayRenderer;
 import font.fontMeshCreator.GUIText;
 import font.fontRendering.TextMaster;
 import gui.element.GuiElement;
+import gui.element.Slot;
 import gui.handler.MouseHandler;
 
 public class MenuInventory extends Menu
 {
+	private final int X = W / 2 - 256;
+	private final int Y = H / 2 - 256;
+	
 	@Override
 	public void doMenu()
 	{
 		gRenderer = new OverlayRenderer(loader);
 		
-		guiElementsBackground.add(new GuiElement(loader.loadTexture("texture/gui/inventory/background"), new Vector2f(W / 2 - 256, H / 2 - 256), new Vector2f(512, 512), (Menu)this));
-		new GUIText("inventory.schoolBag", 2, font, new Vector2f(W / 2 - 200, H / 2 + 200), 1, false);
+		guiElementsBackground.add(new GuiElement(loader.loadTexture("texture/gui/inventory/background"), new Vector2f(X, Y), new Vector2f(512, 512), (Menu)this));
+		guiElements.add(new Slot(new Vector2f(X + 100, Y + 100), new Vector2f(64, 64), this));
+		new GUIText("inventory.schoolBag", 2, font, new Vector2f(X + 50, Y + 450), 1, false);
 		
 		Input input = new Input(Display.getHeight());
 		MouseHandler mouse = new MouseHandler(guiElements);
