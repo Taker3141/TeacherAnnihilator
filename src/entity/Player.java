@@ -1,5 +1,6 @@
 package entity;
 
+import gui.item.Inventory;
 import java.util.List;
 import main.MainManagerClass;
 import org.lwjgl.input.Keyboard;
@@ -30,6 +31,7 @@ public class Player extends Person
 	private ICollidable toKick;
 	private Vector3f kickPoint;
 	private boolean isArmUp = false;
+	private Inventory inventory;
 	
 	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
 	{
@@ -169,5 +171,10 @@ public class Player extends Person
 		if (Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT)) speed = RUN_SPEED;
 		if (Keyboard.isKeyDown(Keyboard.KEY_F3)) System.out.println(position);
 		isArmUp = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
+	}
+	
+	public Inventory getInventory()
+	{
+		return inventory;
 	}
 }

@@ -93,8 +93,8 @@ public class MainGameLoop
 			if(isKeyDown(KEY_ESCAPE)) break;
 			if(isKeyDown(KEY_F1))
 			{
-				Menu inventory = new MenuInventory();
-				inventory.doMenu();
+				MenuInventory inventory = new MenuInventory();
+				inventory.doMenu(player.getInventory());
 			}
 			if(isKeyDown(KEY_F5)) t = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg")), "height_map_lmg");
 		}

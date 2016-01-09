@@ -14,14 +14,14 @@ import font.fontRendering.TextMaster;
 import gui.element.GuiElement;
 import gui.element.Slot;
 import gui.handler.MouseHandler;
+import gui.item.Inventory;
 
 public class MenuInventory extends Menu
 {
 	private final int X = W / 2 - 256;
 	private final int Y = H / 2 - 256;
 	
-	@Override
-	public void doMenu()
+	public void doMenu(Inventory inventory)
 	{
 		gRenderer = new OverlayRenderer(loader);
 		
@@ -43,6 +43,12 @@ public class MenuInventory extends Menu
 			input.poll(W, H);
 		}
 		cleanUp();
+	}
+	
+	@Override
+	public final void doMenu()
+	{
+		
 	}
 	
 	@Override
