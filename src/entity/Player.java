@@ -31,7 +31,7 @@ public class Player extends Person
 	private ICollidable toKick;
 	private Vector3f kickPoint;
 	private boolean isArmUp = false;
-	private Inventory inventory;
+	private Inventory inventory = new Inventory(15);
 	
 	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
 	{

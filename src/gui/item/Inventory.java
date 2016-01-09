@@ -4,7 +4,12 @@ public class Inventory
 {
 	public String name;
 	protected Item[] items;
-	protected int size;
+	public final int size;
+	
+	public Inventory(int size)
+	{
+		this.size = size;
+	}
 	
 	public Item getItemAt(int index)
 	{
@@ -14,10 +19,5 @@ public class Inventory
 	public void setItem(int index, Item item)
 	{
 		items[index] = item;
-	}
-	
-	public int getSize()
-	{
-		return size;
 	}
 }

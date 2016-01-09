@@ -22,12 +22,19 @@ public class MenuInventory extends Menu
 	private final int Y = H / 2 - 256;
 	
 	public void doMenu(Inventory inventory)
-	{
+	{	
 		gRenderer = new OverlayRenderer(loader);
 		
 		guiElementsBackground.add(new GuiElement(loader.loadTexture("texture/gui/inventory/background"), new Vector2f(X, Y), new Vector2f(512, 512), (Menu)this));
-		guiElements.add(new Slot(new Vector2f(X + 100, Y + 100), new Vector2f(64, 64), this));
 		new GUIText("inventory.schoolBag", 2, font, new Vector2f(X + 50, Y + 450), 1, false);
+		
+		Slot[] slots = new Slot[inventory.size];
+		for(int i = 0; i < inventory.size; i++)
+		{
+			final int d = 85;
+			slots[i] = new Slot(new Vector2f(40 + X + d * (i % 5), 330 + Y - d * (i / 5)), this);
+			guiElements.add(slots[i]);
+		}
 		
 		Input input = new Input(Display.getHeight());
 		MouseHandler mouse = new MouseHandler(guiElements);
