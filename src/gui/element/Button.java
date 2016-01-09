@@ -42,7 +42,7 @@ public class Button extends GuiElement implements IClickable
 	
 	public Button setIcon(int texture, List<GuiElement> list)
 	{
-		icon = new Icon(texture, new Vector2f(position.x + size.x - 32, position.y), parent);
+		icon = new Icon(texture, new Vector2f(position.x + size.x - 32, position.y), Icon.Size.x32, parent);
 		list.add(icon);
 		return this;
 	}

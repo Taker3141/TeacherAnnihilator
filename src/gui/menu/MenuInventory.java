@@ -15,6 +15,7 @@ import gui.element.GuiElement;
 import gui.element.Slot;
 import gui.handler.MouseHandler;
 import gui.item.Inventory;
+import gui.item.Item;
 
 public class MenuInventory extends Menu
 {
@@ -23,6 +24,7 @@ public class MenuInventory extends Menu
 	
 	public void doMenu(Inventory inventory)
 	{	
+		Slot.setIconList(guiElementsForeground);
 		gRenderer = new OverlayRenderer(loader);
 		
 		guiElementsBackground.add(new GuiElement(loader.loadTexture("texture/gui/inventory/background"), new Vector2f(X, Y), new Vector2f(512, 512), (Menu)this));
@@ -34,6 +36,9 @@ public class MenuInventory extends Menu
 			final int d = 85;
 			slots[i] = new Slot(new Vector2f(40 + X + d * (i % 5), 330 + Y - d * (i / 5)), this);
 			guiElements.add(slots[i]);
+		}
+		{
+			slots[0].setItem(new Item(loader.loadTexture("texture/gui/icon_ruler_selected"), slots[0]));
 		}
 		
 		Input input = new Input(Display.getHeight());

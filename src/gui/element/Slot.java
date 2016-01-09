@@ -1,7 +1,7 @@
 package gui.element;
 
+import java.util.List;
 import gui.item.Item;
-import gui.menu.Menu;
 import gui.menu.MenuInventory;
 import org.lwjgl.util.vector.Vector2f;
 import renderer.Loader;
@@ -12,13 +12,20 @@ public class Slot extends GuiElement implements IClickable
 	private static int textureSlot;
 	private static int textureSlotHover;
 	private static int textureSlotClick;
+	private static List<GuiElement> iconList;
 	protected Item item;
+	protected Icon icon;
 	
 	public static void loadAllTextures(Loader l)
 	{
 		textureSlot = l.loadTexture("texture/gui/inventory/slot");
 		textureSlotHover = l.loadTexture("texture/gui/inventory/slot_hover");
 		textureSlotClick = l.loadTexture("texture/gui/inventory/slot_click");
+	}
+	
+	public static void setIconList(List<GuiElement> list)
+	{
+		iconList = list;
 	}
 	
 	public Slot(Vector2f position, Vector2f size, MenuInventory parent)
@@ -29,6 +36,14 @@ public class Slot extends GuiElement implements IClickable
 	public Slot(Vector2f position, MenuInventory parent)
 	{
 		this(position, standardSize, parent);
+	}
+	
+	public Slot setItem(Item item)
+	{
+		this.item = item;
+		icon = item.getIcon();
+		iconList.add(icon);
+		return this;
 	}
 
 	@Override
