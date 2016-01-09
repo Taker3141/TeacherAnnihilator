@@ -2,27 +2,68 @@ package gui.element;
 
 import gui.item.Item;
 import gui.menu.Menu;
+import gui.menu.MenuInventory;
 import org.lwjgl.util.vector.Vector2f;
 import renderer.Loader;
 
-public class Slot extends GuiElement
+public class Slot extends GuiElement implements IClickable
 {
 	protected static final Vector2f standardSize = new Vector2f(64, 64);
 	private static int textureSlot;
+	private static int textureSlotHover;
+	private static int textureSlotClick;
 	protected Item item;
 	
 	public static void loadAllTextures(Loader l)
 	{
 		textureSlot = l.loadTexture("texture/gui/inventory/slot");
+		textureSlotHover = l.loadTexture("texture/gui/inventory/slot_hover");
+		textureSlotClick = l.loadTexture("texture/gui/inventory/slot_click");
 	}
 	
-	public Slot(Vector2f position, Vector2f size, Menu parent)
+	public Slot(Vector2f position, Vector2f size, MenuInventory parent)
 	{
 		super(textureSlot, position, size, parent);
 	}
 	
-	public Slot(Vector2f position, Menu parent)
+	public Slot(Vector2f position, MenuInventory parent)
 	{
 		this(position, standardSize, parent);
+	}
+
+	@Override
+	public void leftClick(int mouseX, int mouseY)
+	{
+		texture = textureSlotClick;
+	}
+
+	@Override
+	public void rightClick(int mouseX, int mouseY) {}
+
+	@Override
+	public void leftReleased(int mouseX, int mouseY)
+	{
+		texture = textureSlotHover;		
+	}
+
+	@Override
+	public void rightReleased(int mouseX, int mouseY) {}
+
+	@Override
+	public void entered(int mouseX, int mouseY)
+	{
+		texture = textureSlotHover;		
+	}
+
+	@Override
+	public void left(int mouseX, int mouseY)
+	{
+		texture = textureSlot;
+	}
+
+	@Override
+	public boolean isOver(int x, int y)
+	{
+		return x >= position.x && x <= position.x + size.x && y >= position.y && y <= position.y + size.y;
 	}
 }

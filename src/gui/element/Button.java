@@ -83,7 +83,8 @@ public class Button extends GuiElement implements IClickable
 		textureButtonHover = loader.loadTexture("/texture/gui/button_hover");
 	}
 
-	@Override public void entered(int mouseX, int mouseY) 
+	@Override 
+	public void entered(int mouseX, int mouseY) 
 	{
 		texture = textureButtonHover;
 	}
