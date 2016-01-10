@@ -1,6 +1,7 @@
 package gui.menu;
 
 import font.fontMeshCreator.GUIText;
+import font.fontRendering.TextMaster;
 import gui.element.Button;
 import gui.element.GuiElement;
 import gui.handler.HandlerChangeMenu;
@@ -27,6 +28,7 @@ public class MenuCredits extends Menu
 		input.addMouseListener(mouse);
 		mouse.setInput(input);
 		
+		TextMaster.init(loader);
 		while(!Display.isCloseRequested() && !isCloseRequested)
 		{
 			render();
