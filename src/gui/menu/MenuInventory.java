@@ -38,10 +38,10 @@ public class MenuInventory extends Menu
 		{
 			final int d = 85;
 			slots[i] = new Slot(new Vector2f(40 + X + d * (i % 5), 330 + Y - d * (i / 5)), this);
-			slots[i].setClickHandler(new HandlerSwapItems(slots[i]));
+			slots[i].setItem(inventory.getItemAt(i)).setClickHandler(new HandlerSwapItems(slots[i]));
+			if(slots[i].item != null) slots[i].item.setPosition(slots[i].position);
 			guiElements.add(slots[i]);
 		}
-		slots[0].setItem(new Item(loader.loadTexture("texture/gui/icon_ruler_selected"), slots[0]));
 		
 		Input input = new Input(Display.getHeight());
 		MouseHandler mouse = new MouseHandler(guiElements);
@@ -56,6 +56,10 @@ public class MenuInventory extends Menu
 			render();
 			DisplayManager.updateDisplay();
 			input.poll(W, H);
+		}
+		for(int i = 0; i < inventory.size; i++)
+		{
+			inventory.setItem(i, slots[i].item);
 		}
 		cleanUp();
 	}

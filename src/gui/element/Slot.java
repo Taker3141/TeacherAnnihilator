@@ -43,8 +43,11 @@ public class Slot extends GuiElement implements IClickable
 	public Slot setItem(Item item)
 	{
 		this.item = item;
-		icon = item.getIcon();
-		iconList.add(icon);
+		if (this.item != null)
+		{
+			icon = item.getIcon();
+			iconList.add(icon);
+		}
 		return this;
 	}
 	
