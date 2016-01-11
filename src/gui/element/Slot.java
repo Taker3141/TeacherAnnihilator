@@ -1,6 +1,7 @@
 package gui.element;
 
 import java.util.List;
+import gui.handler.IClickHandler;
 import gui.item.Item;
 import gui.menu.MenuInventory;
 import org.lwjgl.util.vector.Vector2f;
@@ -13,8 +14,9 @@ public class Slot extends GuiElement implements IClickable
 	private static int textureSlotHover;
 	private static int textureSlotClick;
 	private static List<GuiElement> iconList;
-	protected Item item;
+	public Item item;
 	protected Icon icon;
+	protected IClickHandler handler;
 	
 	public static void loadAllTextures(Loader l)
 	{
@@ -45,6 +47,12 @@ public class Slot extends GuiElement implements IClickable
 		iconList.add(icon);
 		return this;
 	}
+	
+	public Slot setClickHandler(IClickHandler h)
+	{
+		handler = h;
+		return this;
+	}
 
 	@Override
 	public void leftClick(int mouseX, int mouseY)
@@ -58,7 +66,8 @@ public class Slot extends GuiElement implements IClickable
 	@Override
 	public void leftReleased(int mouseX, int mouseY)
 	{
-		texture = textureSlotHover;		
+		texture = textureSlotHover;
+		if(handler != null) handler.click(parent);
 	}
 
 	@Override
