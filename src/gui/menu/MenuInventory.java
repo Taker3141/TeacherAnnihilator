@@ -49,7 +49,7 @@ public class MenuInventory extends Menu
 		TextMaster.init(loader);
 		while(!Keyboard.isKeyDown(Keyboard.KEY_RETURN))
 		{
-			MainGameLoop.render();
+			MainGameLoop.w.tick();
 			render();
 			DisplayManager.updateDisplay();
 			input.poll(W, H);
