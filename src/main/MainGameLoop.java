@@ -16,10 +16,11 @@ import world.World;
 
 public class MainGameLoop
 {
-	public static World w = new World();
+	public static World w;
 	
 	public static void doGame()
 	{
+		w = new World();
 		Loader loader = MainManagerClass.loader;
 		ModelData kloData = OBJLoader.loadOBJModel("klo");
 		TexturedModel texturedModel = new TexturedModel(loader.loadToVAO(kloData.getVertices(), kloData.getTextureCoords(), kloData.getNormals(), kloData.getIndices()), new ModelTexture(loader.loadTexture("texture/test")));

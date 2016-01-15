@@ -11,7 +11,6 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Input;
 import raycasting.Raycaster;
-import renderer.DisplayManager;
 import renderer.Loader;
 import renderer.MasterRenderer;
 import renderer.textures.TerrainTexture;
@@ -72,7 +71,7 @@ public class World
 		{
 			isInventoryOpen = true;
 			MenuInventory inventory = new MenuInventory();
-			inventory.doMenu(player.getInventory());
+			inventory.doMenu(player);
 			isInventoryOpen = false;
 		}
 		if(isKeyDown(KEY_F5)) t = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg")), "height_map_lmg");

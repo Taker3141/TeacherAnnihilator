@@ -10,6 +10,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Input;
 import renderer.DisplayManager;
 import renderer.OverlayRenderer;
+import entity.Player;
 import font.fontMeshCreator.GUIText;
 import font.fontRendering.TextMaster;
 import gui.element.GuiElement;
@@ -26,14 +27,16 @@ public class MenuInventory extends Menu
 	
 	public Item mouseItem = null;
 	
-	public void doMenu(Inventory inventory)
+	public void doMenu(Player p)
 	{
+		Inventory inventory = p.getInventory();
+		Inventory hands = p.getInventoryHands();
 		Slot.setIconList(guiElementsForeground);
 		gRenderer = new OverlayRenderer(loader);
 		
 		guiElementsBackground.add(new GuiElement(loader.loadTexture("texture/gui/inventory/background"), new Vector2f(X, Y), new Vector2f(512, 512), (Menu)this));
 		new GUIText("inventory.schoolBag", 2, font, new Vector2f(X + 50, Y + 450), 1, false);
-		Slot[] slots = new Slot[inventory.size];
+		Slot[] slots = new Slot[inventory.size + hands.size];
 		for(int i = 0; i < inventory.size; i++)
 		{
 			final int d = 85;
@@ -41,6 +44,16 @@ public class MenuInventory extends Menu
 			slots[i].setItem(inventory.getItemAt(i)).setClickHandler(new HandlerSwapItems(slots[i]));
 			if(slots[i].item != null) slots[i].item.setPosition(slots[i].position);
 			guiElements.add(slots[i]);
+		}
+		
+		new GUIText("inventory.hands", 2, font, new Vector2f(X + 50, Y + 140), 1, false);
+		for(int i = 0; i < hands.size; i++)
+		{
+			final int d = 85;
+			slots[i + inventory.size] = new Slot(new Vector2f(40 + X + d * (i % 5), 20 + Y - d * (i / 5)), this);
+			slots[i + inventory.size].setItem(hands.getItemAt(i)).setClickHandler(new HandlerSwapItems(slots[i + inventory.size]));
+			if(slots[i + inventory.size].item != null) slots[i + inventory.size].item.setPosition(slots[i + inventory.size].position);
+			guiElements.add(slots[i + inventory.size]);
 		}
 		
 		Input input = new Input(Display.getHeight());
@@ -60,6 +73,10 @@ public class MenuInventory extends Menu
 		for(int i = 0; i < inventory.size; i++)
 		{
 			inventory.setItem(i, slots[i].item);
+		}
+		for(int i = 0; i < hands.size; i++)
+		{
+			hands.setItem(i, slots[i + inventory.size].item);
 		}
 		cleanUp();
 	}

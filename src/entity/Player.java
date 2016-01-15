@@ -1,9 +1,11 @@
 package entity;
 
 import gui.item.Inventory;
+import gui.item.Item;
 import java.util.List;
 import main.MainManagerClass;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import raycasting.AABB;
 import raycasting.ICollidable;
@@ -32,11 +34,21 @@ public class Player extends Person
 	private Vector3f kickPoint;
 	private boolean isArmUp = false;
 	private Inventory inventory = new Inventory(15);
+	private Inventory hands = new Inventory(2);
 	
 	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
 	{
 		super(model, position, rotX, rotY, rotZ, scale, list);
 		hitBox = new AABB(position, new Vector3f(0.2F, 0.3F, 0.2F), new Vector3f(-0.1F, 0.15F, -0.1F));
+		{
+			final String path = "texture/gui/items/";
+			inventory = new Inventory(15);
+			inventory.setItem(0, new Item(MainManagerClass.loader.loadTexture(path + "ruler"), new Vector2f(), null));
+			inventory.setItem(1, new Item(MainManagerClass.loader.loadTexture(path + "book"), new Vector2f(), null));
+			inventory.setItem(2, new Item(MainManagerClass.loader.loadTexture(path + "sheet"), new Vector2f(), null));
+			inventory.setItem(3, new Item(MainManagerClass.loader.loadTexture(path + "pencil"), new Vector2f(), null));
+			inventory.setItem(4, new Item(MainManagerClass.loader.loadTexture(path + "triangle"), new Vector2f(), null));
+		}
 	}
 	
 	public Player(String texture, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
@@ -176,5 +188,10 @@ public class Player extends Person
 	public Inventory getInventory()
 	{
 		return inventory;
+	}
+
+	public Inventory getInventoryHands()
+	{
+		return hands;
 	}
 }

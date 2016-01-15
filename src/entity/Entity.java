@@ -59,8 +59,16 @@ public class Entity implements ICollidable
 			{
 				if(c instanceof Movable)
 				{
-					Movable m = (Movable)c;
-					m.forces.add((Vector3f)Vector3f.sub(m.position, position, null).normalise().scale(2));
+					try
+					{
+						Movable m = (Movable) c;
+						m.forces.add((Vector3f) Vector3f.sub(m.position, position, null).normalise().scale(2));
+					}
+					catch (Exception e)
+					{
+						System.out.println("Something strnge happened...");
+						//TODO Strange Bug When Reloading Game
+					}
 				}
 				return false;
 			}
