@@ -40,7 +40,7 @@ public class Entity implements ICollidable
 	
 	public void update(Terrain t)
 	{
-		noCollision();
+		if(!(this instanceof BodyPart)) noCollision();
 	}
 	
 	public void increaseRotation(float dx, float dy, float dz)
@@ -54,7 +54,7 @@ public class Entity implements ICollidable
 	{
 		for (ICollidable c : entityList)
 		{
-			if (c instanceof BodyPart || c == this) continue;
+			if ((c instanceof BodyPart && ((BodyPart)c).isAttatched) || c == this) continue;
 			if (c.isInsideHitBox(hitBox)) 
 			{
 				if(c instanceof Movable)
