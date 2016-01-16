@@ -37,6 +37,8 @@ public class Player extends Person
 	private boolean isArmUp = false;
 	private Inventory inventory = new Inventory(15);
 	private Inventory hands = new Inventory(2);
+	public EntityItem rightItem;
+	public EntityItem leftItem;
 	
 	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
 	{
