@@ -10,6 +10,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Input;
 import renderer.DisplayManager;
 import renderer.OverlayRenderer;
+import entity.EntityItem;
 import entity.Player;
 import font.fontMeshCreator.GUIText;
 import font.fontRendering.TextMaster;
@@ -78,6 +79,10 @@ public class MenuInventory extends Menu
 		{
 			hands.setItem(i, slots[i + inventory.size].item);
 		}
+		Item right = hands.getItemAt(0);
+		if(right != null && right.getModel() != null) new EntityItem(hands.getItemAt(0), p.bodyParts.get("rightArm"));
+		Item left = hands.getItemAt(1);
+		if(left != null && left.getModel() != null) new EntityItem(hands.getItemAt(1), p.bodyParts.get("leftArm"));
 		cleanUp();
 	}
 	

@@ -4,6 +4,8 @@ import gui.item.Inventory;
 import gui.item.Item;
 import java.util.List;
 import main.MainManagerClass;
+import objLoader.ModelData;
+import objLoader.OBJLoader;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
@@ -42,12 +44,15 @@ public class Player extends Person
 		hitBox = new AABB(position, new Vector3f(0.2F, 0.3F, 0.2F), new Vector3f(-0.1F, 0.15F, -0.1F));
 		{
 			final String path = "texture/gui/items/";
+			ModelData sheetData = OBJLoader.loadOBJModel("sheet");
+			TexturedModel sheet = new TexturedModel(loader.loadToVAO(sheetData.getVertices(), sheetData.getTextureCoords(), sheetData.getNormals(), sheetData.getIndices()), new ModelTexture(loader.loadTexture("texture/sheet")));
+			
 			inventory = new Inventory(15);
-			inventory.setItem(0, new Item(MainManagerClass.loader.loadTexture(path + "ruler"), new Vector2f(), null));
-			inventory.setItem(1, new Item(MainManagerClass.loader.loadTexture(path + "book"), new Vector2f(), null));
-			inventory.setItem(2, new Item(MainManagerClass.loader.loadTexture(path + "sheet"), new Vector2f(), null));
-			inventory.setItem(3, new Item(MainManagerClass.loader.loadTexture(path + "pencil"), new Vector2f(), null));
-			inventory.setItem(4, new Item(MainManagerClass.loader.loadTexture(path + "triangle"), new Vector2f(), null));
+			inventory.setItem(0, new Item(MainManagerClass.loader.loadTexture(path + "ruler"), new Vector2f(), null, null));
+			inventory.setItem(1, new Item(MainManagerClass.loader.loadTexture(path + "book"), new Vector2f(), null, null));
+			inventory.setItem(2, new Item(MainManagerClass.loader.loadTexture(path + "sheet"), new Vector2f(), null, sheet));
+			inventory.setItem(3, new Item(MainManagerClass.loader.loadTexture(path + "pencil"), new Vector2f(), null, null));
+			inventory.setItem(4, new Item(MainManagerClass.loader.loadTexture(path + "triangle"), new Vector2f(), null, null));
 		}
 	}
 	

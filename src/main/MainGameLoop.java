@@ -62,6 +62,9 @@ public class MainGameLoop
 		ModelData houseData = OBJLoader.loadOBJModel("house");
 		TexturedModel house = new TexturedModel(loader.loadToVAO(houseData.getVertices(), houseData.getTextureCoords(), houseData.getNormals(), houseData.getIndices()), new ModelTexture(loader.loadTexture("texture/test")));
 		new Entity(house, new Vector3f(122, w.height(122, 45), 45), 0, 120, 0, 6, w.entities);
+		ModelData sheetData = OBJLoader.loadOBJModel("sheet");
+		TexturedModel sheet = new TexturedModel(loader.loadToVAO(sheetData.getVertices(), sheetData.getTextureCoords(), sheetData.getNormals(), sheetData.getIndices()), new ModelTexture(loader.loadTexture("texture/sheet")));
+		new Entity(sheet, new Vector3f(102, w.height(102,  102) + 1, 102), 0, 0, 0, 0.1F, w.entities);
 		while (!Display.isCloseRequested())
 		{
 			if(!w.tick()) break;

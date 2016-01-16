@@ -23,7 +23,7 @@ public class Person extends Movable
 	
 	protected int health = 10;
 	protected String name;
-	protected Map<String, BodyPart> bodyParts;
+	public Map<String, BodyPart> bodyParts;
 	State state = IDLE;
 	
 	public Person(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)

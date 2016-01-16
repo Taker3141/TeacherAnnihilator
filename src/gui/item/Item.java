@@ -1,6 +1,7 @@
 package gui.item;
 
 import org.lwjgl.util.vector.Vector2f;
+import renderer.models.TexturedModel;
 import gui.element.Icon;
 import gui.element.Slot;
 import gui.menu.MenuInventory;
@@ -8,15 +9,18 @@ import gui.menu.MenuInventory;
 public class Item
 {
 	protected Icon icon;
+	protected TexturedModel model;
 	
-	public Item(int texture, Slot s)
+	public Item(int texture, Slot s, TexturedModel model)
 	{
 		icon = new Icon(texture, s.position, Icon.Size.x64, s.parent);
+		this.model = model;
 	}
 	
-	public Item(int texture, Vector2f position, MenuInventory parent)
+	public Item(int texture, Vector2f position, MenuInventory parent, TexturedModel model)
 	{
 		icon = new Icon(texture, position, Icon.Size.x64, parent);
+		this.model = model;
 	}
 	
 	public void setPosition(Vector2f position)
@@ -32,5 +36,10 @@ public class Item
 	public Icon getIcon()
 	{
 		return icon;
+	}
+	
+	public TexturedModel getModel()
+	{
+		return model;
 	}
 }
