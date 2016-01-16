@@ -12,6 +12,11 @@ public class Maths
 		return createTransformationMatrix(translation, rx, ry, rz, scale, scale, scale);
 	}
 	
+	public static Matrix4f createTransformationMatrix(Vector3f translation, Vector3f r, float scale)
+	{
+		return createTransformationMatrix(translation, r.x, r.y, r.z, scale);
+	}
+	
 	public static Matrix4f createTransformationMatrix(Vector3f translation, float rx, float ry, float rz, float scaleX, float scaleY, float scaleZ)
 	{
 		Matrix4f matrix = new Matrix4f();

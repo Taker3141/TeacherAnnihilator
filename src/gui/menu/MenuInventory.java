@@ -79,10 +79,10 @@ public class MenuInventory extends Menu
 		{
 			hands.setItem(i, slots[i + inventory.size].item);
 		}
-		Item right = hands.getItemAt(0);
-		if(right != null && right.getModel() != null) new EntityItem(hands.getItemAt(0), p.bodyParts.get("rightArm"));
-		Item left = hands.getItemAt(1);
-		if(left != null && left.getModel() != null) new EntityItem(hands.getItemAt(1), p.bodyParts.get("leftArm"));
+		Item right = hands.getItemAt(1);
+		if(right != null && right.getModel() != null) new EntityItem(right, p.bodyParts.get("rightArm"));
+		Item left = hands.getItemAt(0);
+		if(left != null && left.getModel() != null) new EntityItem(left, p.bodyParts.get("leftArm"));
 		cleanUp();
 	}
 	
