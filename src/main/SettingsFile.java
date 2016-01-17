@@ -64,7 +64,7 @@ public class SettingsFile
 						resolutionY = Integer.parseInt(part[1].split("x")[1]);
 						break;
 					}
-					case "fullscreen" : fullscreen = Boolean.parseBoolean(part[1]);
+					case "fullscreen" : fullscreen = Boolean.parseBoolean(part[1]); break;
 					case "music" : music = Boolean.parseBoolean(part[1]);
 				}
 				line = reader.readLine();

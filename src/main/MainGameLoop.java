@@ -2,7 +2,6 @@ package main;
 
 import java.util.List;
 import java.util.Random;
-import objLoader.ModelData;
 import objLoader.OBJLoader;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
@@ -22,21 +21,17 @@ public class MainGameLoop
 	{
 		w = new World();
 		Loader loader = MainManagerClass.loader;
-		ModelData kloData = OBJLoader.loadOBJModel("klo");
-		TexturedModel texturedModel = new TexturedModel(loader.loadToVAO(kloData.getVertices(), kloData.getTextureCoords(), kloData.getNormals(), kloData.getIndices()), new ModelTexture(loader.loadTexture("texture/test")));
+		TexturedModel texturedModel = new TexturedModel(OBJLoader.loadOBJModel("klo"), new ModelTexture(loader.loadTexture("texture/test")));
 		ModelTexture texture = texturedModel.getTexture();
-		ModelData grassData = OBJLoader.loadOBJModel("grass");
-		TexturedModel grass = new TexturedModel(loader.loadToVAO(grassData.getVertices(), grassData.getTextureCoords(), grassData.getNormals(), grassData.getIndices()), new ModelTexture(loader.loadTexture("texture/grass")));
+		TexturedModel grass = new TexturedModel(OBJLoader.loadOBJModel("grass"), new ModelTexture(loader.loadTexture("texture/grass")));
 		grass.getTexture().setHasTransparency(true);
 		grass.getTexture().setUseFakeLightning(true);
 		texture.setShineDamper(10);
 		texture.setReflectivity(1);
-		ModelData lmgData = OBJLoader.loadOBJModel("lmg");
-		new Entity(new TexturedModel(loader.loadToVAO(lmgData.getVertices(), lmgData.getTextureCoords(), lmgData.getNormals(), lmgData.getIndices()), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(172, 33, 131), 0, 180, 0, 5, w.entities);
+		new Entity(new TexturedModel(OBJLoader.loadOBJModel("lmg"), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(172, 33, 131), 0, 180, 0, 5, w.entities);
 		new Teacher("texture/person/hans", new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans", w.entities);
-		ModelData treeData = OBJLoader.loadOBJModel("tree");
 		ModelTexture treeTexture = new ModelTexture(loader.loadTexture("texture/tree"));
-		TexturedModel tree = new TexturedModel(loader.loadToVAO(treeData.getVertices(), treeData.getTextureCoords(), treeData.getNormals(), treeData.getIndices()), treeTexture);
+		TexturedModel tree = new TexturedModel(OBJLoader.loadOBJModel("tree"), treeTexture);
 		{
 			final int offsetX = 100;
 			final int offsetZ = 200;
@@ -51,19 +46,16 @@ public class MainGameLoop
 				}
 			}
 		}
-		ModelData bushData = OBJLoader.loadOBJModel("bush");
-		TexturedModel bush = new TexturedModel(loader.loadToVAO(bushData.getVertices(), bushData.getTextureCoords(), bushData.getNormals(), bushData.getIndices()), treeTexture);
+		TexturedModel bush = new TexturedModel(OBJLoader.loadOBJModel("bush"), treeTexture);
 		{
 			Entity entity = new Entity(bush, new Vector3f(100, w.height(100, 110), 110), 0, 0, 0, 0.2F, w.entities);
 			entity.setHitBox(new AABB(new Vector3f(entity.position), new Vector3f(0.5F, 5, 0.5F), new Vector3f(-0.5F, 0, -0.5F)));
 		}
 		generateBushRow(63, 172, 132, 172, w.entities, 1, bush, w.getTerrain());
 		generateBushRow(35, 77, 90, 83, w.entities, 1, bush, w.getTerrain());
-		ModelData houseData = OBJLoader.loadOBJModel("house");
-		TexturedModel house = new TexturedModel(loader.loadToVAO(houseData.getVertices(), houseData.getTextureCoords(), houseData.getNormals(), houseData.getIndices()), new ModelTexture(loader.loadTexture("texture/test")));
+		TexturedModel house = new TexturedModel( OBJLoader.loadOBJModel("house"), new ModelTexture(loader.loadTexture("texture/test")));
 		new Entity(house, new Vector3f(122, w.height(122, 45), 45), 0, 120, 0, 6, w.entities);
-		ModelData sheetData = OBJLoader.loadOBJModel("sheet");
-		TexturedModel sheet = new TexturedModel(loader.loadToVAO(sheetData.getVertices(), sheetData.getTextureCoords(), sheetData.getNormals(), sheetData.getIndices()), new ModelTexture(loader.loadTexture("texture/sheet")));
+		TexturedModel sheet = new TexturedModel(OBJLoader.loadOBJModel("sheet"), new ModelTexture(loader.loadTexture("texture/sheet")));
 		new Entity(sheet, new Vector3f(102, w.height(102,  102) + 1, 102), 0, 0, 0, 0.1F, w.entities);
 		while (!Display.isCloseRequested())
 		{
