@@ -9,6 +9,7 @@ public class Inventory
 	public Inventory(int size)
 	{
 		this.size = size;
+		items = new Item[size];
 	}
 	
 	public Item getItemAt(int index)

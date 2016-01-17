@@ -1,6 +1,6 @@
 package objLoader;
 
-public class ModelData
+class ModelData
 {
 	
 	private float[] vertices;

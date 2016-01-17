@@ -1,17 +1,20 @@
 package entity;
 
 import java.util.List;
+import main.MainManagerClass;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import raycasting.AABB;
 import raycasting.ICollidable;
 import raycasting.IHitBox;
+import renderer.Loader;
 import renderer.models.TexturedModel;
 import terrain.Terrain;
 import toolbox.Maths;
 
 public class Entity implements ICollidable
 {
+	protected static Loader loader = MainManagerClass.loader;
 	public TexturedModel model;
 	public Vector3f position;
 	public float rotX, rotY, rotZ;
@@ -59,8 +62,16 @@ public class Entity implements ICollidable
 			{
 				if(c instanceof Movable)
 				{
-					Movable m = (Movable)c;
-					m.forces.add((Vector3f)Vector3f.sub(m.position, position, null).normalise().scale(2));
+					try
+					{
+						Movable m = (Movable) c;
+						m.forces.add((Vector3f) Vector3f.sub(m.position, position, null).normalise().scale(2));
+					}
+					catch (Exception e)
+					{
+						System.out.println("Something strnge happened...");
+						//TODO Strange Bug When Reloading Game
+					}
 				}
 				return false;
 			}

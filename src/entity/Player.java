@@ -1,9 +1,12 @@
 package entity;
 
 import gui.item.Inventory;
+import gui.item.Item;
 import java.util.List;
 import main.MainManagerClass;
+import objLoader.OBJLoader;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import raycasting.AABB;
 import raycasting.ICollidable;
@@ -32,11 +35,29 @@ public class Player extends Person
 	private Vector3f kickPoint;
 	private boolean isArmUp = false;
 	private Inventory inventory = new Inventory(15);
+	private Inventory hands = new Inventory(2);
+	public EntityItem rightItem;
+	public EntityItem leftItem;
 	
 	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list, float mass)
 	{
 		super(model, position, rotX, rotY, rotZ, scale, list, mass);
 		hitBox = new AABB(position, new Vector3f(0.2F, 0.3F, 0.2F), new Vector3f(-0.1F, 0.15F, -0.1F));
+		{
+			final String path = "texture/gui/items/";
+			TexturedModel sheet = new TexturedModel(OBJLoader.loadOBJModel("sheet"), new ModelTexture(loader.loadTexture("texture/sheet")));
+			TexturedModel ruler = new TexturedModel(OBJLoader.loadOBJModel("ruler"), new ModelTexture(loader.loadTexture("texture/ruler")));
+			TexturedModel book = new TexturedModel(OBJLoader.loadOBJModel("book"), new ModelTexture(loader.loadTexture("texture/book")));
+			TexturedModel pencil = new TexturedModel(OBJLoader.loadOBJModel("pencil"), new ModelTexture(loader.loadTexture("texture/pencil"))); pencil.getTexture().setReflectivity(0.2F);
+			TexturedModel triangle = new TexturedModel(OBJLoader.loadOBJModel("triangle"), new ModelTexture(loader.loadTexture("texture/triangle"))); triangle.getTexture().setReflectivity(0.2F);
+			
+			inventory = new Inventory(15);
+			inventory.setItem(0, new Item(MainManagerClass.loader.loadTexture(path + "ruler"), new Vector2f(), null, ruler));
+			inventory.setItem(1, new Item(MainManagerClass.loader.loadTexture(path + "book"), new Vector2f(), null, book));
+			inventory.setItem(2, new Item(MainManagerClass.loader.loadTexture(path + "sheet"), new Vector2f(), null, sheet));
+			inventory.setItem(3, new Item(MainManagerClass.loader.loadTexture(path + "pencil"), new Vector2f(), null, pencil));
+			inventory.setItem(4, new Item(MainManagerClass.loader.loadTexture(path + "triangle"), new Vector2f(), null, triangle));
+		}
 	}
 	
 	public Player(String texture, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list, float mass)
@@ -176,5 +197,10 @@ public class Player extends Person
 	public Inventory getInventory()
 	{
 		return inventory;
+	}
+
+	public Inventory getInventoryHands()
+	{
+		return hands;
 	}
 }

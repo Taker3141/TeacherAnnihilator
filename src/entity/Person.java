@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import main.MainManagerClass;
-import objLoader.ModelData;
 import objLoader.OBJLoader;
 import org.lwjgl.util.vector.Vector3f;
 import entity.animation.Animation;
@@ -23,7 +22,7 @@ public class Person extends Movable
 	
 	protected int health = 10;
 	protected String name;
-	protected Map<String, BodyPart> bodyParts;
+	public Map<String, BodyPart> bodyParts;
 	State state = IDLE;
 	
 	public Person(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list, float mass)
@@ -76,14 +75,10 @@ public class Person extends Movable
 	
 	public static void init()
 	{
-		ModelData bodyData = OBJLoader.loadOBJModel("body");
-		body = MainManagerClass.loader.loadToVAO(bodyData.getVertices(), bodyData.getTextureCoords(), bodyData.getNormals(), bodyData.getIndices());
-		ModelData armData = OBJLoader.loadOBJModel("arm");
-		arm = MainManagerClass.loader.loadToVAO(armData.getVertices(), armData.getTextureCoords(), armData.getNormals(), armData.getIndices());
-		ModelData legData = OBJLoader.loadOBJModel("leg");
-		leg = MainManagerClass.loader.loadToVAO(legData.getVertices(), legData.getTextureCoords(), legData.getNormals(), legData.getIndices());
-		ModelData headData = OBJLoader.loadOBJModel("head");
-		head = MainManagerClass.loader.loadToVAO(headData.getVertices(), headData.getTextureCoords(), headData.getNormals(), headData.getIndices());
+		body = OBJLoader.loadOBJModel("body");
+		arm = OBJLoader.loadOBJModel("arm");
+		leg = OBJLoader.loadOBJModel("leg");
+		head = OBJLoader.loadOBJModel("head");
 	}
 	
 	protected void die()
