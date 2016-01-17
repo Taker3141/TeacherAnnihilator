@@ -57,6 +57,7 @@ public class MainGameLoop
 		new Entity(house, new Vector3f(122, w.height(122, 45), 45), 0, 120, 0, 6, w.entities);
 		TexturedModel sheet = new TexturedModel(OBJLoader.loadOBJModel("sheet"), new ModelTexture(loader.loadTexture("texture/sheet")));
 		new Entity(sheet, new Vector3f(102, w.height(102,  102) + 1, 102), 0, 0, 0, 0.1F, w.entities);
+		w.updateRaycaster();
 		while (!Display.isCloseRequested())
 		{
 			if(!w.tick()) break;

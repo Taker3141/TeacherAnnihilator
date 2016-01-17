@@ -46,10 +46,12 @@ public class Player extends Person
 		{
 			final String path = "texture/gui/items/";
 			TexturedModel sheet = new TexturedModel(OBJLoader.loadOBJModel("sheet"), new ModelTexture(loader.loadTexture("texture/sheet")));
+			TexturedModel ruler = new TexturedModel(OBJLoader.loadOBJModel("ruler"), new ModelTexture(loader.loadTexture("texture/ruler")));
+			TexturedModel book = new TexturedModel(OBJLoader.loadOBJModel("book"), new ModelTexture(loader.loadTexture("texture/book")));
 			
 			inventory = new Inventory(15);
-			inventory.setItem(0, new Item(MainManagerClass.loader.loadTexture(path + "ruler"), new Vector2f(), null, null));
-			inventory.setItem(1, new Item(MainManagerClass.loader.loadTexture(path + "book"), new Vector2f(), null, null));
+			inventory.setItem(0, new Item(MainManagerClass.loader.loadTexture(path + "ruler"), new Vector2f(), null, ruler));
+			inventory.setItem(1, new Item(MainManagerClass.loader.loadTexture(path + "book"), new Vector2f(), null, book));
 			inventory.setItem(2, new Item(MainManagerClass.loader.loadTexture(path + "sheet"), new Vector2f(), null, sheet));
 			inventory.setItem(3, new Item(MainManagerClass.loader.loadTexture(path + "pencil"), new Vector2f(), null, null));
 			inventory.setItem(4, new Item(MainManagerClass.loader.loadTexture(path + "triangle"), new Vector2f(), null, null));

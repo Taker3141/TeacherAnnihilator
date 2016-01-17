@@ -102,4 +102,9 @@ public class World
 		TerrainTexture b = new TerrainTexture(loader.loadTexture("texture/terrain_path"));
 		return new TerrainTexturePack(back, r, g, b);
 	}
+	
+	public void updateRaycaster()
+	{
+		ray.setList(entities);
+	}
 }
