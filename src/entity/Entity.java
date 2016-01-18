@@ -60,20 +60,16 @@ public class Entity implements ICollidable
 			if ((c instanceof BodyPart && ((BodyPart)c).isAttatched) || c == this) continue;
 			if (c.isInsideHitBox(hitBox)) 
 			{
-				if(c instanceof Movable)
+				if(c instanceof Movable && this instanceof Movable)
 				{
-					try
-					{
-						Movable m = (Movable) c;
-						m.forces.add((Vector3f) Vector3f.sub(m.position, position, null).normalise().scale(2));
-					}
-					catch (Exception e)
-					{
-						System.out.println("Something strnge happened...");
-						//TODO Strange Bug When Reloading Game
-					}
+					Movable o1 = (Movable)this;
+					Movable o2 = (Movable)c;
+					Vector3f v1 = o1.v;
+					Vector3f v2 = o2.v;
+					o1.v = new Vector3f((Vector3f)v2.scale(o2.mass).scale(1 / o1.mass));
+					o2.v = new Vector3f((Vector3f)v1.scale(o1.mass).scale(1 / o2.mass));
 				}
-				return false;
+//				return false;
 			}
 		}
 		return true;

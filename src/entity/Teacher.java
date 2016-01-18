@@ -26,5 +26,6 @@ public class Teacher extends Person
 	public void update(Terrain t)
 	{
 		super.update(t);
+		v.z = 1;
 	}
 }
