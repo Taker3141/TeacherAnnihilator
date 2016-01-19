@@ -66,9 +66,9 @@ public class Particle extends Movable
 	public static void init()
 	{
 		MODEL = MainManagerClass.loader.loadToVAO
-				(new float[] {0, 0, 0,  0, 1, 0,  1, 0, 0,  0, 1, 0,  1, 1, 0,  1, 0, 0}, 
-				new float[] {0, 0,  0, 1,  1, 0,  0, 1,  1, 1,  1, 0}, 
-				new float[] {0, 0, 1,  0, 0, 1,  0, 0, 1,  0, 0, 1,  0, 0, 1,  0, 0, 1}, 
-				new int[] {1, 2, 3,  3, 4, 5});
+				(new float[] {0, 0, 0,  0, 1, 0,  1, 0, 0,  1, 1, 0}, 
+				new float[] {0, 0,  0, 1,  1, 0,  1, 1}, 
+				new float[] {0, 0, 1,  0, 0, 1,  0, 0, 1,  0, 0, 1}, 
+				new int[] {1, 2, 3,  1, 2, 4});
 	}
 }
