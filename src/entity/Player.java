@@ -3,6 +3,7 @@ package entity;
 import gui.item.Inventory;
 import gui.item.Item;
 import java.util.List;
+import java.util.Random;
 import main.MainManagerClass;
 import objLoader.OBJLoader;
 import org.lwjgl.input.Keyboard;
@@ -161,7 +162,11 @@ public class Player extends Person
 			m.isInAir = true;
 			//m.damage(1);
 			
-			entityList.add(new Particle("blood", point, entityList));
+			Random r = new Random();
+			for (int i = 0; i < 5; i++)
+			{
+				entityList.add(new Particle("blood", point, entityList, r));
+			}
 		}
 	}
 	

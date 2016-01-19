@@ -3,6 +3,7 @@ package entity;
 import java.util.*;
 import main.MainManagerClass;
 import org.lwjgl.util.vector.Vector3f;
+import raycasting.IHitBox;
 import renderer.DisplayManager;
 import renderer.models.SimpleModel;
 import renderer.models.TexturedModel;
@@ -15,26 +16,39 @@ public class Particle extends Movable
 	protected static SimpleModel MODEL;
 	protected float lifetime = 2F;
 	
-	protected static Random r = new Random();
-	
-	public Particle(String textureName, Vector3f position, List<Entity> list)
+	public Particle(String textureName, Vector3f position, List<Entity> list, Random r)
 	{
-		super(new TexturedModel(MODEL, new ModelTexture(MainManagerClass.loader.loadTexture("texture/particle/" + textureName))), position, 0, 0, 0, PARTICLE_SIZE, list);
+		super(new TexturedModel(MODEL, new ModelTexture(MainManagerClass.loader.loadTexture("texture/particle/" + textureName))), new Vector3f(position), 0, 0, 0, PARTICLE_SIZE, list);
 		model.getTexture().setUseFakeLightning(true);
 		rotX = r.nextInt(360);
 		rotY = r.nextInt(360);
 		rotZ = r.nextInt(360);
-		v.x = (r.nextFloat() * 2F) - 1;
-		v.y = r.nextFloat();
-		v.z = (r.nextFloat() * 2F) - 1;
+		v = new Vector3f((r.nextFloat() * 2F) - 1, r.nextFloat() + 1, (r.nextFloat() * 2F) - 1);
+		v.scale(2);
 	}
 	
 	@Override
 	public void update(Terrain terrain)
 	{
-		super.update(terrain);
+		float delta = DisplayManager.getFrameTimeSeconds();
+		position.x += v.x * delta;
+		position.y += v.y * delta;
+		position.z += v.z * delta;
+		v.y += GRAVITY * delta * 0.1;
 		lifetime -= DisplayManager.getFrameTimeSeconds();
 		if(lifetime <= 0) unregister();
+	}
+	
+	@Override
+	public boolean isInsideHitBox(IHitBox box)
+	{
+		return false;
+	}
+	
+	@Override
+	public boolean isInsideHitBox(Vector3f point)
+	{
+		return false;
 	}
 	
 	@Override
