@@ -22,18 +22,18 @@ public class BodyPart extends Movable
 
 	protected State state;
 	
-	BodyPart(TexturedModel model, Person parent, Vector3f offset)
+	BodyPart(TexturedModel model, Person parent, Vector3f offset, float mass)
 	{
-		super(model, Vector3f.add(parent.position, offset, null), 0, 0, 0, parent.scale, parent.entityList);
+		super(model, Vector3f.add(parent.position, offset, null), 0, 0, 0, parent.scale, parent.entityList, mass);
 		p = parent;
 		this.offset = offset;
 		position = calculatePosition();
 		state = p.state;
 	}
 	
-	BodyPart(TexturedModel model, Person parent, Vector3f offset, Vector3f hitboxSize, Vector3f hitboxOffset)
+	BodyPart(TexturedModel model, Person parent, Vector3f offset, Vector3f hitboxSize, Vector3f hitboxOffset, float mass)
 	{
-		this(model, parent, offset);
+		this(model, parent, offset, mass);
 		hitBox = new AABB(p.position, hitboxSize, hitboxOffset);
 	}
 	

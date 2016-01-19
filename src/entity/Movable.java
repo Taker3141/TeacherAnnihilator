@@ -11,14 +11,16 @@ import terrain.Terrain;
 public class Movable extends Entity
 {
 	protected static final float GRAVITY = -50F;
+	public final float mass;
 	protected boolean isInAir = false;
 	public Vector3f v = new Vector3f();
 	public List<Vector3f> forces = new ArrayList<Vector3f>();
 	protected float terrainHeight = 0;
 	
-	public Movable(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
+	public Movable(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list, float mass)
 	{
 		super(model, position, rotX, rotY, rotZ, scale, list);
+		this.mass = mass;
 	}
 	
 	@Override

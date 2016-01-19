@@ -40,9 +40,9 @@ public class Player extends Person
 	public EntityItem rightItem;
 	public EntityItem leftItem;
 	
-	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
+	public Player(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list, float mass)
 	{
-		super(model, position, rotX, rotY, rotZ, scale, list);
+		super(model, position, rotX, rotY, rotZ, scale, list, mass);
 		hitBox = new AABB(position, new Vector3f(0.2F, 0.3F, 0.2F), new Vector3f(-0.1F, 0.15F, -0.1F));
 		{
 			final String path = "texture/gui/items/";
@@ -61,9 +61,9 @@ public class Player extends Person
 		}
 	}
 	
-	public Player(String texture, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list)
+	public Player(String texture, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list, float mass)
 	{
-		this(new TexturedModel(body, new ModelTexture(MainManagerClass.loader.loadTexture(texture))), position, rotX, rotY, rotZ, scale, list);
+		this(new TexturedModel(body, new ModelTexture(MainManagerClass.loader.loadTexture(texture))), position, rotX, rotY, rotZ, scale, list, mass);
 	}
 	
 	@Override

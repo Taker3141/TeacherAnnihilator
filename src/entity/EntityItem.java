@@ -12,7 +12,7 @@ public class EntityItem extends Movable
 	protected Vector3f offset = new Vector3f(0, -1.5F, 0);
 	public EntityItem(Item i, BodyPart arm)
 	{
-		super(i.getModel(), arm.position, arm.rotX, arm.rotY, arm.rotZ, 0.1F, arm.entityList);
+		super(i.getModel(), arm.position, arm.rotX, arm.rotY, arm.rotZ, 0.1F, arm.entityList, 0.1F);
 		this.arm = arm;
 	}
 	
