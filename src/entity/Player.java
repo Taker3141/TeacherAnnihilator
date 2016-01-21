@@ -22,7 +22,6 @@ public class Player extends Person
 	private static final float RUN_SPEED = 5;
 	private static final float TURN_SPEED = 80;
 	private static final float JUMP_POWER = 10;
-	private static final float PUNCH_POWER = 10;
 	
 	private float currentTurnSpeed = 0;
 	private float speed = RUN_SPEED;
@@ -53,11 +52,11 @@ public class Player extends Person
 			TexturedModel triangle = new TexturedModel(OBJLoader.loadOBJModel("triangle"), new ModelTexture(loader.loadTexture("texture/triangle"))); triangle.getTexture().setReflectivity(0.2F);
 			
 			inventory = new Inventory(15);
-			inventory.setItem(0, new Item(MainManagerClass.loader.loadTexture(path + "ruler"), new Vector2f(), null, ruler));
-			inventory.setItem(1, new Item(MainManagerClass.loader.loadTexture(path + "book"), new Vector2f(), null, book));
-			inventory.setItem(2, new Item(MainManagerClass.loader.loadTexture(path + "sheet"), new Vector2f(), null, sheet));
-			inventory.setItem(3, new Item(MainManagerClass.loader.loadTexture(path + "pencil"), new Vector2f(), null, pencil));
-			inventory.setItem(4, new Item(MainManagerClass.loader.loadTexture(path + "triangle"), new Vector2f(), null, triangle));
+			inventory.setItem(0, new Item(MainManagerClass.loader.loadTexture(path + "ruler"), new Vector2f(), null, ruler, 0.05F));
+			inventory.setItem(1, new Item(MainManagerClass.loader.loadTexture(path + "book"), new Vector2f(), null, book, 3F));
+			inventory.setItem(2, new Item(MainManagerClass.loader.loadTexture(path + "sheet"), new Vector2f(), null, sheet, 0.05F));
+			inventory.setItem(3, new Item(MainManagerClass.loader.loadTexture(path + "pencil"), new Vector2f(), null, pencil, 0.05F));
+			inventory.setItem(4, new Item(MainManagerClass.loader.loadTexture(path + "triangle"), new Vector2f(), null, triangle, 0.05F));
 		}
 	}
 	
@@ -151,14 +150,12 @@ public class Player extends Person
 		if (e instanceof Movable)
 		{
 			Movable m = (Movable)e;
-			Vector3f force = Vector3f.sub(m.position, position, null);
-			force = force.normalise(force);
-			if(force.x != force.x) force = new Vector3f();
-			force.x = force.x * PUNCH_POWER;
-			force.y = force.y * PUNCH_POWER;
-			force.z = force.z * PUNCH_POWER;
+			float itemMass = 0;
+			if(hands.getItemAt(1) != null) itemMass = hands.getItemAt(1).mass;
+			Vector3f momentum = (Vector3f)Vector3f.sub(m.position, position, null).normalise(null).scale(bodyParts.get("rightArm").mass + itemMass);
+			if(momentum.x != momentum.x) momentum = new Vector3f();
 			m.click();
-			m.forces.add(force);
+			m.forces.add(momentum);
 			m.isInAir = true;
 			//m.damage(1);
 			

@@ -10,17 +10,20 @@ public class Item
 {
 	protected Icon icon;
 	protected TexturedModel model;
+	public final float mass;
 	
-	public Item(int texture, Slot s, TexturedModel model)
+	public Item(int texture, Slot s, TexturedModel model, float mass)
 	{
 		icon = new Icon(texture, s.position, Icon.Size.x64, s.parent);
 		this.model = model;
+		this.mass = mass;
 	}
 	
-	public Item(int texture, Vector2f position, MenuInventory parent, TexturedModel model)
+	public Item(int texture, Vector2f position, MenuInventory parent, TexturedModel model, float mass)
 	{
 		icon = new Icon(texture, position, Icon.Size.x64, parent);
 		this.model = model;
+		this.mass = mass;
 	}
 	
 	public void setPosition(Vector2f position)
