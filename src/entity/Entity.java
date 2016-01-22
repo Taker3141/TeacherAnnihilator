@@ -71,9 +71,12 @@ public class Entity implements ICollidable
 				}
 				else if(!(c instanceof Movable) && this instanceof Movable)
 				{
-					((Movable)this).v = Vector3f.sub(position, ((Entity)c).position, null).normalise(null);
+					if(!c.getHitBox().isPlatform())
+					{
+						((Movable)this).v = Vector3f.sub(position, ((Entity)c).position, null).normalise(null);
+					}
+					else if(((Movable)this).v.y < 0) ((Movable)this).v.y = 0;
 				}
-//				return false;
 			}
 		}
 		return true;

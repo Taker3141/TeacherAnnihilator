@@ -7,6 +7,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 import entity.*;
 import raycasting.AABB;
+import raycasting.Floor;
 import renderer.*;
 import renderer.models.TexturedModel;
 import renderer.textures.*;
@@ -28,7 +29,8 @@ public class MainGameLoop
 		grass.getTexture().setUseFakeLightning(true);
 		texture.setShineDamper(10);
 		texture.setReflectivity(1);
-		new Entity(new TexturedModel(OBJLoader.loadOBJModel("lmg"), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(172, 33, 131), 0, 180, 0, 5, w.entities);
+		Entity lmg = new Entity(new TexturedModel(OBJLoader.loadOBJModel("lmg"), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(172, 33, 131), 0, 180, 0, 5, w.entities);
+		lmg.setHitBox(new Floor(new Vector3f(lmg.position), new Vector3f(66, 0.5F, 50), new Vector3f(-33, 0, -25)));
 		new Teacher("texture/person/hans", new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans", w.entities, 40);
 		ModelTexture treeTexture = new ModelTexture(loader.loadTexture("texture/tree"));
 		TexturedModel tree = new TexturedModel(OBJLoader.loadOBJModel("tree"), treeTexture);

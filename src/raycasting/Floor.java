@@ -2,16 +2,11 @@ package raycasting;
 
 import org.lwjgl.util.vector.Vector3f;
 
-/**
- * Axis-aligned bounding box
- * @author Taker
- */
-
-public class AABB implements IHitBox
+public class Floor implements IHitBox
 {
 	public Vector3f location, size, offset;
 
-	public AABB(Vector3f location, Vector3f size, Vector3f offset)
+	public Floor(Vector3f location, Vector3f size, Vector3f offset)
 	{
 		this.location = location;
 		this.size = size;
@@ -47,6 +42,6 @@ public class AABB implements IHitBox
 	@Override
 	public boolean isPlatform()
 	{
-		return false;
+		return true;
 	}
 }

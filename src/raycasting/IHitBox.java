@@ -6,4 +6,5 @@ public interface IHitBox
 {
 	public boolean isInside(Vector3f point);
 	public boolean isInside(IHitBox box);
+	public boolean isPlatform();
 }
