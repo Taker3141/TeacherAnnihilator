@@ -30,7 +30,7 @@ public class MainGameLoop
 		texture.setShineDamper(10);
 		texture.setReflectivity(1);
 		Entity lmg = new Entity(new TexturedModel(OBJLoader.loadOBJModel("lmg"), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(172, 33, 131), 0, 180, 0, 5, w.entities);
-		lmg.setHitBox(new Floor(new Vector3f(lmg.position), new Vector3f(66, 0.5F, 50), new Vector3f(-33, 0, -25)));
+		lmg.setHitBox(new Floor(new Vector3f(lmg.position), 0.5F, new Vector3f(-33, 0, -25), null));
 		new Teacher("texture/person/hans", new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans", w.entities, 40);
 		ModelTexture treeTexture = new ModelTexture(loader.loadTexture("texture/tree"));
 		TexturedModel tree = new TexturedModel(OBJLoader.loadOBJModel("tree"), treeTexture);

@@ -5,21 +5,21 @@ import org.lwjgl.util.vector.Vector3f;
 public class Floor implements IHitBox
 {
 	public Vector3f location, size, offset;
+	protected Vector3f[] polygon;
+	protected float height;
 
-	public Floor(Vector3f location, Vector3f size, Vector3f offset)
+	public Floor(Vector3f location, float height, Vector3f offset, Vector3f[] polygon)
 	{
 		this.location = location;
-		this.size = size;
+		this.height = height;
 		this.offset = offset;
+		this.polygon = polygon;
 	}
 	
 	@Override
 	public boolean isInside(Vector3f point)
 	{
-		Vector3f corner = Vector3f.add(location, offset, null);
-		if(point.x < corner.x || point.x > corner.x + size.x) return false;
-		if(point.y < corner.y || point.y > corner.y + size.y) return false;
-		if(point.z < corner.z || point.z > corner.z + size.z) return false;
+		//TODO Polygon stuff
 		return true;
 	}
 	
