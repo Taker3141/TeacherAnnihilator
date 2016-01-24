@@ -19,7 +19,7 @@ import static entity.State.*;
 
 public class Player extends Person
 {
-	private static final float RUN_SPEED = 10F;
+	private static final float RUN_SPEED = 5;
 	private static final float TURN_SPEED = 80;
 	private static final float JUMP_POWER = 10;
 	

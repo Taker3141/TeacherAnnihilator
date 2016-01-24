@@ -43,6 +43,12 @@ public class AABB implements IHitBox
 		if(box.isInside(c2)) return true;
 		return false;
 	}
+	
+	@Override
+	public Vector3f getCenter()
+	{
+		return Vector3f.sub(location, offset, null);
+	}
 
 	@Override
 	public boolean isPlatform()
