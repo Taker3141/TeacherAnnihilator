@@ -39,7 +39,7 @@ public class MainGameLoop
 				new Vector2f(5.8F, -7.0F), new Vector2f(5.8F, -7.5F), new Vector2f(18.2F, -12.2F), 
 				new Vector2f(30.4F, -6.7F), new Vector2f(35.0F, 5.8F), new Vector2f(29.3F, 18.0F), 
 				new Vector2f(16.8F, 22.5F), new Vector2f(0.4F, 14.9F)};
-		lmg.setHitBox(new Floor(new Vector3f(lmg.position), 0.5F, new Vector3f(-33, -0.3F, -25), polygon));
+		lmg.setHitBox(new Floor(new Vector3f(lmg.position), 0.7F, new Vector3f(-33, -0.3F, -25), polygon));
 		new Teacher("texture/person/hans", new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans", w.entities, 40);
 		ModelTexture treeTexture = new ModelTexture(loader.loadTexture("texture/tree"));
 		TexturedModel tree = new TexturedModel(OBJLoader.loadOBJModel("tree"), treeTexture);
