@@ -1,42 +1,63 @@
 package raycasting;
 
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
 public class Floor implements IHitBox
 {
 	public Vector3f location, size, offset;
+	protected Vector2f[] polygon;
+	protected float height;
+	protected AABB bigBox;
 
-	public Floor(Vector3f location, Vector3f size, Vector3f offset)
+	public Floor(Vector3f location, float height, Vector3f offset, Vector2f[] polygon)
 	{
 		this.location = location;
-		this.size = size;
+		this.height = height;
 		this.offset = offset;
+		this.polygon = polygon;
+		size = new Vector3f(80, 0.5F, 50);
+		bigBox = new AABB(location, size, offset);
+		for(int i = 0; i < polygon.length; i++)
+		{
+			polygon[i] = Vector2f.add(polygon[i], new Vector2f(location.x, location.z), null);
+		}
 	}
 	
 	@Override
 	public boolean isInside(Vector3f point)
 	{
-		Vector3f corner = Vector3f.add(location, offset, null);
-		if(point.x < corner.x || point.x > corner.x + size.x) return false;
-		if(point.y < corner.y || point.y > corner.y + size.y) return false;
-		if(point.z < corner.z || point.z > corner.z + size.z) return false;
-		return true;
+		if (bigBox.isInside(point))
+		{
+			Vector2f p = new Vector2f(point.x, point.z);
+			int i, j = polygon.length - 1;
+			boolean oddNodes = false;
+			for (i = 0; i < polygon.length; i++)
+			{
+				if (polygon[i].y < p.y && polygon[j].y >= p.y || polygon[j].y < p.y && polygon[i].y >= p.y)
+				{
+					if (polygon[i].x + (p.y - polygon[i].y) / (polygon[j].y - polygon[i].y) * (polygon[j].x - polygon[i].x) < p.x)
+					{
+						oddNodes = !oddNodes;
+					}
+				}
+				j = i;
+			}
+			return oddNodes;
+		}
+		return false;
 	}
 	
 	@Override
 	public boolean isInside(IHitBox box)
 	{
-		Vector3f c1 = Vector3f.add(location, offset, null);
-		Vector3f c2 = Vector3f.add(c1, size, null);
-		if(box.isInside(c1)) return true;
-		if(box.isInside(new Vector3f(c1.x, c1.y, c2.z))) return true;
-		if(box.isInside(new Vector3f(c1.x, c2.y, c1.z))) return true;
-		if(box.isInside(new Vector3f(c1.x, c2.y, c2.z))) return true;
-		if(box.isInside(new Vector3f(c2.x, c1.y, c1.z))) return true;
-		if(box.isInside(new Vector3f(c2.x, c1.y, c2.z))) return true;
-		if(box.isInside(new Vector3f(c2.x, c2.y, c1.z))) return true;
-		if(box.isInside(c2)) return true;
-		return false;
+		return isInside(box.getCenter());
+	}
+	
+	@Override
+	public Vector3f getCenter()
+	{
+		return location;
 	}
 
 	@Override

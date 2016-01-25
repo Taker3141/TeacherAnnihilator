@@ -75,7 +75,11 @@ public class Entity implements ICollidable
 					{
 						((Movable)this).v = Vector3f.sub(position, ((Entity)c).position, null).normalise(null);
 					}
-					else if(((Movable)this).v.y < 0) ((Movable)this).v.y = 0;
+					else if(((Movable)this).v.y < 0) 
+					{
+						((Movable)this).v.y = 0;
+						((Movable)this).isInAir = false;
+					}
 				}
 			}
 		}

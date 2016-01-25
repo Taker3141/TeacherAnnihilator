@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 import objLoader.OBJLoader;
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import entity.*;
 import raycasting.AABB;
@@ -30,7 +31,15 @@ public class MainGameLoop
 		texture.setShineDamper(10);
 		texture.setReflectivity(1);
 		Entity lmg = new Entity(new TexturedModel(OBJLoader.loadOBJModel("lmg"), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(172, 33, 131), 0, 180, 0, 5, w.entities);
-		lmg.setHitBox(new Floor(new Vector3f(lmg.position), new Vector3f(66, 0.5F, 50), new Vector3f(-33, 0, -25)));
+		Vector2f[] polygon = {new Vector2f(0.4F, 14.9F), new Vector2f(-16.1F, 21.0F), 
+				new Vector2f(-27.6F, 15.4F), new Vector2f(-32.2F, 3.3F), new Vector2f(-27.1F, -8.5F), 
+				new Vector2f(-15.1F, -13.2F), new Vector2f(-3.4F, -7.8F), new Vector2f(-3.5F, -7.3F), 
+				new Vector2f(-9.9F, -1.4F), new Vector2f(-7.0F, 1.7F), new Vector2f(-0.4F, -4.1F), 
+				new Vector2f(2.6F, -4.0F), new Vector2f(8.7F, 2.4F), new Vector2f(11.8F, -0.5F), 
+				new Vector2f(5.8F, -7.0F), new Vector2f(5.8F, -7.5F), new Vector2f(18.2F, -12.2F), 
+				new Vector2f(30.4F, -6.7F), new Vector2f(35.0F, 5.8F), new Vector2f(29.3F, 18.0F), 
+				new Vector2f(16.8F, 22.5F), new Vector2f(0.4F, 14.9F)};
+		lmg.setHitBox(new Floor(new Vector3f(lmg.position), 0.7F, new Vector3f(-33, -0.3F, -25), polygon));
 		new Teacher("texture/person/hans", new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans", w.entities, 40);
 		ModelTexture treeTexture = new ModelTexture(loader.loadTexture("texture/tree"));
 		TexturedModel tree = new TexturedModel(OBJLoader.loadOBJModel("tree"), treeTexture);
