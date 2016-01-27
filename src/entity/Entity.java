@@ -23,7 +23,7 @@ public class Entity implements ICollidable
 	protected List<Entity> entityList;
 	public boolean invisible = false;
 	
-	public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list, AABB hitBox)
+	public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale, List<Entity> list, IHitBox hitBox)
 	{
 		this.model = model;
 		this.position = position;
