@@ -30,6 +30,7 @@ public class MainGameLoop
 		grass.getTexture().setUseFakeLightning(true);
 		texture.setShineDamper(10);
 		texture.setReflectivity(1);
+		Building lmg2;
 		{
 			Building lmg = new Building(new TexturedModel(OBJLoader.loadOBJModel("lmg"), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(172, 33, 131), 0, 180, 0, 5, w.entities);
 			Vector2f[] polygon = {new Vector2f(0.4F, 14.9F), new Vector2f(-16.1F, 21.0F), 
@@ -41,6 +42,8 @@ public class MainGameLoop
 				new Vector2f(30.4F, -6.7F), new Vector2f(35.0F, 5.8F), new Vector2f(29.3F, 18.0F), 
 				new Vector2f(16.8F, 22.5F), new Vector2f(0.4F, 14.9F)};
 			lmg.setHitBox(new Floor(new Vector3f(lmg.position), 0.7F, new Vector3f(-33, -0.3F, -25), polygon));
+			lmg2 = new Building(new TexturedModel(OBJLoader.loadOBJModel("2OG"), new ModelTexture(loader.loadTexture("texture/test"))), new Vector3f(170.7F, 36, 135.7F), 0, 177, 0, 4, w.entities);
+			lmg2.setHitBox(new Floor(new Vector3f(), 0, new Vector3f(), new Vector2f[]{ new Vector2f() }));
 		}
 		new Teacher("texture/person/hans", new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans", w.entities, 40);
 		ModelTexture treeTexture = new ModelTexture(loader.loadTexture("texture/tree"));
