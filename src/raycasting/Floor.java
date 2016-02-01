@@ -10,13 +10,12 @@ public class Floor implements IHitBox
 	protected float height;
 	protected AABB bigBox;
 
-	public Floor(Vector3f location, float height, Vector3f offset, Vector2f[] polygon)
+	public Floor(Vector3f location, float height, Vector3f offset, Vector3f size, Vector2f[] polygon)
 	{
 		this.location = location;
 		this.height = height;
 		this.offset = offset;
 		this.polygon = polygon;
-		size = new Vector3f(80, 0.5F, 50);
 		bigBox = new AABB(location, size, offset);
 		for(int i = 0; i < polygon.length; i++)
 		{
