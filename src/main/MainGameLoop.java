@@ -43,7 +43,7 @@ public class MainGameLoop
 			lmg.setHitBox(new Floor(new Vector3f(lmg.position), 0.7F, new Vector3f(-33, -0.3F, -25), new Vector3f(80, 0.5F, 50), polygon));
 		}
 		{
-			Building lmg = new Building(new TexturedModel(OBJLoader.loadOBJModel("2OG"), new ModelTexture(loader.loadTexture("texture/test"))), new Vector3f(170.7F, 36, 135.7F), 0, 177, 0, 4, w.entities);
+			Building lmg = new Building(new TexturedModel(OBJLoader.loadOBJModel("2OG"), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(170.7F, 36, 135.7F), 0, 177, 0, 4, w.entities);
 			Vector2f[] polygon = {new Vector2f(0.7F, 15.2F), new Vector2f(-9.6F, 9.8F), 
 					new Vector2f(-13.6F, -1.2F), new Vector2f(-8.9F, -12.6F), new Vector2f(3.0F, -17.3F), 
 					new Vector2f(14.7F, -11.4F), new Vector2f(18.4F, 1.2F), new Vector2f(12.2F, 12.0F), 
