@@ -63,7 +63,7 @@ public class MainGameLoop
 					int x = i * 10 + offsetX;
 					int z = j * 10 + offsetZ;
 					Entity entity = new Entity(tree, new Vector3f(x, w.height(x, z), z), 0, 0, 0, 0.5F, w.entities);
-					entity.setHitBox(new AABB(new Vector3f(entity.position), new Vector3f(0.8F, 10, 0.8F), new Vector3f(-0.4F, 0, -0.4F)));
+					entity.setHitBox(new AABB(new Vector3f(entity.position), new Vector3f(0.8F, 5, 0.8F), new Vector3f(-0.4F, 0, -0.4F)));
 				}
 			}
 		}
@@ -97,7 +97,7 @@ public class MainGameLoop
 			float x = x1 + i * step + r.nextFloat();
 			float z = z1 + (dz / count) * i + r.nextFloat();
 			Entity b = new Entity(bush, new Vector3f(x, t.getHeight(x, z), z), 0, 0, 0, 0.5F, list);
-			b.setHitBox(new AABB(new Vector3f(b.position), new Vector3f(0.8F, 5, 0.8F), new Vector3f(-0.4F, 0, -0.4F)));
+			b.setHitBox(new AABB(new Vector3f(b.position), new Vector3f(0.8F, 2, 0.8F), new Vector3f(-0.4F, 0, -0.4F)));
 		}
 	}
 }
