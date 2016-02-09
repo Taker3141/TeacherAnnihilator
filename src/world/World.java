@@ -31,7 +31,7 @@ public class World
 	private Player player;
 	private Light light;
 	private Camera c;
-	private Terrain t;
+	private Terrain[] t;
 	private MasterRenderer renderer;
 	private Loader loader = MainManagerClass.loader;
 	private Input input;
@@ -45,7 +45,10 @@ public class World
 		player = new Player("texture/player", new Vector3f(100, 0, 100), 0, 0, 0, 0.1F, entities, 30);
 		light = new Light(new Vector3f(0, 100, 0), new Vector3f(1, 1, 1));
 		c = new Camera(player);
-		t = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg")), "height_map_lmg");
+		t = new Terrain[2];
+		TerrainTexturePack pack = loadTerrainTexturePack(loader);
+		t[0] = new Terrain(0, 0, loader, pack, new TerrainTexture(loader.loadTexture("texture/blend_map_lmg0")), "height_map_lmg0");
+		t[1] = new Terrain(-1, 0, loader, pack, new TerrainTexture(loader.loadTexture("texture/blend_map_lmg1")), "height_map_lmg1");
 		ray = new Raycaster(player);
 		ray.setList(entities);
 		input = new Input(Display.getHeight());
@@ -55,16 +58,17 @@ public class World
 	public boolean tick()
 	{
 		input.poll(Display.getWidth(), Display.getHeight());
-		player.update(t);
+		player.update(terrain(player.position.x));
 		c.update();
 		for(int i = 0; i < entities.size(); i++)
 		{
 			Entity e = entities.get(i);
-			e.update(t);
+			e.update(terrain(e.position.x));
 			if(!e.invisible) renderer.processEntities(e);
 		}
 		ray.castRay(input.getAbsoluteMouseX(), Display.getHeight() - input.getAbsoluteMouseY(), renderer, c);
-		renderer.processTerrain(t);
+		renderer.processTerrain(t[0]);
+		renderer.processTerrain(t[1]);
 		renderer.render(light, c);
 		if(isKeyDown(KEY_ESCAPE)) return false;
 		if(isKeyDown(KEY_F1) && !isInventoryOpen)
@@ -74,18 +78,20 @@ public class World
 			inventory.doMenu(player);
 			isInventoryOpen = false;
 		}
-		if(isKeyDown(KEY_F5)) t = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg")), "height_map_lmg");
+		if(isKeyDown(KEY_F5)) t[0] = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg0")), "height_map_lmg0");
 		return true;
 	}
 	
 	public float height(float x, float z)
 	{
-		return t.getHeight(x, z);
+		return terrain(x).getHeight(x, z);
 	}
 	
-	public Terrain getTerrain()
+	public Terrain terrain(float positionX)
 	{
-		return t;
+		int x = (int)positionX;
+		int terrainNumber = x > 0 ? 0 : 1;
+		return t[terrainNumber];
 	}
 	
 	public void cleanUp()
