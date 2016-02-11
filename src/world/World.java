@@ -79,6 +79,7 @@ public class World
 			isInventoryOpen = false;
 		}
 		if(isKeyDown(KEY_F5)) t[0] = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg0")), "height_map_lmg0");
+		if(isKeyDown(KEY_F5)) t[1] = new Terrain(-1, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg1")), "height_map_lmg1");
 		return true;
 	}
 	
