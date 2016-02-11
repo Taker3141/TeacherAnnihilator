@@ -58,7 +58,7 @@ public class Entity implements ICollidable
 		for (ICollidable c : entityList)
 		{
 			if ((c instanceof BodyPart && ((BodyPart)c).isAttatched) || c == this) continue;
-			if (isInsideHitBox(c.getHitBox())) 
+			if (isInsideHitBox(c.getHitBox()))
 			{
 				if(c instanceof Movable && this instanceof Movable)
 				{
