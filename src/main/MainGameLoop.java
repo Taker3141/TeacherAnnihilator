@@ -12,7 +12,6 @@ import raycasting.Floor;
 import renderer.*;
 import renderer.models.TexturedModel;
 import renderer.textures.*;
-import terrain.Terrain;
 import world.World;
 
 public class MainGameLoop
@@ -72,8 +71,8 @@ public class MainGameLoop
 			Entity entity = new Entity(bush, new Vector3f(100, w.height(100, 110), 110), 0, 0, 0, 0.2F, w.entities);
 			entity.setHitBox(new AABB(new Vector3f(entity.position), new Vector3f(0.5F, 5, 0.5F), new Vector3f(-0.5F, 0, -0.5F)));
 		}
-		generateBushRow(63, 172, 132, 172, w.entities, 1, bush, w.getTerrain());
-		generateBushRow(35, 77, 90, 83, w.entities, 1, bush, w.getTerrain());
+		generateBushRow(63, 172, 132, 172, w.entities, 1, bush, w);
+		generateBushRow(35, 77, 90, 83, w.entities, 1, bush, w);
 		TexturedModel house = new TexturedModel( OBJLoader.loadOBJModel("house"), new ModelTexture(loader.loadTexture("texture/test")));
 		new Entity(house, new Vector3f(122, w.height(122, 45), 45), 0, 120, 0, 6, w.entities);
 		TexturedModel sheet = new TexturedModel(OBJLoader.loadOBJModel("sheet"), new ModelTexture(loader.loadTexture("texture/sheet")));
@@ -86,7 +85,7 @@ public class MainGameLoop
 		}
 	}
 	
-	private static void generateBushRow(float x1, float z1, float x2, float z2, List<Entity> list, float step, TexturedModel bush, Terrain t)
+	private static void generateBushRow(float x1, float z1, float x2, float z2, List<Entity> list, float step, TexturedModel bush, World w)
 	{
 		Random r = new Random();
 		float dx = x2 - x1;
@@ -96,7 +95,7 @@ public class MainGameLoop
 		{
 			float x = x1 + i * step + r.nextFloat();
 			float z = z1 + (dz / count) * i + r.nextFloat();
-			Entity b = new Entity(bush, new Vector3f(x, t.getHeight(x, z), z), 0, 0, 0, 0.5F, list);
+			Entity b = new Entity(bush, new Vector3f(x, w.terrain(x).getHeight(x, z), z), 0, 0, 0, 0.5F, list);
 			b.setHitBox(new AABB(new Vector3f(b.position), new Vector3f(0.8F, 2, 0.8F), new Vector3f(-0.4F, 0, -0.4F)));
 		}
 	}

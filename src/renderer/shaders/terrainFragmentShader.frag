@@ -36,6 +36,7 @@ void main(void)
 	vec3 reflectedLightDirection = reflect(lightDirection, unitNormal);
 	
 	float brightness = dot(unitNormal, unitLightVector);
+	brightness += 0.05;
 	brightness = max(brightness, 0.2);
 	vec3 diffuse = brightness * lightColor;
 	
