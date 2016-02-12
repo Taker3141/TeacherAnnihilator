@@ -75,7 +75,7 @@ public class MainGameLoop
 		TexturedModel bush = new TexturedModel(OBJLoader.loadOBJModel("bush"), treeTexture);
 		{
 			Entity entity = new Entity(bush, new Vector3f(100, w.height(100, 110), 110), 0, 0, 0, 0.2F, w.entities);
-			entity.setHitBox(new Wall(new Vector3f(entity.position), new Vector3f(10, 5, 0.5F), new Vector3f(-5, 0, -0.25F), 45));
+			entity.setHitBox(new Wall(new Vector3f(95, 29, 105), new Vector3f(105, 29, 115), new Vector3f(0.5F, 5, 0)));
 		}
 		generateBushRow(63, 172, 132, 172, w.entities, 1, bush, w.getTerrain());
 		generateBushRow(35, 77, 90, 83, w.entities, 1, bush, w.getTerrain());
