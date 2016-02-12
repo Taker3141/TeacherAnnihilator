@@ -20,7 +20,12 @@ public class BuildingBox implements IHitBox
 	{
 		if(bigBox.isInside(point))
 		{
-			return floor.isInside(point);
+			for(Wall w : walls)
+			{
+				System.out.println(w.isInside(point));
+				if(w.isInside(point)) return true;
+			}
+			if(floor.isInside(point)) return true;
 		}
 		return false;
 	}
@@ -30,7 +35,11 @@ public class BuildingBox implements IHitBox
 	{
 		if(bigBox.isInside(box))
 		{
-			return floor.isInside(box);
+			if(floor.isInside(box)) return true;
+			for(Wall w : walls)
+			{
+				if(w.isInside(box)) return true;
+			}
 		}
 		return false;
 	}
@@ -42,8 +51,9 @@ public class BuildingBox implements IHitBox
 	}
 
 	@Override
-	public Vector3f getCenter()
+	public Vector3f getCenter(Vector3f point)
 	{
-		return floor.getCenter();
+		return walls[0].location;
+		//return floor.getCenter(point);
 	}
 }

@@ -49,6 +49,16 @@ public class Building extends Entity
 		return b;
 	}
 	
+	public void setWalls(Wall[] array)
+	{
+		walls = array;
+		for(Wall w : walls)
+		{
+			w.location = Vector3f.add(position, w.location, null);
+		}
+		b = new BuildingBox(floor, walls, bigBox);
+	}
+	
 	@Override
 	public void setHitBox(IHitBox box)
 	{

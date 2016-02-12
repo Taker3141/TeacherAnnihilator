@@ -45,7 +45,7 @@ public class AABB implements IHitBox
 	}
 	
 	@Override
-	public Vector3f getCenter()
+	public Vector3f getCenter(Vector3f point)
 	{
 		return Vector3f.sub(location, offset, null);
 	}

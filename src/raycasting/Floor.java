@@ -44,11 +44,11 @@ public class Floor implements IHitBox
 	@Override
 	public boolean isInside(IHitBox box)
 	{
-		return isInside(box.getCenter());
+		return isInside(box.getCenter(location));
 	}
 	
 	@Override
-	public Vector3f getCenter()
+	public Vector3f getCenter(Vector3f point)
 	{
 		return location;
 	}
