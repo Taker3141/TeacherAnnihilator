@@ -1,5 +1,6 @@
 package raycasting;
 
+import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import toolbox.Maths;
 
@@ -16,10 +17,11 @@ public class Wall extends AABB
 	public Wall(Vector3f p1, Vector3f p2, Vector3f size)
 	{
 		super(null, size, null);
+		this.size = size;
 		this.size.z = Vector3f.sub(p1, p2, null).length();
 		this.location = new Vector3f((p1.x * 0.5F) + (p2.x * 0.5F), (p1.y * 0.5F) + (p2.y * 0.5F), (p1.z * 0.5F) + (p2.z * 0.5F));
-		this.offset = new Vector3f(size.x / 2, 0, size.z / 2);
-		this.angle = (float)Math.toDegrees(Vector3f.angle(Vector3f.sub(p1, p2, null), new Vector3f(1, 0, 0)));
+		this.offset = new Vector3f(-size.x / 2, 0, -size.z / 2);
+		this.angle = (float)Math.toDegrees(Vector3f.angle(Vector3f.sub(p2, p1, null), new Vector3f(1, 0, 0)));
 	}
 	
 	@Override
