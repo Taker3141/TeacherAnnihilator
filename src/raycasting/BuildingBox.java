@@ -16,32 +16,37 @@ public class BuildingBox implements IHitBox
 	}
 
 	@Override
-	public boolean isInside(Vector3f point)
+	public CollisionData isInside(Vector3f point)
 	{
-		if(bigBox.isInside(point))
+		if(bigBox.isInside(point) != null)
 		{
+			CollisionData ret;
 			for(Wall w : walls)
 			{
-				System.out.println(w.isInside(point));
-				if(w.isInside(point)) return true;
+				ret = w.isInside(point);
+				System.out.println(ret);
+				if(ret != null) return ret;
 			}
-			if(floor.isInside(point)) return true;
+			ret = floor.isInside(point);
+			if(ret != null) return ret;
 		}
-		return false;
+		return null;
 	}
 
 	@Override
-	public boolean isInside(IHitBox box)
+	public CollisionData isInside(IHitBox box)
 	{
-		if(bigBox.isInside(box))
+		if(bigBox.isInside(box) != null)
 		{
-			if(floor.isInside(box)) return true;
+			CollisionData ret = floor.isInside(box);
+			if(ret != null) return ret;
 			for(Wall w : walls)
 			{
-				if(w.isInside(box)) return true;
+				ret = w.isInside(box);
+				if(ret != null) return ret;
 			}
 		}
-		return false;
+		return null;
 	}
 
 	@Override

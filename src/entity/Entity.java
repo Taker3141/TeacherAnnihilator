@@ -89,13 +89,13 @@ public class Entity implements ICollidable
 	@Override
 	public boolean isInsideHitBox(Vector3f point)
 	{
-		return hitBox.isInside(point);
+		return hitBox.isInside(point) != null;
 	}
 	
 	@Override
 	public boolean isInsideHitBox(IHitBox box)
 	{
-		return hitBox.isInside(box);
+		return hitBox.isInside(box) != null;
 	}
 	
 	@Override

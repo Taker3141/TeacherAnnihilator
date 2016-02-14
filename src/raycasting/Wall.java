@@ -25,25 +25,26 @@ public class Wall extends AABB
 	}
 	
 	@Override
-	public boolean isInside(Vector3f point)
+	public CollisionData isInside(Vector3f point)
 	{
 		return super.isInside(transform(point));
 	}
 	
 	@Override
-	public boolean isInside(IHitBox box)
+	public CollisionData isInside(IHitBox box)
 	{
+		CollisionData ret;
 		Vector3f c1 = Vector3f.add(location, offset, null);
 		Vector3f c2 = Vector3f.add(c1, size, null);
-		if(box.isInside(transform(new Vector3f(c1.x, c1.y, c1.z)))) return true;
-		if(box.isInside(transform(new Vector3f(c1.x, c1.y, c2.z)))) return true;
-		if(box.isInside(transform(new Vector3f(c1.x, c2.y, c1.z)))) return true;
-		if(box.isInside(transform(new Vector3f(c1.x, c2.y, c2.z)))) return true;
-		if(box.isInside(transform(new Vector3f(c2.x, c1.y, c1.z)))) return true;
-		if(box.isInside(transform(new Vector3f(c2.x, c1.y, c2.z)))) return true;
-		if(box.isInside(transform(new Vector3f(c2.x, c2.y, c1.z)))) return true;
-		if(box.isInside(transform(new Vector3f(c2.x, c2.y, c2.z)))) return true;
-		return false;
+		ret = box.isInside(transform(new Vector3f(c1.x, c1.y, c1.z))); if(ret != null) return ret;
+		ret = box.isInside(transform(new Vector3f(c1.x, c1.y, c2.z))); if(ret != null) return ret;
+		ret = box.isInside(transform(new Vector3f(c1.x, c2.y, c1.z))); if(ret != null) return ret;
+		ret = box.isInside(transform(new Vector3f(c1.x, c2.y, c2.z))); if(ret != null) return ret;
+		ret = box.isInside(transform(new Vector3f(c2.x, c1.y, c1.z))); if(ret != null) return ret;
+		ret = box.isInside(transform(new Vector3f(c2.x, c1.y, c2.z))); if(ret != null) return ret;
+		ret = box.isInside(transform(new Vector3f(c2.x, c2.y, c1.z))); if(ret != null) return ret;
+		ret = box.isInside(transform(new Vector3f(c2.x, c2.y, c2.z))); if(ret != null) return ret;
+		return null;
 	}
 	
 	private Vector3f transform(Vector3f point)

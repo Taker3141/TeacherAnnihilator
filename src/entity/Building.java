@@ -34,13 +34,13 @@ public class Building extends Entity
 	@Override
 	public boolean isInsideHitBox(Vector3f point)
 	{
-		return b.isInside(point);
+		return b.isInside(point) != null;
 	}
 	
 	@Override
 	public boolean isInsideHitBox(IHitBox box)
 	{
-		return b.isInside(box);
+		return b.isInside(box) != null;
 	}
 	
 	@Override

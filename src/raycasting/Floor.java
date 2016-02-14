@@ -22,7 +22,7 @@ public class Floor implements IHitBox
 	}
 	
 	@Override
-	public boolean isInside(Vector3f point)
+	public CollisionData isInside(Vector3f point)
 	{
 		Vector2f p = new Vector2f(point.x, point.z);
 		int i, j = polygon.length - 1;
@@ -38,11 +38,11 @@ public class Floor implements IHitBox
 			}
 			j = i;
 		}
-		return oddNodes;
+		return new CollisionData(new Vector3f(point.x, location.y, point.z), true);
 	}
 	
 	@Override
-	public boolean isInside(IHitBox box)
+	public CollisionData isInside(IHitBox box)
 	{
 		return isInside(box.getCenter(location));
 	}
