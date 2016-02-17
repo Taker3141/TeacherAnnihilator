@@ -7,6 +7,7 @@ import org.lwjgl.util.vector.Vector3f;
 import raycasting.AABB;
 import raycasting.ICollidable;
 import raycasting.IHitBox;
+import raycasting.IHitBox.CollisionData;
 import renderer.Loader;
 import renderer.models.TexturedModel;
 import terrain.Terrain;
@@ -58,7 +59,8 @@ public class Entity implements ICollidable
 		for (ICollidable c : entityList)
 		{
 			if ((c instanceof BodyPart && ((BodyPart)c).isAttatched) || c == this) continue;
-			if (isInsideHitBox(c.getHitBox()))
+			CollisionData data = isInsideHitBox(c.getHitBox());
+			if (data != null)
 			{
 				if(c instanceof Movable && this instanceof Movable)
 				{
@@ -71,14 +73,20 @@ public class Entity implements ICollidable
 				}
 				else if(!(c instanceof Movable) && this instanceof Movable)
 				{
-					if(!c.getHitBox().isPlatform())
+					if(data.type == IHitBox.Type.OBJECT)
 					{
-						((Movable)this).v = Vector3f.sub(position, ((Entity)c).position, null).normalise(null);
+						((Movable)this).v = Vector3f.sub(position, c.getHitBox().getCenter(position), null).normalise(null);
 					}
-					else if(((Movable)this).v.y < 0) 
+					else if(data.type == IHitBox.Type.FLOOR && ((Movable)this).v.y < 0) 
 					{
 						((Movable)this).v.y = 0;
 						((Movable)this).isInAir = false;
+					}
+					if(data.type == IHitBox.Type.WALL)
+					{
+						Vector3f v = Vector3f.sub(position, c.getHitBox().getCenter(position), null).normalise(null);
+						v.y = 0;
+						((Movable)this).v = v;
 					}
 				}
 			}
@@ -87,15 +95,15 @@ public class Entity implements ICollidable
 	}
 
 	@Override
-	public boolean isInsideHitBox(Vector3f point)
+	public CollisionData isInsideHitBox(Vector3f point)
 	{
-		return hitBox.isInside(point) != null;
+		return hitBox.isInside(point);
 	}
 	
 	@Override
-	public boolean isInsideHitBox(IHitBox box)
+	public CollisionData isInsideHitBox(IHitBox box)
 	{
-		return hitBox.isInside(box) != null;
+		return hitBox.isInside(box);
 	}
 	
 	@Override

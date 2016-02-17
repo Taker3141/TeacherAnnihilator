@@ -6,6 +6,7 @@ import raycasting.AABB;
 import raycasting.BuildingBox;
 import raycasting.Floor;
 import raycasting.IHitBox;
+import raycasting.IHitBox.CollisionData;
 import raycasting.Wall;
 import renderer.models.TexturedModel;
 
@@ -32,15 +33,15 @@ public class Building extends Entity
 	}
 	
 	@Override
-	public boolean isInsideHitBox(Vector3f point)
+	public CollisionData isInsideHitBox(Vector3f point)
 	{
-		return b.isInside(point) != null;
+		return b.isInside(point);
 	}
 	
 	@Override
-	public boolean isInsideHitBox(IHitBox box)
+	public CollisionData isInsideHitBox(IHitBox box)
 	{
-		return b.isInside(box) != null;
+		return b.isInside(box);
 	}
 	
 	@Override

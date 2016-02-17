@@ -24,7 +24,6 @@ public class BuildingBox implements IHitBox
 			for(Wall w : walls)
 			{
 				ret = w.isInside(point);
-				System.out.println(ret);
 				if(ret != null) return ret;
 			}
 			ret = floor.isInside(point);
@@ -38,13 +37,14 @@ public class BuildingBox implements IHitBox
 	{
 		if(bigBox.isInside(box) != null)
 		{
-			CollisionData ret = floor.isInside(box);
-			if(ret != null) return ret;
+			CollisionData ret;
 			for(Wall w : walls)
 			{
 				ret = w.isInside(box);
 				if(ret != null) return ret;
 			}
+			ret = floor.isInside(box);
+			if(ret != null) return ret;
 		}
 		return null;
 	}

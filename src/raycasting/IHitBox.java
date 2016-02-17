@@ -13,11 +13,18 @@ public interface IHitBox
 	{
 		public final Vector3f origin;
 		public final boolean isPlatform;
+		public final Type type;
 		
-		protected CollisionData(Vector3f o, boolean platform)
+		protected CollisionData(Vector3f o, boolean platform, Type t)
 		{
 			origin = o;
 			isPlatform = platform;
+			type = t;
 		}
+	}
+
+	public static enum Type
+	{
+		FLOOR, WALL, OBJECT
 	}
 }

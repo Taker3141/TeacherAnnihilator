@@ -42,7 +42,7 @@ public class MainGameLoop
 				new Vector2f(30.4F, -6.7F), new Vector2f(35.0F, 5.8F), new Vector2f(29.3F, 18.0F), 
 				new Vector2f(16.8F, 22.5F), new Vector2f(0.4F, 14.9F)};
 			lmg.setHitBox(new Floor(new Vector3f(lmg.position), 0.7F, new Vector3f(-33, -0.3F, -25), polygon));
-			Wall[] walls = {new Wall(new Vector3f(0.4F, 0, 14.9F), new Vector3f(-16.1F, 0, 21.0F), new Vector3f(0.1F, 2, 0))};
+			Wall[] walls = {new Wall(new Vector3f(0.4F, 0, 14.9F), new Vector3f(-16.1F, 0, 21.0F), new Vector3f(0.5F, 2, 0))};
 			lmg.setWalls(walls);
 		}
 		{

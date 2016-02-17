@@ -21,7 +21,7 @@ public class AABB implements IHitBox
 	@Override
 	public CollisionData isInside(Vector3f point)
 	{
-		CollisionData ret = new CollisionData(location, false);
+		CollisionData ret = new CollisionData(location, false, Type.OBJECT);
 		Vector3f corner = Vector3f.add(location, offset, null);
 		if(point.x < corner.x || point.x > corner.x + size.x) return null;
 		if(point.y < corner.y || point.y > corner.y + size.y) return null;
@@ -32,17 +32,17 @@ public class AABB implements IHitBox
 	@Override
 	public CollisionData isInside(IHitBox box)
 	{
-		CollisionData ret = new CollisionData(location, false);
+		CollisionData ret = new CollisionData(location, false, Type.OBJECT);
 		Vector3f c1 = Vector3f.add(location, offset, null);
 		Vector3f c2 = Vector3f.add(c1, size, null);
-		if(box.isInside(c1) != null) return ret;
-		if(box.isInside(new Vector3f(c1.x, c1.y, c2.z)) != null) return ret;
-		if(box.isInside(new Vector3f(c1.x, c2.y, c1.z)) != null) return ret;
-		if(box.isInside(new Vector3f(c1.x, c2.y, c2.z)) != null) return ret;
-		if(box.isInside(new Vector3f(c2.x, c1.y, c1.z)) != null) return ret;
-		if(box.isInside(new Vector3f(c2.x, c1.y, c2.z)) != null) return ret;
-		if(box.isInside(new Vector3f(c2.x, c2.y, c1.z)) != null) return ret;
-		if(box.isInside(c2) != null) return ret;
+		ret = box.isInside(c1); if(ret != null) return ret;
+		ret = box.isInside(new Vector3f(c1.x, c1.y, c2.z)); if(ret != null) return ret;
+		ret = box.isInside(new Vector3f(c1.x, c2.y, c1.z)); if(ret != null) return ret;
+		ret = box.isInside(new Vector3f(c1.x, c2.y, c2.z)); if(ret != null) return ret;
+		ret = box.isInside(new Vector3f(c2.x, c1.y, c1.z)); if(ret != null) return ret;
+		ret = box.isInside(new Vector3f(c2.x, c1.y, c2.z)); if(ret != null) return ret;
+		ret = box.isInside(new Vector3f(c2.x, c2.y, c1.z)); if(ret != null) return ret;
+		ret = box.isInside(c2); if(ret != null) return ret;
 		return null;
 	}
 	
