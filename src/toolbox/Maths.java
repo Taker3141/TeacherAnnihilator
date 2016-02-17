@@ -49,4 +49,14 @@ public class Maths
 		float l3 = 1.0f - l1 - l2;
 		return l1 * p1.y + l2 * p2.y + l3 * p3.y;
 	}
+	
+	public static Vector3f rotateVector(Vector3f v, float angle)
+	{
+		Vector3f ret = new Vector3f();
+		float a = (float)Math.toRadians(angle);
+		ret.x = (float)(v.x * Math.cos(a) - v.z * Math.sin(a));
+		ret.y = v.y;
+		ret.z = (float)(v.x * Math.sin(a) + v.z * Math.cos(a));
+		return ret;
+	}
 }

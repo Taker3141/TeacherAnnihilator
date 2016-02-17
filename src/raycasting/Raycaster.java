@@ -45,7 +45,7 @@ public class Raycaster
 			vec = Vector3f.add(vec, rayStep, vec);
 			for(ICollidable e : list)
 			{
-				if(e.isInsideHitBox(vec)) 
+				if(e.isInsideHitBox(vec) != null) 
 				{
 					e.hover();
 					if(clickFlag) player.clickAt(e, vec);

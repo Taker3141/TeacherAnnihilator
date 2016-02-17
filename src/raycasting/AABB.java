@@ -19,33 +19,35 @@ public class AABB implements IHitBox
 	}
 	
 	@Override
-	public boolean isInside(Vector3f point)
+	public CollisionData isInside(Vector3f point)
 	{
+		CollisionData ret = new CollisionData(location, false, Type.OBJECT);
 		Vector3f corner = Vector3f.add(location, offset, null);
-		if(point.x < corner.x || point.x > corner.x + size.x) return false;
-		if(point.y < corner.y || point.y > corner.y + size.y) return false;
-		if(point.z < corner.z || point.z > corner.z + size.z) return false;
-		return true;
+		if(point.x < corner.x || point.x > corner.x + size.x) return null;
+		if(point.y < corner.y || point.y > corner.y + size.y) return null;
+		if(point.z < corner.z || point.z > corner.z + size.z) return null;
+		return ret;
 	}
 	
 	@Override
-	public boolean isInside(IHitBox box)
+	public CollisionData isInside(IHitBox box)
 	{
+		CollisionData ret = new CollisionData(location, false, Type.OBJECT);
 		Vector3f c1 = Vector3f.add(location, offset, null);
 		Vector3f c2 = Vector3f.add(c1, size, null);
-		if(box.isInside(c1)) return true;
-		if(box.isInside(new Vector3f(c1.x, c1.y, c2.z))) return true;
-		if(box.isInside(new Vector3f(c1.x, c2.y, c1.z))) return true;
-		if(box.isInside(new Vector3f(c1.x, c2.y, c2.z))) return true;
-		if(box.isInside(new Vector3f(c2.x, c1.y, c1.z))) return true;
-		if(box.isInside(new Vector3f(c2.x, c1.y, c2.z))) return true;
-		if(box.isInside(new Vector3f(c2.x, c2.y, c1.z))) return true;
-		if(box.isInside(c2)) return true;
-		return false;
+		ret = box.isInside(c1); if(ret != null) return ret;
+		ret = box.isInside(new Vector3f(c1.x, c1.y, c2.z)); if(ret != null) return ret;
+		ret = box.isInside(new Vector3f(c1.x, c2.y, c1.z)); if(ret != null) return ret;
+		ret = box.isInside(new Vector3f(c1.x, c2.y, c2.z)); if(ret != null) return ret;
+		ret = box.isInside(new Vector3f(c2.x, c1.y, c1.z)); if(ret != null) return ret;
+		ret = box.isInside(new Vector3f(c2.x, c1.y, c2.z)); if(ret != null) return ret;
+		ret = box.isInside(new Vector3f(c2.x, c2.y, c1.z)); if(ret != null) return ret;
+		ret = box.isInside(c2); if(ret != null) return ret;
+		return null;
 	}
 	
 	@Override
-	public Vector3f getCenter()
+	public Vector3f getCenter(Vector3f point)
 	{
 		return Vector3f.sub(location, offset, null);
 	}

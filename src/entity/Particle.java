@@ -4,6 +4,7 @@ import java.util.*;
 import main.MainManagerClass;
 import org.lwjgl.util.vector.Vector3f;
 import raycasting.IHitBox;
+import raycasting.IHitBox.CollisionData;
 import renderer.DisplayManager;
 import renderer.models.SimpleModel;
 import renderer.models.TexturedModel;
@@ -40,15 +41,15 @@ public class Particle extends Movable
 	}
 	
 	@Override
-	public boolean isInsideHitBox(IHitBox box)
+	public CollisionData isInsideHitBox(IHitBox box)
 	{
-		return false;
+		return null;
 	}
 	
 	@Override
-	public boolean isInsideHitBox(Vector3f point)
+	public CollisionData isInsideHitBox(Vector3f point)
 	{
-		return false;
+		return null;
 	}
 	
 	@Override
