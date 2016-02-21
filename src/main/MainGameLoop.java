@@ -52,15 +52,15 @@ public class MainGameLoop
 					new Vector2f(14.7F, -11.4F), new Vector2f(18.4F, 1.2F), new Vector2f(12.2F, 12.0F), 
 					new Vector2f(0.7F, 15.2F)};
 			lmg.setHitBox(new Floor(new Vector3f(lmg.position), 0, new Vector3f(-20, -0.28F, -20), p));
-			final Vector3f s = new Vector3f(1F, 2, 0);
+			final Vector3f s = new Vector3f(0.2F, 2, 0);
 			Wall[] walls = {new Wall(new Vector3f(0.7F, 0, 15.2F), new Vector3f(-9.6F, 0, 9.8F), new Vector3f(s)),
 					new Wall(new Vector3f(-9.6F, 0, 9.8F), new Vector3f(-13.6F, 0, -1.2F), new Vector3f(s)),
 					new Wall(new Vector3f(-13.6F, 0, -1.2F), new Vector3f(-8.9F, 0, -12.6F), new Vector3f(s)),
 					new Wall(new Vector3f(-8.9F, 0, -12.6F), new Vector3f(3.0F, 0, -17.3F), new Vector3f(s)),
-					new Wall(new Vector3f(3.0F, 0, -17.3F), new Vector3f(14.7F, 0, -11.4F), new Vector3f(s)),
-					new Wall(new Vector3f(14.7F, 0, -11.4F), new Vector3f(18.4F, 0, 1.2F), new Vector3f(s)),
-					new Wall(new Vector3f(18.4F, 0, 1.2F), new Vector3f(12.2F, 0, 12.0F), new Vector3f(s)),
-					new Wall(new Vector3f(12.2F, 0, 12.0F), new Vector3f(0.7F, 0, 15.2F), new Vector3f(s)),
+					new Wall(new Vector3f(14.7F, 0, -11.4F), new Vector3f(3.0F, 0, -17.3F), new Vector3f(s)),
+					new Wall(new Vector3f(18.4F, 0, 1.2F), new Vector3f(14.7F, 0, -11.4F), new Vector3f(s)),
+					new Wall(new Vector3f(12.2F, 0, 12.0F), new Vector3f(18.4F, 0, 1.2F), new Vector3f(s)),
+					new Wall(new Vector3f(0.7F, 0, 15.2F), new Vector3f(12.2F, 0, 12.0F), new Vector3f(s)),
 			};
 			lmg.setWalls(walls);
 		}

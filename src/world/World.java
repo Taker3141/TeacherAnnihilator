@@ -42,7 +42,7 @@ public class World
 		Person.init();
 		Particle.init();
 		entities = new ArrayList<Entity>();
-		player = new Player("texture/player", new Vector3f(100, 0, 100), 0, 0, 0, 0.1F, entities, 30);
+		player = new Player("texture/player", new Vector3f(175, 0, 140), 0, 0, 0, 0.1F, entities, 30);
 		light = new Light(new Vector3f(0, 100, 0), new Vector3f(1, 1, 1));
 		c = new Camera(player);
 		t = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg")), "height_map_lmg");
