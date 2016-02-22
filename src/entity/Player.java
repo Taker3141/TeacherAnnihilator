@@ -4,6 +4,7 @@ import gui.item.Inventory;
 import gui.item.Item;
 import java.util.List;
 import java.util.Random;
+import main.MainGameLoop;
 import main.MainManagerClass;
 import objLoader.OBJLoader;
 import org.lwjgl.input.Keyboard;
@@ -19,7 +20,7 @@ import static entity.State.*;
 
 public class Player extends Person
 {
-	private static final float RUN_SPEED = 5;
+	private static final float RUN_SPEED = 5F;
 	private static final float TURN_SPEED = 40;
 	private static final float JUMP_POWER = 10;
 	
@@ -192,7 +193,7 @@ public class Player extends Person
 		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE) && !isInAir) jump();
 		if (Keyboard.isKeyDown(Keyboard.KEY_ADD)) speed = 2 * RUN_SPEED;
 		if (Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT)) speed = RUN_SPEED;
-		if (Keyboard.isKeyDown(Keyboard.KEY_F3)) System.out.println(position);
+		if (Keyboard.isKeyDown(Keyboard.KEY_F3)) System.out.println(Vector3f.sub(position, MainGameLoop.lmg.position, null));
 		isArmUp = Keyboard.isKeyDown(Keyboard.KEY_LSHIFT);
 	}
 	
