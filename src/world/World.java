@@ -1,9 +1,6 @@
 package world;
 
-import static org.lwjgl.input.Keyboard.KEY_ESCAPE;
-import static org.lwjgl.input.Keyboard.KEY_F1;
-import static org.lwjgl.input.Keyboard.KEY_F5;
-import static org.lwjgl.input.Keyboard.isKeyDown;
+import static org.lwjgl.input.Keyboard.*;
 import java.util.ArrayList;
 import java.util.List;
 import main.MainManagerClass;
@@ -11,18 +8,11 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Input;
 import raycasting.Raycaster;
-import renderer.Loader;
-import renderer.MasterRenderer;
-import renderer.textures.TerrainTexture;
-import renderer.textures.TerrainTexturePack;
+import renderer.*;
+import renderer.textures.*;
 import terrain.Terrain;
-import entity.Camera;
-import entity.Entity;
-import entity.Light;
-import entity.Particle;
-import entity.Person;
-import entity.Player;
-import gui.menu.MenuInventory;
+import entity.*;
+import gui.menu.*;
 
 public class World
 {
@@ -36,6 +26,8 @@ public class World
 	private Loader loader = MainManagerClass.loader;
 	private Input input;
 	private boolean isInventoryOpen = false;
+	private boolean showOrgans = false;
+	private MenuOrgans organMenu;
 	
 	public World()
 	{
@@ -53,6 +45,8 @@ public class World
 		ray.setList(entities);
 		input = new Input(Display.getHeight());
 		renderer = new MasterRenderer();
+		organMenu = new MenuOrgans();
+		organMenu.doMenu();
 	}
 	
 	public boolean tick()
@@ -70,6 +64,7 @@ public class World
 		renderer.processTerrain(t[0]);
 		renderer.processTerrain(t[1]);
 		renderer.render(light, c);
+		if(showOrgans) organMenu.render();
 		if(isKeyDown(KEY_ESCAPE)) return false;
 		if(isKeyDown(KEY_F1) && !isInventoryOpen)
 		{
@@ -77,6 +72,12 @@ public class World
 			MenuInventory inventory = new MenuInventory();
 			inventory.doMenu(player);
 			isInventoryOpen = false;
+		}
+		if(isKeyDown(KEY_F3))
+		{
+			System.out.println(showOrgans);
+			if (!showOrgans) showOrgans = true;
+			//else showOrgans = false;
 		}
 		if(isKeyDown(KEY_F5)) t[0] = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg0")), "height_map_lmg0");
 		if(isKeyDown(KEY_F5)) t[1] = new Terrain(-1, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg1")), "height_map_lmg1");
