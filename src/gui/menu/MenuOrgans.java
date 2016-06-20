@@ -1,8 +1,8 @@
 package gui.menu;
 
+import font.fontMeshCreator.GUIText;
 import font.fontRendering.TextMaster;
 import gui.element.GuiElement;
-import gui.element.Icon;
 import java.util.ArrayList;
 import java.util.List;
 import org.lwjgl.util.vector.Vector2f;
@@ -13,8 +13,8 @@ public class MenuOrgans extends Menu
 {
 	private final int X = 0;
 	private final int Y = 0;
-	private float heartTime = 1;
-	private float breathTime = 5;
+	private float heartTime = 0.71F;
+	private float breathTime = 2.4F;
 	
 	private final GuiElement heart0 = new GuiElement(loader.loadTexture("texture/gui/organs/icon_heart_0"), new Vector2f(0, 0), new Vector2f(64, 64), (Menu)this);
 	private final GuiElement heart1 = new GuiElement(loader.loadTexture("texture/gui/organs/icon_heart_1"), new Vector2f(0, 0), new Vector2f(64, 64), (Menu)this);
@@ -39,6 +39,9 @@ public class MenuOrgans extends Menu
 		renderList.addAll(guiElements);
 		renderList.addAll(guiElementsBackground);
 		gRenderer.render(renderList);
+		TextMaster.clear();
+		new GUIText("o!" + Float.toString(60 / heartTime).substring(0, 4) + " bpm", 0.8F, font, new Vector2f(2, 210), 1F, false);
+		new GUIText("o!" + breathTime + "s", 0.8F, font, new Vector2f(100, 210), 1F, false);
 		TextMaster.render();
 	}
 }
