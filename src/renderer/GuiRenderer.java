@@ -1,6 +1,7 @@
 package renderer;
 
 import gui.GuiShader;
+import gui.element.GuiBar;
 import gui.element.GuiElement;
 import java.util.List;
 import org.lwjgl.opengl.Display;
@@ -37,6 +38,16 @@ public class GuiRenderer
 			GL11.glBindTexture(GL11.GL_TEXTURE_2D, element.getTextureID());
 			Matrix4f matrix = createGuiTransformationMatrix(element.position, element.size);
 			shader.loadTransformationMatrix(matrix);
+			if(element instanceof GuiBar)
+			{
+				shader.loadOffset(((GuiBar)element).offset);
+				shader.loadHeight(((GuiBar)element).height);
+			}
+			else
+			{
+				shader.loadOffset(0);
+				shader.loadHeight(1);
+			}
 			GL11.glDrawArrays(GL11.GL_TRIANGLE_STRIP, 0, baseQuad.getVertexCount());
 		}
 		GL20.glDisableVertexAttribArray(0);

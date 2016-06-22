@@ -10,6 +10,8 @@ public class GuiShader extends ShaderProgram
 	
 	private int locationTransformationMatrix;
 	private int locationLayer;
+	private int locationOffset;
+	private int locationHeight;
 	
 	public GuiShader()
 	{
@@ -25,12 +27,24 @@ public class GuiShader extends ShaderProgram
 	{
 		super.loadInt(locationLayer, layer);
 	}
+	
+	public void loadOffset(float offset)
+	{
+		super.loadFloat(locationOffset, offset);
+	}
+	
+	public void loadHeight(float height)
+	{
+		super.loadFloat(locationHeight, height);
+	}
 
 	@Override
 	protected void getAllUniformLocations()
 	{
 		locationTransformationMatrix = super.getUniformLoacation("transformationMatrix");
 		locationLayer = super.getUniformLoacation("layer");
+		locationOffset = super.getUniformLoacation("offset");
+		locationHeight = super.getUniformLoacation("height");
 	}
 	
 	@Override
