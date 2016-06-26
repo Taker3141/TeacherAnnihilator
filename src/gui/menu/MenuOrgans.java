@@ -1,5 +1,6 @@
 package gui.menu;
 
+import entity.Player;
 import font.fontMeshCreator.GUIText;
 import font.fontRendering.TextMaster;
 import gui.element.GuiBar;
@@ -14,10 +15,12 @@ public class MenuOrgans extends Menu
 {
 	private final int X = 0;
 	private final int Y = 0;
-	private final int BAR_HEIGHT = 58;
+	private final int BAR_HEIGHT = 117;
+	private final int BAR_WIDTH = 58;
 	
-	private float heartTime = 0.71F;
-	private float breathTime = 2.4F;
+	private Player p;
+	private float heartTime = 0.8F;
+	private float breathTime = 3F;
 	
 	private final GuiElement heart0 = new GuiElement(loader.loadTexture("texture/gui/organs/icon_heart_0"), new Vector2f(0, 0), new Vector2f(64, 64), (Menu)this);
 	private final GuiElement heart1 = new GuiElement(loader.loadTexture("texture/gui/organs/icon_heart_1"), new Vector2f(0, 0), new Vector2f(64, 64), (Menu)this);
@@ -29,8 +32,15 @@ public class MenuOrgans extends Menu
 	@Override
 	public final void doMenu()
 	{
+		
+	}
+	
+	public final void doMenu(Player player)
+	{
+		p = player;
 		gRenderer = new OverlayRenderer(loader);
 		guiElementsBackground.add(new GuiElement(loader.loadTexture("texture/gui/organs/background"), new Vector2f(X, Y), new Vector2f(256, 256), (Menu)this));
+		guiElementsForeground.add(new GuiElement(loader.loadTexture("texture/gui/organs/overlay"), new Vector2f(X, Y), new Vector2f(256, 256), (Menu)this));
 	}
 	
 	@Override
@@ -40,12 +50,12 @@ public class MenuOrgans extends Menu
 		guiElements.clear();
 		guiElements.add(DisplayManager.getTime() % heartTime > heartTime / 5 ? heart0 : heart1);
 		guiElements.add(DisplayManager.getTime() % breathTime > breathTime / 2 ? lung0 : lung1);
-		blood.size.y = BAR_HEIGHT / heartTime;
-		blood.height = blood.size.y / BAR_HEIGHT;
-		blood.offset = 0.5F * blood.height * DisplayManager.getTime() % 1;
-		air.size.y = 4 * BAR_HEIGHT / breathTime;
-		air.height = air.size.y / BAR_HEIGHT;
-		air.offset = 0.5F * air.height * DisplayManager.getTime() % 1;
+		blood.size.y = 0.3F * (BAR_HEIGHT / heartTime);
+		blood.height = blood.size.y / BAR_WIDTH;
+		blood.offset = blood.height * DisplayManager.getTime() % 1;
+		air.size.y = 0.3F * BAR_HEIGHT / breathTime;
+		air.height = air.size.y / BAR_WIDTH;
+		air.offset = air.height * DisplayManager.getTime() % 1;
 		guiElements.add(blood);
 		guiElements.add(air);
 		renderList.addAll(guiElementsForeground);

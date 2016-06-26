@@ -26,7 +26,7 @@ public class World
 	private Loader loader = MainManagerClass.loader;
 	private Input input;
 	private boolean isInventoryOpen = false;
-	private boolean showOrgans = false;
+	private boolean showOrgans = true;
 	private MenuOrgans organMenu;
 	
 	public World()
@@ -46,7 +46,7 @@ public class World
 		input = new Input(Display.getHeight());
 		renderer = new MasterRenderer();
 		organMenu = new MenuOrgans();
-		organMenu.doMenu();
+		organMenu.doMenu(player);
 	}
 	
 	public boolean tick()
@@ -73,12 +73,12 @@ public class World
 			inventory.doMenu(player);
 			isInventoryOpen = false;
 		}
-		if(isKeyDown(KEY_F3))
-		{
-			System.out.println(showOrgans);
-			if (!showOrgans) showOrgans = true;
-			//else showOrgans = false;
-		}
+//		if(isKeyDown(KEY_F3))
+//		{
+//			System.out.println(showOrgans);
+//			if (!showOrgans) showOrgans = true;
+//			//else showOrgans = false;
+//		}
 		if(isKeyDown(KEY_F5)) t[0] = new Terrain(0, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg0")), "height_map_lmg0");
 		if(isKeyDown(KEY_F5)) t[1] = new Terrain(-1, 0, loader, loadTerrainTexturePack(loader), new TerrainTexture(loader.loadTexture("texture/blend_map_lmg1")), "height_map_lmg1");
 		return true;
