@@ -17,6 +17,7 @@ public class MenuOrgans extends Menu
 	private final int Y = 0;
 	private final int BAR_HEIGHT = 117;
 	private final int BAR_WIDTH = 58;
+	private float heart = 0;
 	
 	private Player p;
 	
@@ -45,12 +46,14 @@ public class MenuOrgans extends Menu
 	public void render()
 	{
 		List<GuiElement> renderList = new ArrayList<GuiElement>();
+		heart += p.getHeartRate() / 60 * DisplayManager.getFrameTimeSeconds();
+		System.out.println(heart);
 		guiElements.clear();
-		guiElements.add(DisplayManager.getTime() % p.getHeartRate() < p.getHeartRate() * 0.8 ? heart0 : heart1);
+		guiElements.add(heart % 1 < 0.8 ? heart0 : heart1);
 		guiElements.add(DisplayManager.getTime() % p.getBreathTime() > p.getBreathTime() / 2 ? lung0 : lung1);
-		blood.size.y = 0.3F * (BAR_HEIGHT / p.getHeartRate());
+		blood.size.y = BAR_HEIGHT * p.getHeartRate() / 200;
 		blood.height = blood.size.y / BAR_WIDTH;
-		blood.offset = blood.height * DisplayManager.getTime() % 1;
+		blood.offset += p.getHeartRate() / 200 * DisplayManager.getFrameTimeSeconds();
 		air.size.y = 0.3F * BAR_HEIGHT / p.getBreathTime();
 		air.height = air.size.y / BAR_WIDTH;
 		air.offset = air.height * DisplayManager.getTime() % 1;
