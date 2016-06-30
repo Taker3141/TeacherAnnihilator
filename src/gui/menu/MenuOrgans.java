@@ -19,8 +19,6 @@ public class MenuOrgans extends Menu
 	private final int BAR_WIDTH = 58;
 	
 	private Player p;
-	private float heartTime = 0.8F;
-	private float breathTime = 3F;
 	
 	private final GuiElement heart0 = new GuiElement(loader.loadTexture("texture/gui/organs/icon_heart_0"), new Vector2f(0, 0), new Vector2f(64, 64), (Menu)this);
 	private final GuiElement heart1 = new GuiElement(loader.loadTexture("texture/gui/organs/icon_heart_1"), new Vector2f(0, 0), new Vector2f(64, 64), (Menu)this);
@@ -48,12 +46,12 @@ public class MenuOrgans extends Menu
 	{
 		List<GuiElement> renderList = new ArrayList<GuiElement>();
 		guiElements.clear();
-		guiElements.add(DisplayManager.getTime() % heartTime > heartTime / 5 ? heart0 : heart1);
-		guiElements.add(DisplayManager.getTime() % breathTime > breathTime / 2 ? lung0 : lung1);
-		blood.size.y = 0.3F * (BAR_HEIGHT / heartTime);
+		guiElements.add(DisplayManager.getTime() % p.getHeartRate() < p.getHeartRate() * 0.8 ? heart0 : heart1);
+		guiElements.add(DisplayManager.getTime() % p.getBreathTime() > p.getBreathTime() / 2 ? lung0 : lung1);
+		blood.size.y = 0.3F * (BAR_HEIGHT / p.getHeartRate());
 		blood.height = blood.size.y / BAR_WIDTH;
 		blood.offset = blood.height * DisplayManager.getTime() % 1;
-		air.size.y = 0.3F * BAR_HEIGHT / breathTime;
+		air.size.y = 0.3F * BAR_HEIGHT / p.getBreathTime();
 		air.height = air.size.y / BAR_WIDTH;
 		air.offset = air.height * DisplayManager.getTime() % 1;
 		guiElements.add(blood);
@@ -63,8 +61,8 @@ public class MenuOrgans extends Menu
 		renderList.addAll(guiElementsBackground);
 		gRenderer.render(renderList);
 		TextMaster.clear();
-		new GUIText("o!" + Float.toString(60 / heartTime).substring(0, 4) + " bpm", 0.8F, font, new Vector2f(2, 210), 1F, false);
-		new GUIText("o!" + breathTime + "s", 0.8F, font, new Vector2f(100, 210), 1F, false);
+		new GUIText("o!" + Float.toString(p.getHeartRate()).substring(0, 4) + " bpm", 0.8F, font, new Vector2f(2, 210), 1F, false);
+		new GUIText("o!" + p.getBreathTime() + "s", 0.8F, font, new Vector2f(100, 210), 1F, false);
 		TextMaster.render();
 	}
 }
