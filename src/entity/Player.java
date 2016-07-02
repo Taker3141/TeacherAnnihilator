@@ -1,5 +1,6 @@
 package entity;
 
+import entity.medical.Heart;
 import gui.item.Inventory;
 import gui.item.Item;
 import java.util.List;
@@ -16,20 +17,16 @@ import renderer.models.TexturedModel;
 import renderer.textures.ModelTexture;
 import terrain.Terrain;
 import static entity.State.*;
-import static org.lwjgl.input.Keyboard.*;
 
 public class Player extends Person
 {
 	private static final float RUN_SPEED = 5;
 	private static final float TURN_SPEED = 40;
 	private static final float JUMP_POWER = 10;
-	private static final float HEART_WALK = 120;
-	private static final float HEART_IDLE = 80;
-	private static final float HEART_FAST_WALK = 150;
 	
 	private float currentTurnSpeed = 0;
 	private float speed = RUN_SPEED;
-	private float heartRate = 100;
+	private Heart heart = new Heart(80, 0);
 	private float breathTime = 3;
 	private float punchTimer = 0;
 	private boolean punchTimerStarted = false;
@@ -191,13 +188,7 @@ public class Player extends Person
 			v.x = (float) (-speed * Math.sin(Math.toRadians(rotY)));
 			v.z = (float) (-speed * Math.cos(Math.toRadians(rotY)));
 		}
-
-		if (Keyboard.isKeyDown(KEY_W) || Keyboard.isKeyDown(KEY_S))
-		{
-			if (speed <= RUN_SPEED) heartRate += (HEART_WALK - heartRate) * 0.05 * DisplayManager.getFrameTimeSeconds();
-			else if (speed > RUN_SPEED) heartRate += (HEART_FAST_WALK - heartRate) * 0.05 * DisplayManager.getFrameTimeSeconds();
-		}
-		else heartRate += (HEART_IDLE - heartRate) * 0.05 * DisplayManager.getFrameTimeSeconds();
+		heart.updateHeartRate(0);
 		if (Keyboard.isKeyDown(Keyboard.KEY_A)) currentTurnSpeed = TURN_SPEED;
 		else if (Keyboard.isKeyDown(Keyboard.KEY_D)) currentTurnSpeed = -TURN_SPEED;
 		else currentTurnSpeed = 0;
@@ -221,7 +212,7 @@ public class Player extends Person
 	
 	public float getHeartRate()
 	{
-		return heartRate;
+		return heart.getHeartRate();
 	}
 	
 	public float getBreathTime()

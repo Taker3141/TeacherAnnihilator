@@ -47,7 +47,6 @@ public class MenuOrgans extends Menu
 	{
 		List<GuiElement> renderList = new ArrayList<GuiElement>();
 		heart += p.getHeartRate() / 60 * DisplayManager.getFrameTimeSeconds();
-		System.out.println(heart);
 		guiElements.clear();
 		guiElements.add(heart % 1 < 0.8 ? heart0 : heart1);
 		guiElements.add(DisplayManager.getTime() % p.getBreathTime() > p.getBreathTime() / 2 ? lung0 : lung1);
