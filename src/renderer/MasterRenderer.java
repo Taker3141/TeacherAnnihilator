@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import main.MainManagerClass;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
@@ -13,6 +14,7 @@ import entity.Light;
 import renderer.models.TexturedModel;
 import renderer.shaders.StaticShader;
 import renderer.shaders.TerrainShader;
+import skybox.SkyboxRenderer;
 import terrain.Terrain;
 
 public class MasterRenderer
@@ -30,6 +32,7 @@ public class MasterRenderer
 	private TerrainRenderer terrainRenderer;
 	private Map<TexturedModel, List<Entity>> entities = new HashMap<TexturedModel, List<Entity>>();
 	private List<Terrain> terrains = new ArrayList<Terrain>();
+	private SkyboxRenderer skyboxRenderer;
 	
 	public MasterRenderer()
 	{
@@ -37,6 +40,7 @@ public class MasterRenderer
 		createProjectionMatrix();
 		renderer = new EntityRenderer(shader, projection);
 		terrainRenderer = new TerrainRenderer(terrainShader, projection);
+		skyboxRenderer = new SkyboxRenderer(MainManagerClass.loader, projection);
 	}
 	
 	public static void enableBackfaceCulling()
@@ -65,6 +69,7 @@ public class MasterRenderer
 		terrainShader.loadSkyColor(SKY_RED, SKY_GREEN, SKY_BLUE);
 		terrainRenderer.render(terrains);
 		terrainShader.stop();
+		skyboxRenderer.render(camera);
 		terrains.clear();
 		entities.clear();
 	}
