@@ -84,9 +84,10 @@ public class Entity implements ICollidable
 					}
 					if(data.type == IHitBox.Type.WALL)
 					{
-						Vector3f v = Vector3f.sub(position, c.getHitBox().getCenter(position), null).normalise(null);
-						v.y = 0;
-						((Movable)this).v = v;
+//						Vector3f v = Vector3f.sub(position, c.getHitBox().getCenter(position), null).normalise(null);
+//						v.y = 0;
+//						((Movable)this).v = v;
+						((Movable)this).v = ((Movable)this).v.negate(null);
 					}
 				}
 			}

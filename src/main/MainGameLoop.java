@@ -18,6 +18,7 @@ import world.World;
 public class MainGameLoop
 {
 	public static World w;
+	public static Building lmg;
 	
 	public static void doGame()
 	{
@@ -45,13 +46,30 @@ public class MainGameLoop
 			lmg.setWalls(walls);
 		}
 		{
-			Building lmg = new Building(new TexturedModel(OBJLoader.loadOBJModel("2OG"), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(170.7F, 36, 135.7F), 0, 177, 0, 4, new Vector3f(40, 0.5F, 40), w.entities);
+			 lmg = new Building(new TexturedModel(OBJLoader.loadOBJModel("2OG"), new ModelTexture(loader.loadTexture("texture/lmg_texture"))), new Vector3f(170.7F, 36, 135.7F), 0, 177, 0, 4, new Vector3f(40, 0.5F, 40), w.entities);
 			Vector2f[] p = {new Vector2f(0.7F, 15.2F), new Vector2f(-9.6F, 9.8F), 
 					new Vector2f(-13.6F, -1.2F), new Vector2f(-8.9F, -12.6F), new Vector2f(3.0F, -17.3F), 
 					new Vector2f(14.7F, -11.4F), new Vector2f(18.4F, 1.2F), new Vector2f(12.2F, 12.0F), 
 					new Vector2f(0.7F, 15.2F)};
 			lmg.setHitBox(new Floor(new Vector3f(lmg.position), 0, new Vector3f(-20, -0.28F, -20), p));
-			Wall[] walls = {new Wall(new Vector3f(0.7F, 0, 15.2F), new Vector3f(-9.6F, 0, 9.8F), new Vector3f(0.5F, 2, 0))};
+			final Vector3f s = new Vector3f(0.2F, 2, 0);
+			Wall[] walls = {new Wall(new Vector3f(0.7F, 0, 15.2F), new Vector3f(-9.6F, 0, 9.8F), new Vector3f(s)),
+					new Wall(new Vector3f(-9.6F, 0, 9.8F), new Vector3f(-13.6F, 0, -1.2F), new Vector3f(s)),
+					new Wall(new Vector3f(-13.6F, 0, -1.2F), new Vector3f(-8.9F, 0, -12.6F), new Vector3f(s)),
+					new Wall(new Vector3f(-8.9F, 0, -12.6F), new Vector3f(3.0F, 0, -17.3F), new Vector3f(s)),
+					new Wall(new Vector3f(14.7F, 0, -11.4F), new Vector3f(3.0F, 0, -17.3F), new Vector3f(s)),
+					new Wall(new Vector3f(18.4F, 0, 1.2F), new Vector3f(14.7F, 0, -11.4F), new Vector3f(s)),
+					new Wall(new Vector3f(12.2F, 0, 12.0F), new Vector3f(18.4F, 0, 1.2F), new Vector3f(s)),
+					new Wall(new Vector3f(0.7F, 0, 15.2F), new Vector3f(12.2F, 0, 12.0F), new Vector3f(s)),
+					
+					new Wall(new Vector3f(0.7F, 0, 15.2F), new Vector3f(1.2F, 0, 7.9F), new Vector3f(s)),
+					new Wall(new Vector3f(-9.6F, 0, 9.8F), new Vector3f(-4.2F, 0, 5.1F), new Vector3f(s)),
+					new Wall(new Vector3f(-13.6F, 0, -1.2F), new Vector3f(-6.2F, 0, -0.7F), new Vector3f(s)),
+					new Wall(new Vector3f(2.4F, 0, -8.6F), new Vector3f(3.0F, 0, -17.3F), new Vector3f(s)),
+					new Wall(new Vector3f(8.2F, 0, -5.6F), new Vector3f(14.7F, 0, -11.4F), new Vector3f(s)),
+					new Wall(new Vector3f(18.4F, 0, 1.2F), new Vector3f(10.1F, 0, 0.5F), new Vector3f(s)),
+					new Wall(new Vector3f(12.2F, 0, 12.0F), new Vector3f(7.1F, 0, 6.2F), new Vector3f(s)),
+			};
 			lmg.setWalls(walls);
 		}
 		new Teacher("texture/person/hans", new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans", w.entities, 40);
