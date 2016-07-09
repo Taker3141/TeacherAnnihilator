@@ -22,9 +22,9 @@ public class FontShader extends ShaderProgram
 	@Override
 	protected void getAllUniformLocations()
 	{	
-		locationColor = super.getUniformLoacation("color");
-		locationTranslation = super.getUniformLoacation("translation");
-		locationDisplaySize = super.getUniformLoacation("displaySize");
+		locationColor = super.getUniformLocation("color");
+		locationTranslation = super.getUniformLocation("translation");
+		locationDisplaySize = super.getUniformLocation("displaySize");
 	}
 	
 	@Override

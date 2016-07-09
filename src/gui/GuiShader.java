@@ -41,10 +41,10 @@ public class GuiShader extends ShaderProgram
 	@Override
 	protected void getAllUniformLocations()
 	{
-		locationTransformationMatrix = super.getUniformLoacation("transformationMatrix");
-		locationLayer = super.getUniformLoacation("layer");
-		locationOffset = super.getUniformLoacation("offset");
-		locationHeight = super.getUniformLoacation("height");
+		locationTransformationMatrix = super.getUniformLocation("transformationMatrix");
+		locationLayer = super.getUniformLocation("layer");
+		locationOffset = super.getUniformLocation("offset");
+		locationHeight = super.getUniformLocation("height");
 	}
 	
 	@Override

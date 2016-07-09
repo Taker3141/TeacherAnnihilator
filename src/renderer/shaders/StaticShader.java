@@ -36,15 +36,15 @@ public class StaticShader extends ShaderProgram
 	@Override
 	protected void getAllUniformLocations()
 	{
-		locationMatrix = super.getUniformLoacation("transformationMatrix");
-		locationProjection = super.getUniformLoacation("projectionMatrix");
-		locationView = super.getUniformLoacation("viewMatrix");
-		locationLightPosition = super.getUniformLoacation("lightPosition");
-		locationLightColor = super.getUniformLoacation("lightColor");
-		locationShineDamper = super.getUniformLoacation("shineDamper");
-		locationReflectivity = super.getUniformLoacation("reflectivity");
-		locationUseFakeLightning = super.getUniformLoacation("useFakeLightning");
-		locationSkyColor = super.getUniformLoacation("skyColor");
+		locationMatrix = super.getUniformLocation("transformationMatrix");
+		locationProjection = super.getUniformLocation("projectionMatrix");
+		locationView = super.getUniformLocation("viewMatrix");
+		locationLightPosition = super.getUniformLocation("lightPosition");
+		locationLightColor = super.getUniformLocation("lightColor");
+		locationShineDamper = super.getUniformLocation("shineDamper");
+		locationReflectivity = super.getUniformLocation("reflectivity");
+		locationUseFakeLightning = super.getUniformLocation("useFakeLightning");
+		locationSkyColor = super.getUniformLocation("skyColor");
 	}
 	
 	public void loadTransformationMatrix(Matrix4f matrix)

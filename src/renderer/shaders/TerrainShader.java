@@ -40,19 +40,19 @@ public class TerrainShader extends ShaderProgram
 	@Override
 	protected void getAllUniformLocations()
 	{
-		locationMatrix = super.getUniformLoacation("transformationMatrix");
-		locationProjection = super.getUniformLoacation("projectionMatrix");
-		locationView = super.getUniformLoacation("viewMatrix");
-		locationLightPosition = super.getUniformLoacation("lightPosition");
-		locationLightColor = super.getUniformLoacation("lightColor");
-		locationShineDamper = super.getUniformLoacation("shineDamper");
-		locationReflectivity = super.getUniformLoacation("reflectivity");
-		locationBackground = super.getUniformLoacation("backgroundTexture");
-		locationR = super.getUniformLoacation("rTexture");
-		locationG = super.getUniformLoacation("gTexture");
-		locationB = super.getUniformLoacation("bTexture");
-		locationMap = super.getUniformLoacation("blendMap");
-		locationSkyColor = super.getUniformLoacation("skyColor");
+		locationMatrix = super.getUniformLocation("transformationMatrix");
+		locationProjection = super.getUniformLocation("projectionMatrix");
+		locationView = super.getUniformLocation("viewMatrix");
+		locationLightPosition = super.getUniformLocation("lightPosition");
+		locationLightColor = super.getUniformLocation("lightColor");
+		locationShineDamper = super.getUniformLocation("shineDamper");
+		locationReflectivity = super.getUniformLocation("reflectivity");
+		locationBackground = super.getUniformLocation("backgroundTexture");
+		locationR = super.getUniformLocation("rTexture");
+		locationG = super.getUniformLocation("gTexture");
+		locationB = super.getUniformLocation("bTexture");
+		locationMap = super.getUniformLocation("blendMap");
+		locationSkyColor = super.getUniformLocation("skyColor");
 	}
 	
 	public void loadTransformationMatrix(Matrix4f matrix)
