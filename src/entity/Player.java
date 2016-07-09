@@ -26,7 +26,7 @@ public class Player extends Person
 	
 	private float currentTurnSpeed = 0;
 	private float speed = RUN_SPEED;
-	private Heart heart = new Heart(80, 0);
+	private Heart heart = new Heart(80, 1, this);
 	private float breathTime = 3;
 	private float punchTimer = 0;
 	private boolean punchTimerStarted = false;
@@ -188,7 +188,7 @@ public class Player extends Person
 			v.x = (float) (-speed * Math.sin(Math.toRadians(rotY)));
 			v.z = (float) (-speed * Math.cos(Math.toRadians(rotY)));
 		}
-		heart.updateHeartRate(0);
+		heart.updateHeartRate();
 		if (Keyboard.isKeyDown(Keyboard.KEY_A)) currentTurnSpeed = TURN_SPEED;
 		else if (Keyboard.isKeyDown(Keyboard.KEY_D)) currentTurnSpeed = -TURN_SPEED;
 		else currentTurnSpeed = 0;
