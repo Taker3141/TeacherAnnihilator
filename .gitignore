@@ -4,6 +4,7 @@ bin/**/*.txt
 settings.txt
 libs/**/*
 .classpath
+ideas.txt
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
