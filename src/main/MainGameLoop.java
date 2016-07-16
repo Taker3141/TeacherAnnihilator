@@ -19,6 +19,7 @@ public class MainGameLoop
 {
 	public static World w;
 	public static Building lmg;
+	public static Building supermarket;
 	
 	public static void doGame()
 	{
@@ -71,6 +72,11 @@ public class MainGameLoop
 					new Wall(new Vector3f(12.2F, 0, 12.0F), new Vector3f(7.1F, 0, 6.2F), new Vector3f(s)),
 			};
 			lmg.setWalls(walls);
+		}
+		{
+			supermarket = new Building(new TexturedModel(OBJLoader.loadOBJModel("supermarket"), new ModelTexture(loader.loadTexture("texture/supermarket"))), new Vector3f(-96.2F, 34.7F, 104.2F), 0, 0, 0, 17.6F, new Vector3f(1, 1, 1), w.entities);
+			supermarket.setHitBox(null);
+			supermarket.setWalls(new Wall[]{new Wall(new Vector3f(0, 0, 0), new Vector3f(1, 1, 1), new Vector3f(0, 0, 0))});
 		}
 		new Teacher("texture/person/hans", new Vector3f(105, 0, 105), 0, 0, 0, 0.1F, "teacher.hans", w.entities, 40);
 		ModelTexture treeTexture = new ModelTexture(loader.loadTexture("texture/tree"));
