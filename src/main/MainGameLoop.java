@@ -74,7 +74,7 @@ public class MainGameLoop
 			lmg.setWalls(walls);
 		}
 		{
-			supermarket = new Building(new TexturedModel(OBJLoader.loadOBJModel("supermarket"), new ModelTexture(loader.loadTexture("texture/supermarket"))), new Vector3f(-96.2F, 34.7F, 104.2F), 0, 0, 0, 17.6F, new Vector3f(1, 1, 1), w.entities);
+			supermarket = new Building(new TexturedModel(OBJLoader.loadOBJModel("supermarket"), new ModelTexture(loader.loadTexture("texture/supermarket"))), new Vector3f(-96.2F, 34.198F, 104.2F), 0, 0, 0, 17.6F, new Vector3f(1, 1, 1), w.entities);
 			supermarket.setHitBox(null);
 			supermarket.setWalls(new Wall[]{new Wall(new Vector3f(0, 0, 0), new Vector3f(1, 1, 1), new Vector3f(0, 0, 0))});
 		}
