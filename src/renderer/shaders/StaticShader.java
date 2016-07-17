@@ -1,5 +1,6 @@
 package renderer.shaders;
 
+import java.util.List;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import toolbox.Maths;
@@ -8,13 +9,14 @@ import entity.Light;
 
 public class StaticShader extends ShaderProgram
 {
+	private static final int MAX_LIGHTS = 4;
 	private static final String VERTEX_FILE = "src/renderer/shaders/vertexShader.vert";
 	private static final String FRAGMENT_FILE = "src/renderer/shaders/fragmentShader.frag";
 	private int locationMatrix;
 	private int locationProjection;
 	private int locationView;
-	private int locationLightPosition;
-	private int locationLightColor;
+	private int locationLightPosition[];
+	private int locationLightColor[];
 	private int locationShineDamper;
 	private int locationReflectivity;
 	private int locationUseFakeLightning;
@@ -39,12 +41,19 @@ public class StaticShader extends ShaderProgram
 		locationMatrix = super.getUniformLocation("transformationMatrix");
 		locationProjection = super.getUniformLocation("projectionMatrix");
 		locationView = super.getUniformLocation("viewMatrix");
-		locationLightPosition = super.getUniformLocation("lightPosition");
-		locationLightColor = super.getUniformLocation("lightColor");
 		locationShineDamper = super.getUniformLocation("shineDamper");
 		locationReflectivity = super.getUniformLocation("reflectivity");
 		locationUseFakeLightning = super.getUniformLocation("useFakeLightning");
 		locationSkyColor = super.getUniformLocation("skyColor");
+		
+		locationLightPosition = new int[MAX_LIGHTS];
+		locationLightColor = new int[MAX_LIGHTS];
+		for(int i = 0; i < MAX_LIGHTS; i++)
+		{
+
+			locationLightPosition[i] = super.getUniformLocation("lightPosition[" + i + "]");
+			locationLightColor[i] = super.getUniformLocation("lightColor[" + i + "]");
+		}
 	}
 	
 	public void loadTransformationMatrix(Matrix4f matrix)
@@ -63,10 +72,21 @@ public class StaticShader extends ShaderProgram
 		super.loadMatrix(locationView, matrix);
 	}
 	
-	public void loadLight(Light l)
+	public void loadLight(List<Light> l)
 	{
-		super.loadVector(locationLightPosition, l.getPosition());
-		super.loadVector(locationLightColor, l.getColor());
+		for(int i = 0; i < MAX_LIGHTS; i++)
+		{
+			if(i < l.size())
+			{
+				super.loadVector(locationLightPosition[i], l.get(i).getPosition());
+				super.loadVector(locationLightColor[i], l.get(i).getColor());
+			}
+			else
+			{
+				super.loadVector(locationLightPosition[i], new Vector3f(0, 0, 0));
+				super.loadVector(locationLightColor[i], new Vector3f(0, 0, 0));
+			}
+		}
 	}
 	
 	public void loadShineVariables(float damper, float reflectvity)

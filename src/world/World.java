@@ -19,7 +19,7 @@ public class World
 	private Raycaster ray;
 	public List<Entity> entities;
 	private Player player;
-	private Light light;
+	private List<Light> lights = new ArrayList<Light>();
 	private Camera c;
 	private Terrain[] t;
 	private MasterRenderer renderer;
@@ -35,7 +35,7 @@ public class World
 		Particle.init();
 		entities = new ArrayList<Entity>();
 		player = new Player("texture/player", new Vector3f(100, 0, 100), 0, 0, 0, 0.1F, entities, 30);
-		light = new Light(new Vector3f(0, 100, 0), new Vector3f(1, 1, 1));
+		lights.add(new Light(new Vector3f(0, 100, 0), new Vector3f(1, 1, 1)));
 		c = new Camera(player);
 		t = new Terrain[2];
 		TerrainTexturePack pack = loadTerrainTexturePack(loader);
@@ -63,7 +63,7 @@ public class World
 		ray.castRay(input.getAbsoluteMouseX(), Display.getHeight() - input.getAbsoluteMouseY(), renderer, c);
 		renderer.processTerrain(t[0]);
 		renderer.processTerrain(t[1]);
-		renderer.render(light, c);
+		renderer.render(lights, c);
 		if(showOrgans) organMenu.render();
 		if(isKeyDown(KEY_ESCAPE)) return false;
 		if(isKeyDown(KEY_F1) && !isInventoryOpen)
