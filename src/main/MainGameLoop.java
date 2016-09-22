@@ -11,6 +11,8 @@ import raycasting.AABB;
 import raycasting.Floor;
 import raycasting.Wall;
 import renderer.*;
+import renderer.fbo.Fbo;
+import renderer.fbo.PostProcessing;
 import renderer.models.TexturedModel;
 import renderer.textures.*;
 import world.World;
@@ -20,6 +22,7 @@ public class MainGameLoop
 	public static World w;
 	public static Building lmg;
 	public static Building supermarket;
+	public static Fbo fbo;
 	
 	public static void doGame()
 	{
@@ -107,11 +110,17 @@ public class MainGameLoop
 		TexturedModel sheet = new TexturedModel(OBJLoader.loadOBJModel("sheet"), new ModelTexture(loader.loadTexture("texture/sheet")));
 		new Entity(sheet, new Vector3f(102, w.height(102,  102) + 1, 102), 0, 0, 0, 0.1F, w.entities);
 		w.updateRaycaster();
+		
+		fbo = new Fbo(Display.getWidth(), Display.getHeight(), Fbo.DEPTH_RENDER_BUFFER);
+		PostProcessing.init(loader);
 		while (!Display.isCloseRequested())
 		{
 			if(!w.tick()) break;
 			DisplayManager.updateDisplay();
 		}
+		PostProcessing.cleanUp();
+		fbo.cleanUp();
+		w.cleanUp();
 	}
 	
 	private static void generateBushRow(float x1, float z1, float x2, float z2, List<Entity> list, float step, TexturedModel bush, World w)

@@ -3,12 +3,14 @@ package world;
 import static org.lwjgl.input.Keyboard.*;
 import java.util.ArrayList;
 import java.util.List;
+import main.MainGameLoop;
 import main.MainManagerClass;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Input;
 import raycasting.Raycaster;
 import renderer.*;
+import renderer.fbo.PostProcessing;
 import renderer.textures.*;
 import terrain.Terrain;
 import entity.*;
@@ -61,11 +63,17 @@ public class World
 			if(!e.invisible) renderer.processEntities(e);
 		}
 		ray.castRay(input.getAbsoluteMouseX(), Display.getHeight() - input.getAbsoluteMouseY(), renderer, c);
+		
+		MainGameLoop.fbo.bindFrameBuffer();
 		renderer.processTerrain(t[0]);
 		renderer.processTerrain(t[1]);
 		renderer.render(lights, c);
 		if(showOrgans) organMenu.render();
+		MainGameLoop.fbo.unbindFrameBuffer();
+		PostProcessing.doPostProcessing(MainGameLoop.fbo.getColorTexture());
+
 		if(isKeyDown(KEY_ESCAPE)) return false;
+		if(isKeyDown(KEY_F2)) PostProcessing.effects.warp();
 		if(isKeyDown(KEY_F1) && !isInventoryOpen)
 		{
 			isInventoryOpen = true;
